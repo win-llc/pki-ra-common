@@ -1,8 +1,11 @@
 package com.winllc.acme.common;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Map;
 
-public class ExternalAccountProviderSettings {
+@Document
+public class ExternalAccountProviderSettings extends SettingsDocument {
 
     private String name;
     private String linkedDirectoryName;

@@ -1,4 +1,5 @@
 package com.winllc.acme.common;
 
-public class Settings {
+public interface Settings {
+    String getName();
 }
