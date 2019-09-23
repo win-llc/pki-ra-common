@@ -2,6 +2,8 @@ package com.winllc.acme.common;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 
 @Document
@@ -91,5 +93,10 @@ public class DirectoryDataSettings extends SettingsDocument {
 
     public void setMetaExternalAccountRequired(boolean metaExternalAccountRequired) {
         this.metaExternalAccountRequired = metaExternalAccountRequired;
+    }
+
+    public void updateTermsOfService(String termsOfServiceUrl){
+        setTermsOfServiceLastUpdatedOn(Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC)));
+        setMetaTermsOfService(termsOfServiceUrl);
     }
 }
