@@ -2,7 +2,7 @@ package com.winllc.acme.common;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Map;
+import java.util.*;
 
 @Document
 public class CertificateAuthoritySettings extends SettingsDocument {
@@ -10,7 +10,14 @@ public class CertificateAuthoritySettings extends SettingsDocument {
     private String type;
     private String name;
     private String externalValidationRulesUrl;
-    private Map<String, String> additionalSettings;
+    private List<AdditionalSetting> additionalSettings = new ArrayList<>();
+
+    public Optional<AdditionalSetting> getAdditionalSettingByKey(String key){
+        for(AdditionalSetting additionalSetting : additionalSettings){
+            if(additionalSetting.getName().contentEquals(key)) return Optional.of(additionalSetting);
+        }
+        return Optional.empty();
+    }
 
     public String getType() {
         return type;
@@ -36,11 +43,11 @@ public class CertificateAuthoritySettings extends SettingsDocument {
         this.externalValidationRulesUrl = externalValidationRulesUrl;
     }
 
-    public Map<String, String> getAdditionalSettings() {
+    public List<AdditionalSetting> getAdditionalSettings() {
         return additionalSettings;
     }
 
-    public void setAdditionalSettings(Map<String, String> additionalSettings) {
+    public void setAdditionalSettings(List<AdditionalSetting> additionalSettings) {
         this.additionalSettings = additionalSettings;
     }
 }
