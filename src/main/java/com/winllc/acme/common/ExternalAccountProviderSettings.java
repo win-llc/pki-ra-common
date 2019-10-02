@@ -8,6 +8,7 @@ import java.util.Map;
 public class ExternalAccountProviderSettings extends SettingsDocument {
 
     private String name;
+    private String baseUrl;
     private String accountVerificationUrl;
     private Map<String, String> additionalSettings;
 
@@ -17,6 +18,14 @@ public class ExternalAccountProviderSettings extends SettingsDocument {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 
     public String getAccountVerificationUrl() {

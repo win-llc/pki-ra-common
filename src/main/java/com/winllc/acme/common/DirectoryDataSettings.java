@@ -4,7 +4,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Document
 public class DirectoryDataSettings extends SettingsDocument {
@@ -15,6 +17,7 @@ public class DirectoryDataSettings extends SettingsDocument {
     private String mapsToCertificateAuthorityName;
     private String externalAccountProviderName;
     private Date termsOfServiceLastUpdatedOn;
+    private List<String> termsOfServiceHistory;
 
     //META
     private String metaTermsOfService;
@@ -95,7 +98,19 @@ public class DirectoryDataSettings extends SettingsDocument {
         this.metaExternalAccountRequired = metaExternalAccountRequired;
     }
 
+    public List<String> getTermsOfServiceHistory() {
+        if(termsOfServiceHistory == null) termsOfServiceHistory = new ArrayList<>();
+        return termsOfServiceHistory;
+    }
+
+    public void setTermsOfServiceHistory(List<String> termsOfServiceHistory) {
+        this.termsOfServiceHistory = termsOfServiceHistory;
+    }
+
     public void updateTermsOfService(String termsOfServiceUrl){
+        //Save the current terms of service url to the history
+        if(getMetaTermsOfService() != null) getTermsOfServiceHistory().add(getMetaTermsOfService());
+
         setTermsOfServiceLastUpdatedOn(Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC)));
         setMetaTermsOfService(termsOfServiceUrl);
     }

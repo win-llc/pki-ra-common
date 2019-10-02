@@ -20,10 +20,7 @@ import sun.security.provider.X509Factory;
 
 import java.io.*;
 import java.security.cert.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
 
 public class CertUtil {
 
@@ -103,6 +100,33 @@ public class CertUtil {
         pemWriter.close();
         str.close();
         return str.toString();
+    }
+
+    public static List<String> getDNSSubjectAlts(X509Certificate cert) {
+        LinkedList<String> subjectAltList = new LinkedList<>();
+        Collection c = null;
+        try {
+            c = cert.getSubjectAlternativeNames();
+        } catch (CertificateParsingException cpe) {
+            cpe.printStackTrace();
+        }
+        if (c != null) {
+            for (Object o : c) {
+                List list = (List) o;
+                int type = (Integer) list.get(0);
+                // If type is 2, then we've got a dNSName
+                if (type == 2) {
+                    String s = (String) list.get(1);
+                    subjectAltList.add(s);
+                }
+            }
+        }
+        if (!subjectAltList.isEmpty()) {
+            return subjectAltList;
+        } else {
+            return new ArrayList<>();
+        }
+
     }
 
     private static String removeHeaderFooter(String b64, String remove){
