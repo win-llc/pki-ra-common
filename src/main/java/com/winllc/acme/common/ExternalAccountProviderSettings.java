@@ -10,6 +10,7 @@ public class ExternalAccountProviderSettings extends SettingsDocument {
     private String name;
     private String baseUrl;
     private String accountVerificationUrl;
+    private String accountValidationRulesUrl;
     private Map<String, String> additionalSettings;
 
     public String getName() {
@@ -42,5 +43,13 @@ public class ExternalAccountProviderSettings extends SettingsDocument {
 
     public void setAdditionalSettings(Map<String, String> additionalSettings) {
         this.additionalSettings = additionalSettings;
+    }
+
+    public String getAccountValidationRulesUrl() {
+        return accountValidationRulesUrl;
+    }
+
+    public void setAccountValidationRulesUrl(String accountValidationRulesUrl) {
+        this.accountValidationRulesUrl = accountValidationRulesUrl;
     }
 }

@@ -9,7 +9,7 @@ public class CertificateAuthoritySettings extends SettingsDocument {
 
     private String type;
     private String name;
-    private String externalValidationRulesUrl;
+    private String mapsToExternalAccountProviderName;
     private List<AdditionalSetting> additionalSettings = new ArrayList<>();
 
     public Optional<AdditionalSetting> getAdditionalSettingByKey(String key){
@@ -35,19 +35,19 @@ public class CertificateAuthoritySettings extends SettingsDocument {
         this.name = name;
     }
 
-    public String getExternalValidationRulesUrl() {
-        return externalValidationRulesUrl;
-    }
-
-    public void setExternalValidationRulesUrl(String externalValidationRulesUrl) {
-        this.externalValidationRulesUrl = externalValidationRulesUrl;
-    }
-
     public List<AdditionalSetting> getAdditionalSettings() {
         return additionalSettings;
     }
 
     public void setAdditionalSettings(List<AdditionalSetting> additionalSettings) {
         this.additionalSettings = additionalSettings;
+    }
+
+    public String getMapsToExternalAccountProviderName() {
+        return mapsToExternalAccountProviderName;
+    }
+
+    public void setMapsToExternalAccountProviderName(String mapsToExternalAccountProviderName) {
+        this.mapsToExternalAccountProviderName = mapsToExternalAccountProviderName;
     }
 }
