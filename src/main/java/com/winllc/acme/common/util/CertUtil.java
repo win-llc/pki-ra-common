@@ -21,6 +21,7 @@ import sun.security.provider.X509Factory;
 import java.io.*;
 import java.security.cert.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CertUtil {
 
@@ -78,6 +79,36 @@ public class CertUtil {
             full[i + 1] = convertToPem(chain[i]);
         }
         return full;
+    }
+
+    public static Certificate[] trustChainStringToCertArray(String trustChainString){
+        String[] lines = trustChainString.split("\\r?\\n");
+
+        List<Certificate> trustChains = new LinkedList<>();
+        List<String> temp = new LinkedList<>();
+        for(String line : lines){
+            if(line.contains(X509Factory.END_CERT)){
+                temp.add(line);
+
+                String certString = temp.stream()
+                        .collect(Collectors.joining("\n"));
+
+                try {
+                    Certificate cert = base64ToCert(certString);
+                    trustChains.add(cert);
+                } catch (CertificateException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                temp = new LinkedList<>();
+            }else{
+                temp.add(line);
+            }
+        }
+
+        return trustChains.toArray(new Certificate[0]);
     }
 
     public static String convertToPem(Certificate cert) throws CertificateEncodingException {

@@ -10,6 +10,7 @@ public class CertificateAuthoritySettings extends SettingsDocument {
     private String type;
     private String name;
     private String mapsToExternalAccountProviderName;
+    private String baseUrl;
     private List<AdditionalSetting> additionalSettings = new ArrayList<>();
 
     public Optional<AdditionalSetting> getAdditionalSettingByKey(String key){
@@ -25,6 +26,14 @@ public class CertificateAuthoritySettings extends SettingsDocument {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 
     public String getName() {
