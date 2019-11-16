@@ -19,6 +19,8 @@ import sun.misc.BASE64Encoder;
 import sun.security.provider.X509Factory;
 
 import java.io.*;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
 import java.security.cert.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -159,6 +161,23 @@ public class CertUtil {
         }
 
     }
+
+    /*
+    public String buildPKCS7Base64(Certificate[] chain) throws Exception {
+        List<Certificate> chainList = Arrays.asList(chain);
+        //anchors.load(trustStoreInput, password);
+        X509CertSelector target = new X509CertSelector();
+        target.setCertificate((X509Certificate) anchors.getCertificate(caKeystoreAlias));
+        PKIXBuilderParameters params = new PKIXBuilderParameters(anchors, target);
+        CertStoreParameters intermediates = new CollectionCertStoreParameters(chainList);
+        params.addCertStore(CertStore.getInstance("Collection", intermediates));
+        CertPathBuilder builder = CertPathBuilder.getInstance("PKIX");
+
+        PKIXCertPathBuilderResult result = (PKIXCertPathBuilderResult) builder.build(params);
+
+        String base64 = com.sun.org.apache.xml.internal.security.utils.Base64.encode(result.getCertPath().getEncoded());
+    }
+     */
 
     private static String removeHeaderFooter(String b64, String remove){
         if(b64.contains("----BEGIN")) {
