@@ -9,7 +9,9 @@ public class CertificateAuthoritySettings extends SettingsDocument {
 
     private String type;
     private String name;
+    private String issuerDn;
     private String mapsToExternalAccountProviderName;
+    private String mapsToCaConnectionName;
     private String baseUrl;
     private List<AdditionalSetting> additionalSettings = new ArrayList<>();
 
@@ -58,5 +60,21 @@ public class CertificateAuthoritySettings extends SettingsDocument {
 
     public void setMapsToExternalAccountProviderName(String mapsToExternalAccountProviderName) {
         this.mapsToExternalAccountProviderName = mapsToExternalAccountProviderName;
+    }
+
+    public String getIssuerDn() {
+        return issuerDn;
+    }
+
+    public void setIssuerDn(String issuerDn) {
+        this.issuerDn = issuerDn;
+    }
+
+    public String getMapsToCaConnectionName() {
+        return mapsToCaConnectionName;
+    }
+
+    public void setMapsToCaConnectionName(String mapsToCaConnectionName) {
+        this.mapsToCaConnectionName = mapsToCaConnectionName;
     }
 }
