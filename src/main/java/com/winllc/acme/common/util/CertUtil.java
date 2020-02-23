@@ -14,8 +14,6 @@ import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.util.io.pem.PemObject;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 import sun.security.provider.X509Factory;
 
 import java.io.*;
@@ -30,8 +28,9 @@ public class CertUtil {
     public static X509Certificate base64ToCert(String certB64) throws CertificateException, IOException {
         certB64 = removeHeaderFooter(certB64, "CERTIFICATE");
 
-        BASE64Decoder decoder = new BASE64Decoder();
-        byte[] encodedCert = decoder.decodeBuffer(certB64);
+        String adjusted = certB64.replaceAll("(?m)^[ \t]*\r?\n", "");
+
+        byte[] encodedCert = Base64.getMimeDecoder().decode(adjusted);
         ByteArrayInputStream inputStream = new ByteArrayInputStream(encodedCert);
 
         CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
@@ -42,9 +41,9 @@ public class CertUtil {
         try {
             csrBase64 = removeHeaderFooter(csrBase64, "CERTIFICATE REQUEST");
 
-            byte[] base64Encoded = csrBase64.getBytes();
-            org.apache.commons.codec.binary.Base64 b64 = new org.apache.commons.codec.binary.Base64();
-            byte[] data = b64.decode(base64Encoded);
+            String adjusted = csrBase64.replaceAll("(?m)^[ \t]*\r?\n", "");
+
+            byte[] data = Base64.getMimeDecoder().decode(adjusted);
             return new PKCS10CertificationRequest(data);
 
         } catch (IOException ex) {
@@ -92,8 +91,7 @@ public class CertUtil {
             if(line.contains(X509Factory.END_CERT)){
                 temp.add(line);
 
-                String certString = temp.stream()
-                        .collect(Collectors.joining("\n"));
+                String certString = String.join("\n", temp);
 
                 try {
                     Certificate cert = base64ToCert(certString);
@@ -114,11 +112,11 @@ public class CertUtil {
     }
 
     public static String convertToPem(Certificate cert) throws CertificateEncodingException {
-        BASE64Encoder encoder = new BASE64Encoder();
+        Base64.Encoder encoder = Base64.getEncoder();
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(X509Factory.BEGIN_CERT);
         stringBuilder.append("\n");
-        stringBuilder.append(encoder.encode(cert.getEncoded()));
+        stringBuilder.append(encoder.encodeToString(cert.getEncoded()));
         stringBuilder.append("\n");
         stringBuilder.append(X509Factory.END_CERT);
         return stringBuilder.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
@@ -181,8 +179,10 @@ public class CertUtil {
 
     private static String removeHeaderFooter(String b64, String remove){
         if(b64.contains("----BEGIN")) {
-            b64 = b64.replaceAll("-----BEGIN "+remove+"-----","");
-            b64 = b64.replaceAll("-----END "+remove+"-----","");
+            b64 = b64.replaceAll("-----BEGIN "+remove+"-----\r\n","");
+            b64 = b64.replaceAll("\r\n-----END "+remove+"-----","");
+            b64 = b64.replaceAll("-----BEGIN "+remove+"-----\n","");
+            b64 = b64.replaceAll("\n-----END "+remove+"-----","");
         }
         return b64;
     }

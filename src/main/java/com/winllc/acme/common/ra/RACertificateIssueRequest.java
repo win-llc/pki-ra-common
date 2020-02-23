@@ -1,18 +1,17 @@
-package com.winllc.acme.common;
+package com.winllc.acme.common.ra;
 
-public class RACertificateRequest {
+public class RACertificateIssueRequest extends RACertificateRequest {
     private String accountKid;
     private String csr;
     private String dnsNames;
-    private String certAuthorityName;
 
-    private RACertificateRequest(){}
+    private RACertificateIssueRequest(){}
 
-    public RACertificateRequest(String accountKid, String csr, String dnsNames, String certAuthorityName) {
+    public RACertificateIssueRequest(String accountKid, String csr, String dnsNames, String certAuthorityName) {
+        super(certAuthorityName);
         this.accountKid = accountKid;
         this.csr = csr;
         this.dnsNames = dnsNames;
-        this.certAuthorityName = certAuthorityName;
     }
 
     public String getAccountKid() {
@@ -39,11 +38,4 @@ public class RACertificateRequest {
         this.dnsNames = dnsNames;
     }
 
-    public String getCertAuthorityName() {
-        return certAuthorityName;
-    }
-
-    public void setCertAuthorityName(String certAuthorityName) {
-        this.certAuthorityName = certAuthorityName;
-    }
 }
