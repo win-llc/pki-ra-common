@@ -2,6 +2,7 @@ package com.winllc.acme.common.ra;
 
 public class RACertificateRevokeRequest extends RACertificateRequest {
 
+    private Integer requestId;
     private String serial;
     private Integer reason;
 
@@ -10,6 +11,14 @@ public class RACertificateRevokeRequest extends RACertificateRequest {
 
     public RACertificateRevokeRequest(String certAuthorityName) {
         super(certAuthorityName);
+    }
+
+    public Integer getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(Integer requestId) {
+        this.requestId = requestId;
     }
 
     public String getSerial() {

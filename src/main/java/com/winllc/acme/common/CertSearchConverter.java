@@ -1,8 +1,8 @@
 package com.winllc.acme.common;
 
-public interface CertSearchConverter {
+public interface CertSearchConverter<T> {
 
-    String convert(CertSearchParam param);
-    String convertAnd(CertSearchParam param);
-    String convertOr(CertSearchParam param);
+    T convert(CertSearchParam param);
+    T convertAnd(CertSearchParam param);
+    T convertOr(CertSearchParam param);
 }

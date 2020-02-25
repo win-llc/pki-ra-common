@@ -17,6 +17,7 @@ import org.bouncycastle.util.io.pem.PemObject;
 import sun.security.provider.X509Factory;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.*;
@@ -42,8 +43,8 @@ public class CertUtil {
             csrBase64 = removeHeaderFooter(csrBase64, "CERTIFICATE REQUEST");
 
             String adjusted = csrBase64.replaceAll("(?m)^[ \t]*\r?\n", "");
-
-            byte[] data = Base64.getMimeDecoder().decode(adjusted);
+            byte[] utfBytes = adjusted.getBytes(StandardCharsets.UTF_8);
+            byte[] data = Base64.getUrlDecoder().decode(utfBytes);
             return new PKCS10CertificationRequest(data);
 
         } catch (IOException ex) {
@@ -74,10 +75,16 @@ public class CertUtil {
     }
 
     public static String[] certAndChainsToPemArray(X509Certificate certificate, Certificate[] chain) throws CertificateEncodingException {
-        String[] full = new String[chain.length + 1];
-        full[0] = convertToPem(certificate);
-        for(int i = 0; i < chain.length; i++){
-            full[i + 1] = convertToPem(chain[i]);
+        String[] full;
+        if(chain != null) {
+            full = new String[chain.length + 1];
+            full[0] = convertToPem(certificate);
+            for (int i = 0; i < chain.length; i++) {
+                full[i + 1] = convertToPem(chain[i]);
+            }
+        }else{
+            full = new String[1];
+            full[0] = convertToPem(certificate);
         }
         return full;
     }
