@@ -83,7 +83,6 @@ public class HttpCommandUtil {
                 if (StringUtils.isNotBlank(result)) {
                     return func.apply(result);
                 } else {
-                    System.out.println(result);
                     return null;
                 }
             } else {
