@@ -2,7 +2,7 @@ package com.winllc.acme.common.ra;
 
 public class RACertificateRevokeRequest extends RACertificateRequest {
 
-    private Integer requestId;
+    private Long requestId;
     private String serial;
     private Integer reason;
 
@@ -13,11 +13,11 @@ public class RACertificateRevokeRequest extends RACertificateRequest {
         super(certAuthorityName);
     }
 
-    public Integer getRequestId() {
+    public Long getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(Integer requestId) {
+    public void setRequestId(Long requestId) {
         this.requestId = requestId;
     }
 
