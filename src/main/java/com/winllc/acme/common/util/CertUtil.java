@@ -24,6 +24,10 @@ import java.security.cert.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.io.IOUtils.LINE_SEPARATOR;
+import static sun.security.provider.X509Factory.BEGIN_CERT;
+import static sun.security.provider.X509Factory.END_CERT;
+
 public class CertUtil {
 
     public static X509Certificate base64ToCert(String certB64) throws CertificateException, IOException {
@@ -78,13 +82,13 @@ public class CertUtil {
         String[] full;
         if(chain != null) {
             full = new String[chain.length + 1];
-            full[0] = convertToPem(certificate);
+            full[0] = convertToTrustedPem(certificate);
             for (int i = 0; i < chain.length; i++) {
-                full[i + 1] = convertToPem(chain[i]);
+                full[i + 1] = formatCrtFileContents(chain[i]);
             }
         }else{
             full = new String[1];
-            full[0] = convertToPem(certificate);
+            full[0] = formatCrtFileContents(certificate);
         }
         return full;
     }
@@ -95,7 +99,7 @@ public class CertUtil {
         List<Certificate> trustChains = new LinkedList<>();
         List<String> temp = new LinkedList<>();
         for(String line : lines){
-            if(line.contains(X509Factory.END_CERT)){
+            if(line.contains(END_CERT)){
                 temp.add(line);
 
                 String certString = String.join("\n", temp);
@@ -118,15 +122,20 @@ public class CertUtil {
         return trustChains.toArray(new Certificate[0]);
     }
 
-    public static String convertToPem(Certificate cert) throws CertificateEncodingException {
-        Base64.Encoder encoder = Base64.getEncoder();
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(X509Factory.BEGIN_CERT);
-        stringBuilder.append("\n");
-        stringBuilder.append(encoder.encodeToString(cert.getEncoded()));
-        stringBuilder.append("\n");
-        stringBuilder.append(X509Factory.END_CERT);
-        return stringBuilder.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
+
+    public static String formatCrtFileContents(final Certificate certificate) throws CertificateEncodingException {
+        final Base64.Encoder encoder = Base64.getMimeEncoder(64, LINE_SEPARATOR.getBytes());
+
+        final byte[] rawCrtText = certificate.getEncoded();
+        final String encodedCertText = new String(encoder.encode(rawCrtText));
+        final String prettified_cert = BEGIN_CERT + LINE_SEPARATOR + encodedCertText + LINE_SEPARATOR + END_CERT;
+        return prettified_cert;
+    }
+
+    public static String convertToTrustedPem(X509Certificate cert) throws CertificateEncodingException {
+        String base64 = formatCrtFileContents(cert);
+        //base64 = base64.replace("BEGIN", "BEGIN TRUSTED").replace("END", "END TRUSTED");
+        return base64;
     }
 
     public static String certificationRequestToPEM(PKCS10CertificationRequest csr) throws IOException {
