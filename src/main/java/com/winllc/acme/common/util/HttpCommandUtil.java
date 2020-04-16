@@ -110,8 +110,7 @@ public class HttpCommandUtil {
     private static HttpClient buildClientCertAuthentication(KeyStore keyStore, String password)
             throws UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException, CertificateException, IOException {
         SSLContext sslContext = SSLContexts.custom()
-                .loadKeyMaterial(new File("C:\\Users\\jrmints\\IdeaProjects\\PKI Registration Authority\\src\\main\\resources\\dogtag-ca-admin-with-chain.pfx"),
-                        password.toCharArray(),
+                .loadKeyMaterial(keyStore,
                         password.toCharArray())
                 .loadTrustMaterial(null, new TrustAllStrategy())
                 .build();
