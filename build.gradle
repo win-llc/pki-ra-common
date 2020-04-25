@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven'
 }
 
 group 'com.winllc.acme.common'
@@ -9,6 +10,19 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "http://util.winllc-dev.com:8081/repository/win-llc/") {
+                authentication(userName: "admin", password: "Bl@ckH@t25")
+            }
+            pom.version = "1.0-SNAPSHOT"
+            pom.artifactId = "acme-common"
+            pom.groupId = "com.winllc.acme.common"
+        }
+    }
 }
 
 dependencies {

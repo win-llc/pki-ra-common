@@ -1,0 +1,26 @@
+image: docker:latest
+services:
+  - name: docker:dind
+    command: ["--insecure-registry=registry.gitlab.winllc-dev.com"]
+
+variables:
+  DOCKER_TLS_CERTDIR: ""
+
+stages:
+  - build
+  - deploy
+
+build:
+  image: gradle:5.0-jdk8-alpine
+  stage: build
+  script:
+    - gradle build
+  artifacts:
+    paths:
+      - build/libs/*.jar
+
+deploy_staging:
+  image: gradle:5.0-jdk8-alpine
+  stage: deploy
+  script:
+    - gradle uploadArchives
