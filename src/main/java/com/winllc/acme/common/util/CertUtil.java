@@ -1,5 +1,6 @@
 package com.winllc.acme.common.util;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.DERIA5String;
@@ -20,6 +21,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
+import java.security.Security;
 import java.security.cert.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -46,9 +48,12 @@ public class CertUtil {
         try {
             csrBase64 = removeHeaderFooter(csrBase64, "CERTIFICATE REQUEST");
 
-            String adjusted = csrBase64.replaceAll("(?m)^[ \t]*\r?\n", "");
-            byte[] utfBytes = adjusted.getBytes(StandardCharsets.UTF_8);
-            byte[] data = Base64.getUrlDecoder().decode(utfBytes);
+            //String adjusted = csrBase64.replaceAll("(?m)^[ \t]*\r?\n", "");
+            //byte[] utfBytes = adjusted.getBytes(StandardCharsets.UTF_8);
+            byte[] data = org.apache.commons.codec.binary.Base64.decodeBase64(csrBase64);
+            //byte encodedCert[] = Base64.getUrlDecoder().decode(csrBase64);
+            //ByteArrayInputStream inputStream  =  new ByteArrayInputStream(encodedCert);
+
             return new PKCS10CertificationRequest(data);
 
         } catch (IOException ex) {
@@ -58,9 +63,43 @@ public class CertUtil {
         throw new Exception("Bad CSR");
     }
 
+    public static PKCS10CertificationRequest convertPemToPKCS10CertificationRequest(String pem) throws Exception {
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        PKCS10CertificationRequest csr = null;
+
+        try(ByteArrayInputStream pemStream = new ByteArrayInputStream(pem.getBytes("UTF-8"))) {
+            Reader pemReader = new BufferedReader(new InputStreamReader(pemStream));
+            PEMParser pemParser = new PEMParser(pemReader);
+
+            try {
+                Object parsedObj = pemParser.readObject();
+
+                //System.out.println("PemParser returned: " + parsedObj);
+
+                if (parsedObj instanceof PKCS10CertificationRequest) {
+                    csr = (PKCS10CertificationRequest) parsedObj;
+
+                }
+            } catch (IOException ex) {
+                //LOG.error("IOException, convertPemToPublicKey", ex);
+            }
+
+            return csr;
+        } catch (UnsupportedEncodingException ex) {
+            //LOG.error("UnsupportedEncodingException, convertPemToPublicKey", ex);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        throw new Exception("Could not parse PEM");
+    }
+
     public static List<String> extractX509CSRDnsNames(String csr) throws Exception {
 
         PKCS10CertificationRequest certReq = csrBase64ToPKC10Object(csr);
+
+        //String newCsr = "-----BEGIN CERTIFICATE REQUEST-----\n" + csr + "\n-----END CERTIFICATE REQUEST-----";
+       // PKCS10CertificationRequest certReq = convertPemToPKCS10CertificationRequest(newCsr);
 
         List<String> dnsNames = new ArrayList<>();
         Attribute[] attributes = certReq.getAttributes(PKCSObjectIdentifiers.pkcs_9_at_extensionRequest);
