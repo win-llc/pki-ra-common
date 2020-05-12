@@ -63,14 +63,14 @@ public class HttpCommandUtil {
     }
 
     public static <T> T processCustomWithClientAuth(HttpRequestBase request, int successCode, Function<String, T> func,
-                                                    KeyStore keyStore, String keyStorePassword) throws Exception {
+                                                    KeyStore keyStore, String keyStorePassword) throws IOException, HttpException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         HttpClient httpclient = buildClientCertAuthentication(keyStore, keyStorePassword);
 
         return processCustomGeneric(httpclient, request, successCode, func);
     }
 
     private static <T> T processCustomGeneric(HttpClient httpClient, HttpRequestBase request,
-                                              int successCode, Function<String, T> func) throws Exception {
+                                              int successCode, Function<String, T> func) throws HttpException, IOException {
         try {
             //Execute and get the response.
             HttpResponse response = httpClient.execute(request);
@@ -108,7 +108,7 @@ public class HttpCommandUtil {
     }
 
     private static HttpClient buildClientCertAuthentication(KeyStore keyStore, String password)
-            throws UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException, CertificateException, IOException {
+            throws UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         SSLContext sslContext = SSLContexts.custom()
                 .loadKeyMaterial(keyStore,
                         password.toCharArray())
