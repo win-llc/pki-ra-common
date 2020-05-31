@@ -4,6 +4,7 @@ import com.winllc.acme.common.util.CertUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Optional;
@@ -13,6 +14,18 @@ public class CertificateDetails {
     private String issuer;
     private String status;
     private String certificateBase64;
+
+    public CertificateDetails(){}
+
+    public CertificateDetails(X509Certificate x509Certificate){
+        this.serial = x509Certificate.getSerialNumber().toString();
+        this.issuer = x509Certificate.getIssuerDN().getName();
+        try {
+            this.certificateBase64 = CertUtil.formatCrtFileContents(x509Certificate);
+        } catch (CertificateEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String getSerial() {
         return serial;
