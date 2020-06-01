@@ -2,7 +2,9 @@ package com.winllc.acme.common;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Document
 public class CertificateAuthoritySettings extends SettingsDocument {

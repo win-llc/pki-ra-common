@@ -1,7 +1,5 @@
 package com.winllc.acme.common;
 
-import java.util.*;
-
 public class CertSearchParams {
 
     public enum CertField {

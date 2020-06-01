@@ -1,10 +1,7 @@
 package com.winllc.acme.common.util;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.util.Strings;
 import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.DERIA5String;
-import org.bouncycastle.asn1.DEROutputStream;
 import org.bouncycastle.asn1.pkcs.Attribute;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.asn1.x509.Extension;
@@ -15,16 +12,11 @@ import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.util.io.pem.PemObject;
-import sun.security.provider.X509Factory;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.security.cert.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.apache.commons.io.IOUtils.LINE_SEPARATOR;
 import static sun.security.provider.X509Factory.BEGIN_CERT;

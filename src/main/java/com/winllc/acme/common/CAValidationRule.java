@@ -1,8 +1,6 @@
 package com.winllc.acme.common;
 
 
-import org.apache.commons.lang3.StringUtils;
-
 //A set of rules will be associated with each CA, rules dictate how challenges created for orders
 public class CAValidationRule {
     private String identifierType;

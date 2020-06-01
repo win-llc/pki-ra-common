@@ -3,9 +3,7 @@ package com.winllc.acme.common;
 import com.winllc.acme.common.util.CertUtil;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
 import java.security.cert.CertificateEncodingException;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Optional;
 

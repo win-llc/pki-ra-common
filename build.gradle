@@ -15,6 +15,14 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    provided
+}
+
+sourceSets {
+    main { compileClasspath += configurations.provided }
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -35,6 +43,12 @@ test {
 dependencies {
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb
     api group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.2.2.RELEASE'
+
+    provided 'javax.servlet:javax.servlet-api:3.1.0'
+
+    api 'org.bitbucket.b_c:jose4j:0.6.5'
+    // https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt
+    api group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '7.2.1'
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     api group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
