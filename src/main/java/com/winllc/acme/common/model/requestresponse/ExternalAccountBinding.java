@@ -1,6 +1,7 @@
 package com.winllc.acme.common.model.requestresponse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nimbusds.jose.JWSObject;
 import com.nimbusds.jose.util.Base64URL;
 import org.jose4j.json.internal.json_simple.JSONObject;
 
@@ -13,6 +14,14 @@ public class ExternalAccountBinding {
     private String protectedProp;
     private String payload;
     private String signature;
+
+    public ExternalAccountBinding(){}
+
+    public ExternalAccountBinding(JWSObject jwsObject){
+        setProtectedProp(jwsObject.getHeader().toBase64URL().toString());
+        setPayload(jwsObject.getPayload().toBase64URL().toString());
+        setSignature(jwsObject.getSignature().toString());
+    }
 
     public String getProtectedProp() {
         return protectedProp;
