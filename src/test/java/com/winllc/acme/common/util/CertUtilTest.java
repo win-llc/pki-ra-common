@@ -2,11 +2,8 @@ package com.winllc.acme.common.util;
 
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
