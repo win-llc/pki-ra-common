@@ -1,5 +1,6 @@
 package com.winllc.acme.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AccountValidationResponse {
@@ -31,6 +32,7 @@ public class AccountValidationResponse {
     }
 
     public List<CAValidationRule> getCaValidationRules() {
+        if(caValidationRules == null) caValidationRules = new ArrayList<>();
         return caValidationRules;
     }
 

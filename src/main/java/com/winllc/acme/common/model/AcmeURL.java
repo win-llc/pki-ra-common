@@ -1,5 +1,7 @@
 package com.winllc.acme.common.model;
 
+import org.springframework.util.StringUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 import java.util.Optional;
@@ -16,6 +18,7 @@ public class AcmeURL {
     private String extraAction ;
 
     public AcmeURL(String url){
+        if(StringUtils.isEmpty(url)) throw new IllegalArgumentException("URL is null");
         this.url = url;
 
         String temp = url.replace("https://", "").replace("http://", "");

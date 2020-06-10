@@ -10,7 +10,7 @@ import java.util.List;
 
 //RFC8555 Section 7.1.4
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Authorization extends ExpiresObject {
+public class Authorization extends ExpiresObject<Authorization> {
     //required
     private Identifier identifier;
     //required

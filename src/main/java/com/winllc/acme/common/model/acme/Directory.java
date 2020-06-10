@@ -1,5 +1,7 @@
 package com.winllc.acme.common.model.acme;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //https://tools.ietf.org/html/rfc8555#section-7.1.1
 /*
      "newNonce": "https://example.com/acme/new-nonce",
@@ -81,6 +83,15 @@ public class Directory {
         this.meta = meta;
     }
 
+    @JsonIgnore
+    public boolean termsOfServiceRequired(){
+        if (getMeta() != null && getMeta().getTermsOfService() != null) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
     @Override
     public String toString() {
         return "Directory{" +
