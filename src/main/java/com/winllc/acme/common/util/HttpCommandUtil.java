@@ -57,7 +57,9 @@ public class HttpCommandUtil {
     }
 
     public static <T> T processCustomWithClientAuth(HttpRequestBase request, int successCode, Function<String, T> func,
-                                                    KeyStore keyStore, String keyStorePassword) throws IOException, HttpException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+                                                    KeyStore keyStore, String keyStorePassword)
+            throws IOException, HttpException, UnrecoverableKeyException, NoSuchAlgorithmException,
+            KeyStoreException, KeyManagementException {
         HttpClient httpclient = buildClientCertAuthentication(keyStore, keyStorePassword);
 
         return processCustomGeneric(httpclient, request, successCode, func);
