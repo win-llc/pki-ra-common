@@ -19,17 +19,25 @@ import org.apache.http.conn.ssl.TrustAllStrategy;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
+import org.apache.http.ssl.PrivateKeyDetails;
+import org.apache.http.ssl.PrivateKeyStrategy;
 import org.apache.http.ssl.SSLContexts;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import java.io.IOException;
+import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.util.Map;
 import java.util.function.Function;
 
 public class HttpCommandUtil {
+
+    private static final Logger log = LogManager.getLogger(HttpCommandUtil.class);
 
     public static <T> T process(HttpRequestBase request, int successCode, Class<T> returnClass) throws Exception {
 
@@ -57,10 +65,10 @@ public class HttpCommandUtil {
     }
 
     public static <T> T processCustomWithClientAuth(HttpRequestBase request, int successCode, Function<String, T> func,
-                                                    KeyStore keyStore, String keyStorePassword)
+                                                    KeyStore keyStore, String keyStorePassword, String alias)
             throws IOException, HttpException, UnrecoverableKeyException, NoSuchAlgorithmException,
             KeyStoreException, KeyManagementException {
-        HttpClient httpclient = buildClientCertAuthentication(keyStore, keyStorePassword);
+        HttpClient httpclient = buildClientCertAuthentication(keyStore, keyStorePassword, alias);
 
         return processCustomGeneric(httpclient, request, successCode, func);
     }
@@ -103,18 +111,28 @@ public class HttpCommandUtil {
         return processCustom(httppost, successCode, func);
     }
 
-    private static HttpClient buildClientCertAuthentication(KeyStore keyStore, String password)
+    private static HttpClient buildClientCertAuthentication(KeyStore keyStore, String password, String alias)
             throws UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+        PrivateKeyStrategy pks = new PrivateKeyStrategy() {
+            @Override
+            public String chooseAlias(Map<String, PrivateKeyDetails> aliases, Socket socket) {
+                if(aliases.containsKey(alias)){
+                    return alias;
+                }else{
+                    log.error("Could not find keystore alias: "+alias);
+                    return null;
+                }
+            }
+        };
+
         SSLContext sslContext = SSLContexts.custom()
                 .loadKeyMaterial(keyStore,
-                        password.toCharArray())
+                        password.toCharArray(), pks)
                 .loadTrustMaterial(null, new TrustAllStrategy())
                 .build();
 
-
         SSLConnectionSocketFactory sslConnectionFactory =
                 new SSLConnectionSocketFactory(sslContext, SSLConnectionSocketFactory.getDefaultHostnameVerifier());
-
 
         Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
                 .register("https", sslConnectionFactory)
