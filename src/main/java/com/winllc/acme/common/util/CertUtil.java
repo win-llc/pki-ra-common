@@ -50,10 +50,11 @@ import java.time.Instant;
 import java.util.*;
 
 import static org.apache.commons.io.IOUtils.LINE_SEPARATOR;
-import static sun.security.provider.X509Factory.BEGIN_CERT;
-import static sun.security.provider.X509Factory.END_CERT;
 
 public class CertUtil {
+
+    public static final String BEGIN_CERT = "-----BEGIN CERTIFICATE-----";
+    public static final String END_CERT = "-----END CERTIFICATE-----";
 
     public static X509Certificate base64ToCert(String certB64) throws CertificateException, IOException {
         certB64 = removeHeaderFooter(certB64, "CERTIFICATE");
@@ -68,21 +69,33 @@ public class CertUtil {
     }
 
     public static PKCS10CertificationRequest csrBase64ToPKC10Object(String csrBase64) throws Exception {
+        Security.addProvider(new BouncyCastleProvider());
+        PKCS10CertificationRequest csr = null;
+        ByteArrayInputStream pemStream = null;
         try {
-            csrBase64 = removeHeaderFooter(csrBase64, "CERTIFICATE REQUEST");
-
-            //String adjusted = csrBase64.replaceAll("(?m)^[ \t]*\r?\n", "");
-            //byte[] utfBytes = adjusted.getBytes(StandardCharsets.UTF_8);
-            byte[] data = org.apache.commons.codec.binary.Base64.decodeBase64(csrBase64);
-            //byte encodedCert[] = Base64.getUrlDecoder().decode(csrBase64);
-            //ByteArrayInputStream inputStream  =  new ByteArrayInputStream(encodedCert);
-
-            return new PKCS10CertificationRequest(data);
-
-        } catch (IOException ex) {
-            //LOG.error("getPKCS10CertRequest: unable to parse csr: " + ex.getMessage());
+            pemStream = new ByteArrayInputStream(csrBase64.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException ex) {
+            //LOG.error("UnsupportedEncodingException, convertPemToPublicKey", ex);
             ex.printStackTrace();
         }
+
+        Reader pemReader = new BufferedReader(new InputStreamReader(pemStream));
+        PEMParser pemParser = new PEMParser(pemReader);
+
+        try {
+            Object parsedObj = pemParser.readObject();
+
+            System.out.println("PemParser returned: " + parsedObj);
+
+            if (parsedObj instanceof PKCS10CertificationRequest) {
+                csr = (PKCS10CertificationRequest) parsedObj;
+                return csr;
+            }
+        } catch (IOException ex) {
+            //log.error("IOException, convertPemToPublicKey", ex);
+            ex.printStackTrace();
+        }
+
         throw new Exception("Bad CSR");
     }
 
@@ -253,13 +266,41 @@ public class CertUtil {
      */
 
     private static String removeHeaderFooter(String b64, String remove) {
-        if (b64.contains("----BEGIN")) {
+        //todo fix this, not working
+
+        BufferedReader in = new BufferedReader(new StringReader(b64));
+        StringBuilder builder = new StringBuilder();
+
+        try {
+            List<String> lines = new LinkedList<>();
+            String str;
+            while ((str = in.readLine()) != null) {
+                if (!str.contains("-----BEGIN") && !str.contains("-----END")) {
+                    builder.append(str).append("\n");
+                    lines.add(str);
+                }
+            }
+
+            for (int i = 0; i < lines.size(); i++) {
+                builder.append(lines.get(i));
+                if (i != lines.size() - 1) {
+                    builder.append("\n");
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        /*
+        if (b64.contains("-----BEGIN")) {
             b64 = b64.replaceAll("-----BEGIN " + remove + "-----\r\n", "");
             b64 = b64.replaceAll("\r\n-----END " + remove + "-----", "");
             b64 = b64.replaceAll("-----BEGIN " + remove + "-----\n", "");
             b64 = b64.replaceAll("\n-----END " + remove + "-----", "");
         }
-        return b64;
+
+         */
+        return builder.toString();
     }
 
     public static PKCS10CertificationRequest generatePKCS10(String dn, PublicKey publicKey, PrivateKey privateKey)
