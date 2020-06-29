@@ -81,6 +81,8 @@ class CertUtilTest {
             "q64syxSVFdfC\n" +
             "-----END CERTIFICATE REQUEST-----";
 
+    private String testK8sCsr = "MIICfjCCAWYCAQAwADCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK5cWF57Co3GPI2jn1CytZipOleNUq2p5vB7hS9GGtaBE8KJj8LmRmWm0smaXjY8X2iM7IUIy_p4FJQinJsFeIGja0YjS0syilOCdPZVBiQrTVblpWqr_faYjcK7lRnBr9FjLCElbBXawneHJCZNOTbNtT6K-W7v6GGcyTYmHQ9Y6oEMylGzyjKh7o0jtRBb0bOAeUIAIWGpZxSzWVnqhwg6e-XvJRGlLMqhokWOaUW_Gnjgr1PGH0oMbUINwzvQLEIh5e0YA3KdOGLnCZsmV3UZ6yUfHLkdM7bllNYWFK0SDD-wd9fOiErFLxj8JljwX4diBhh66w9nQMlDD-QVsOECAwEAAaA5MDcGCSqGSIb3DQEJDjEqMCgwJgYDVR0RBB8wHYIbaW5ncmVzcy5rdWJlLndpbmxsYy1kZXYuY29tMA0GCSqGSIb3DQEBCwUAA4IBAQArl1N7c8DO6xol2Ycg73gTf5sgLhQ7PGo18jSjNScVCEk1IfbjEPs1aBpfkmKKWqdPHYcFbWVYmbZ4Wwm8BoSCSCdAkoM3W8F2SY9eWf6FV5Ja50LfK82VQTFJblmm3_1llP6XOpIatg3nKyWaZHpw6GmiwLJVhKwpZi-bFhupTAqfYs20bskS89aelIgjeKCnRgzp_5Q0yyIT903vG7KrmwJ0hwSUxHHLYcBKU0nJvmPmDVQXFDO5cRxZHSL1dM968qkjhElfYszIV9gLcKUecV6UFna38rux5fBuy3JwF2DSfjemdJcLVQWnNLPr28D-bgVqIVnmLOGXA7kdk_5s";
+
     @Test
     void base64ToCert() {
         try {
@@ -97,6 +99,9 @@ class CertUtilTest {
         try {
             PKCS10CertificationRequest certificationRequest = CertUtil.csrBase64ToPKC10Object(testCsr);
             assertNotNull("Test PKCS10 is null", certificationRequest);
+
+            certificationRequest = CertUtil.csrBase64ToPKC10Object(testK8sCsr);
+            assertNotNull("Test K8S PKCS10 is null", certificationRequest);
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());

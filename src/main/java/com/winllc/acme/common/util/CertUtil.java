@@ -26,7 +26,6 @@ import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 import org.bouncycastle.crypto.util.PrivateKeyFactory;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMParser;
-import org.bouncycastle.openssl.PEMWriter;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.operator.*;
 import org.bouncycastle.operator.bc.BcDigestCalculatorProvider;
@@ -70,29 +69,19 @@ public class CertUtil {
 
     public static PKCS10CertificationRequest csrBase64ToPKC10Object(String csrBase64) throws Exception {
         Security.addProvider(new BouncyCastleProvider());
-        PKCS10CertificationRequest csr = null;
-        ByteArrayInputStream pemStream = null;
-        try {
-            pemStream = new ByteArrayInputStream(csrBase64.getBytes("UTF-8"));
-        } catch (UnsupportedEncodingException ex) {
-            //LOG.error("UnsupportedEncodingException, convertPemToPublicKey", ex);
-            ex.printStackTrace();
-        }
-
-        Reader pemReader = new BufferedReader(new InputStreamReader(pemStream));
-        PEMParser pemParser = new PEMParser(pemReader);
 
         try {
-            Object parsedObj = pemParser.readObject();
+            csrBase64 = removeHeaderFooter(csrBase64, "CERTIFICATE REQUEST");
 
-            System.out.println("PemParser returned: " + parsedObj);
+            //String adjusted = csrBase64.replaceAll("(?m)^[ \t]*\r?\n", "");
+            //byte[] utfBytes = adjusted.getBytes(StandardCharsets.UTF_8);
+            byte[] data = org.apache.commons.codec.binary.Base64.decodeBase64(csrBase64);
+            //byte encodedCert[] = Base64.getUrlDecoder().decode(csrBase64);
+            //ByteArrayInputStream inputStream  =  new ByteArrayInputStream(encodedCert);
 
-            if (parsedObj instanceof PKCS10CertificationRequest) {
-                csr = (PKCS10CertificationRequest) parsedObj;
-                return csr;
-            }
+            return new PKCS10CertificationRequest(data);
         } catch (IOException ex) {
-            //log.error("IOException, convertPemToPublicKey", ex);
+            //LOG.error("getPKCS10CertRequest: unable to parse csr: " + ex.getMessage());
             ex.printStackTrace();
         }
 
@@ -278,13 +267,6 @@ public class CertUtil {
                 if (!str.contains("-----BEGIN") && !str.contains("-----END")) {
                     builder.append(str).append("\n");
                     lines.add(str);
-                }
-            }
-
-            for (int i = 0; i < lines.size(); i++) {
-                builder.append(lines.get(i));
-                if (i != lines.size() - 1) {
-                    builder.append("\n");
                 }
             }
         }catch (Exception e){
