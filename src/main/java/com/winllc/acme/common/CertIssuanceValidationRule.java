@@ -2,7 +2,7 @@ package com.winllc.acme.common;
 
 
 //A set of rules will be associated with each CA, rules dictate how challenges created for orders
-public class CAValidationRule {
+public class CertIssuanceValidationRule {
     private String identifierType;
     private String baseDomainName;
     private boolean requireDnsChallenge = false;
