@@ -1,13 +1,15 @@
 package com.winllc.acme.common.model.acme;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 //RFC8555 Section 7.1.3
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Order extends ExpiresObject {
+public class Order extends ExpiresObject<Order> {
     //required
     private Identifier[] identifiers;
     //optional
@@ -22,6 +24,16 @@ public class Order extends ExpiresObject {
     private String finalize;
     //optional
     private String certificate;
+
+    @JsonIgnore
+    public void addNotBefore(LocalDateTime ldt){
+        notBefore = ldt.format(dtf);
+    }
+
+    @JsonIgnore
+    public void addNotAfter(LocalDateTime ldt){
+        notAfter = ldt.format(dtf);
+    }
 
     public Identifier[] getIdentifiers() {
         return identifiers;

@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class ExpiresObject<T extends BaseAcmeObject> extends BaseAcmeObject<T>{
 
-    private static DateTimeFormatter dtf = DateTimeFormatter
+    protected static DateTimeFormatter dtf = DateTimeFormatter
             .ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             .withZone(ZoneId.of("UTC"));
 
