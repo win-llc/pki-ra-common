@@ -7,7 +7,7 @@ import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
-import static org.springframework.test.util.AssertionErrors.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class CertUtilTest {
@@ -98,10 +98,10 @@ class CertUtilTest {
     void csrBase64ToPKC10Object() {
         try {
             PKCS10CertificationRequest certificationRequest = CertUtil.csrBase64ToPKC10Object(testCsr);
-            assertNotNull("Test PKCS10 is null", certificationRequest);
+            assertNotNull(certificationRequest);
 
             certificationRequest = CertUtil.csrBase64ToPKC10Object(testK8sCsr);
-            assertNotNull("Test K8S PKCS10 is null", certificationRequest);
+            assertNotNull(certificationRequest);
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -112,7 +112,7 @@ class CertUtilTest {
     void extractX509CSRDnsNames() {
         try {
             List<String> sans = CertUtil.extractX509CSRDnsNames(testCsr);
-            assertTrue("CSR contains SAN", sans.contains("test.winllc-dev.com"));
+            assertTrue(sans.contains("test.winllc-dev.com"));
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -125,7 +125,7 @@ class CertUtilTest {
             X509Certificate certificate = CertUtil.base64ToCert(testX509Cert);
             X509Certificate chain1 = CertUtil.base64ToCert(testRootCa);
             String[] strings = CertUtil.certAndChainsToPemArray(certificate, new Certificate[]{chain1});
-            assertTrue("Check PEM array right length", strings.length == 2);
+            assertTrue(strings.length == 2);
         }catch (Exception e){
             e.printStackTrace();
             fail(e.getMessage());
@@ -135,7 +135,7 @@ class CertUtilTest {
     @Test
     void trustChainStringToCertArray() {
         Certificate[] certificates = CertUtil.trustChainStringToCertArray(testRootCa);
-        assertTrue("Check certs right length", certificates.length == 1);
+        assertTrue(certificates.length == 1);
     }
 
     @Test
@@ -143,7 +143,7 @@ class CertUtilTest {
         try {
             X509Certificate certificate = CertUtil.base64ToCert(testX509Cert);
             String s = CertUtil.formatCrtFileContents(certificate);
-            assertTrue("Test format Crt file contents", s.contains("BEGIN CERTIFICATE"));
+            assertTrue(s.contains("BEGIN CERTIFICATE"));
         }catch (Exception e){
             e.printStackTrace();
             fail(e.getMessage());
@@ -155,7 +155,7 @@ class CertUtilTest {
         try {
             PKCS10CertificationRequest certificationRequest = CertUtil.csrBase64ToPKC10Object(testCsr);
             String pem = CertUtil.certificationRequestToPEM(certificationRequest);
-            assertTrue("Compare CSR's", pem.contains("BEGIN"));
+            assertTrue(pem.contains("BEGIN"));
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -167,7 +167,7 @@ class CertUtilTest {
         try {
             X509Certificate certificate = CertUtil.base64ToCert(testX509Cert);
             List<String> dnsSubjectAlts = CertUtil.getDNSSubjectAlts(certificate);
-            assertTrue("Test retreving subject alts", dnsSubjectAlts.size() == 1);
+            assertTrue(dnsSubjectAlts.size() == 1);
         }catch (Exception e){
             e.printStackTrace();
             fail(e.getMessage());
