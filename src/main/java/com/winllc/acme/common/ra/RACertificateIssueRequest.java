@@ -1,7 +1,16 @@
 package com.winllc.acme.common.ra;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class RACertificateIssueRequest extends RACertificateRequest {
     private String accountKid;
+    private String subjectNameRequest;
     private String csr;
     private String dnsNames;
 
@@ -12,6 +21,15 @@ public class RACertificateIssueRequest extends RACertificateRequest {
         this.accountKid = accountKid;
         this.csr = csr;
         this.dnsNames = dnsNames;
+    }
+
+    @JsonIgnore
+    public List<String> getDnsNameList(){
+        if(StringUtils.isNotBlank(dnsNames)){
+            return Stream.of(dnsNames.replace(" ", "").split(",")).collect(Collectors.toList());
+        }else{
+            return new ArrayList<>();
+        }
     }
 
     public String getAccountKid() {
@@ -28,6 +46,14 @@ public class RACertificateIssueRequest extends RACertificateRequest {
 
     public void setCsr(String csr) {
         this.csr = csr;
+    }
+
+    public String getSubjectNameRequest() {
+        return subjectNameRequest;
+    }
+
+    public void setSubjectNameRequest(String subjectNameRequest) {
+        this.subjectNameRequest = subjectNameRequest;
     }
 
     public String getDnsNames() {
