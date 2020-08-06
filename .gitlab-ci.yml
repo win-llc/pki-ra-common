@@ -11,7 +11,7 @@ stages:
   - publish
 
 build:
-  image: gradle:5.0-jdk8-alpine
+  image: gradle:6.5-jdk14
   stage: build
   script:
     - gradle build
@@ -20,7 +20,7 @@ build:
       - build/libs/*.jar
 
 publish-artificat:
-  image: gradle:5.0-jdk8-alpine
+  image: gradle:6.5-jdk14
   stage: publish
   script:
     - gradle uploadArchives
