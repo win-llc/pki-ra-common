@@ -2,16 +2,14 @@ package com.winllc.acme.common.model.data;
 
 import com.winllc.acme.common.util.SecurityUtil;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public abstract class DataObject<T> {
     private String id;
     private T object;
     private String accountId;
     private String directory;
+    private String transactionId;
 
     protected DataObject(){}
 
@@ -76,6 +74,26 @@ public abstract class DataObject<T> {
         for (int pageNum = 0; pageNum < numPages;)
             pages.add(list.subList(pageNum * pageSize, Math.min(++pageNum * pageSize, list.size())));
         return pages;
+    }
+
+    public void addTransactionId(UUID uuid){
+        this.transactionId = uuid.toString();
+    }
+
+    public UUID getTransactionIdAsUUID(){
+        if(this.transactionId != null){
+            return UUID.fromString(this.transactionId);
+        }else{
+            return null;
+        }
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
     @Override
