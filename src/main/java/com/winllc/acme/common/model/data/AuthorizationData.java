@@ -5,6 +5,7 @@ import com.winllc.acme.common.model.acme.Authorization;
 public class AuthorizationData extends DataObject<Authorization> {
 
     private String orderId;
+    private Boolean preAuthz = false;
 
     @Override
     public String buildUrl(String baseURL) {
@@ -31,6 +32,13 @@ public class AuthorizationData extends DataObject<Authorization> {
         this.orderId = orderId;
     }
 
+    public Boolean getPreAuthz() {
+        return preAuthz;
+    }
+
+    public void setPreAuthz(Boolean preAuthz) {
+        this.preAuthz = preAuthz;
+    }
 
     @Override
     public String toString() {

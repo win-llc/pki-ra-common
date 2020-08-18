@@ -1,6 +1,8 @@
 package com.winllc.acme.common.model.acme;
 
 import com.winllc.acme.common.contants.IdentifierType;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class Identifier {
     //required
@@ -30,6 +32,28 @@ public class Identifier {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof Identifier)) return false;
+
+        Identifier that = (Identifier) o;
+
+        return new EqualsBuilder()
+                .append(getType(), that.getType())
+                .append(getValue(), that.getValue())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(getType())
+                .append(getValue())
+                .toHashCode();
     }
 
     @Override

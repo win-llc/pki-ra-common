@@ -4,7 +4,9 @@ import com.nimbusds.jose.jwk.JWK;
 import com.winllc.acme.common.model.acme.Account;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class AccountData extends DataObject<Account> {
@@ -12,6 +14,7 @@ public class AccountData extends DataObject<Account> {
     private String jwk;
     private String eabKeyIdentifier;
     private Date lastAgreedToTermsOfServiceOn;
+    private List<String> preAuthzIds;
 
     public AccountData(Account object, String directory) {
         super(object, directory);
@@ -28,6 +31,15 @@ public class AccountData extends DataObject<Account> {
 
     public void setEabKeyIdentifier(String eabKeyIdentifier) {
         this.eabKeyIdentifier = eabKeyIdentifier;
+    }
+
+    public List<String> getPreAuthzIds() {
+        if(preAuthzIds == null) preAuthzIds = new ArrayList<>();
+        return preAuthzIds;
+    }
+
+    public void setPreAuthzIds(List<String> preAuthzIds) {
+        this.preAuthzIds = preAuthzIds;
     }
 
     public String getJwk() {
