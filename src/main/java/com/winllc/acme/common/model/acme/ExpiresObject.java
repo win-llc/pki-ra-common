@@ -1,5 +1,6 @@
 package com.winllc.acme.common.model.acme;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
@@ -23,12 +24,14 @@ public abstract class ExpiresObject<T extends BaseAcmeObject> extends BaseAcmeOb
         this.expires = expires;
     }
 
+    @JsonIgnore
     public void willExpireInMinutes(int minutes){
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime expiresAt = now.plusMinutes(minutes);
         expires = expiresAt.format(dtf);
     }
 
+    @JsonIgnore
     public boolean isExpired(){
         boolean expired = false;
         if(StringUtils.isNotBlank(expires)){

@@ -59,8 +59,9 @@ public class CertUtil {
         certB64 = removeHeaderFooter(certB64, "CERTIFICATE");
 
         String adjusted = certB64.replaceAll("(?m)^[ \t]*\r?\n", "");
+        adjusted = adjusted.replaceAll("-", "+").replaceAll("_", "/");
 
-        byte[] encodedCert = Base64.getMimeDecoder().decode(adjusted);
+        byte[] encodedCert = Base64.getMimeDecoder().decode(adjusted.getBytes("UTF-8"));
         ByteArrayInputStream inputStream = new ByteArrayInputStream(encodedCert);
 
         CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
