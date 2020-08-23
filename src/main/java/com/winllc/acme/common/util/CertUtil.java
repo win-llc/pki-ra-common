@@ -1,6 +1,9 @@
 package com.winllc.acme.common.util;
 
 import com.winllc.acme.common.SubjectAltNames;
+import org.apache.logging.log4j.LogBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.DERIA5String;
 import org.bouncycastle.asn1.oiw.OIWObjectIdentifiers;
@@ -51,6 +54,8 @@ import java.util.*;
 import static org.apache.commons.io.IOUtils.LINE_SEPARATOR;
 
 public class CertUtil {
+
+    private static final Logger log = LogManager.getLogger(CertUtil.class);
 
     public static final String BEGIN_CERT = "-----BEGIN CERTIFICATE-----";
     public static final String END_CERT = "-----END CERTIFICATE-----";
@@ -169,10 +174,8 @@ public class CertUtil {
                 try {
                     Certificate cert = base64ToCert(certString);
                     trustChains.add(cert);
-                } catch (CertificateException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (CertificateException | IOException e) {
+                    log.error("Could not parse", e);
                 }
 
                 temp = new LinkedList<>();
@@ -181,6 +184,7 @@ public class CertUtil {
             }
         }
 
+        //todo, intermediate should be first, followed by signers
         return trustChains.toArray(new Certificate[0]);
     }
 

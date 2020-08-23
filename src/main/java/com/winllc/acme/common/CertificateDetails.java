@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public class CertificateDetails {
     private String serial;
+    private String subject;
     private String issuer;
     private String status;
     private String certificateBase64;
@@ -18,6 +19,7 @@ public class CertificateDetails {
     public CertificateDetails(X509Certificate x509Certificate){
         this.serial = x509Certificate.getSerialNumber().toString();
         this.issuer = x509Certificate.getIssuerDN().getName();
+        this.subject = x509Certificate.getSubjectDN().getName();
         try {
             this.certificateBase64 = CertUtil.formatCrtFileContents(x509Certificate);
         } catch (CertificateEncodingException e) {
@@ -39,6 +41,14 @@ public class CertificateDetails {
 
     public void setIssuer(String issuer) {
         this.issuer = issuer;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public String getStatus() {
