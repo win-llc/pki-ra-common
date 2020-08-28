@@ -275,18 +275,9 @@ public class CertUtil {
                 }
             }
         }catch (Exception e){
-            e.printStackTrace();
+            log.error("Could not remove header", e);
         }
 
-        /*
-        if (b64.contains("-----BEGIN")) {
-            b64 = b64.replaceAll("-----BEGIN " + remove + "-----\r\n", "");
-            b64 = b64.replaceAll("\r\n-----END " + remove + "-----", "");
-            b64 = b64.replaceAll("-----BEGIN " + remove + "-----\n", "");
-            b64 = b64.replaceAll("\n-----END " + remove + "-----", "");
-        }
-
-         */
         return builder.toString();
     }
 

@@ -11,6 +11,9 @@ public class CertSearchParam {
     private CertSearchParam parent;
     private List<CertSearchParam> params;
 
+    private int page = -1;
+    private int pageSize = -1;
+
     private CertSearchParam(){}
 
     public CertSearchParam(CertSearchParams.CertSearchParamRelation relation) {
@@ -24,15 +27,48 @@ public class CertSearchParam {
         this.relation = relation;
     }
 
-    public void addSearchParam(CertSearchParam param){
+    public static CertSearchParam createNew(){
+        return new CertSearchParam();
+    }
+
+    public CertSearchParam field(CertSearchParams.CertField field){
+        this.field = field;
+        return this;
+    }
+
+    public CertSearchParam value(String value){
+        this.value = value;
+        return this;
+    }
+
+    public CertSearchParam relation(CertSearchParams.CertSearchParamRelation relation){
+        this.relation = relation;
+        if(isRelational()){
+            this.params = new ArrayList<>();
+        }
+        return this;
+    }
+
+    public CertSearchParam paginated(int page, int pageSize){
+        this.page = page;
+        this.pageSize = pageSize;
+        return this;
+    }
+
+    public CertSearchParam addSearchParam(CertSearchParam param){
         if(isRelational()){
             param.parent = this;
             params.add(param);
         }
+        return this;
     }
 
     public boolean isRelational(){
         return relation == CertSearchParams.CertSearchParamRelation.OR || relation == CertSearchParams.CertSearchParamRelation.AND;
+    }
+
+    public boolean isPaginated(){
+        return page > 0 && pageSize > 0;
     }
 
     public String buildQuery(CertSearchConverter converter){
@@ -92,4 +128,19 @@ public class CertSearchParam {
         this.relation = relation;
     }
 
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
 }
