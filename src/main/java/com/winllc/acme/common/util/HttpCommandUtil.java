@@ -84,11 +84,7 @@ public class HttpCommandUtil {
             if (entity != null) result = IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8.name());
 
             if (response.getStatusLine().getStatusCode() == successCode) {
-                if (StringUtils.isNotBlank(result)) {
-                    return func.apply(result);
-                } else {
-                    return null;
-                }
+                return func.apply(result);
             } else {
                 throw new HttpException("Expected code: " + successCode + ", received: " + response.getStatusLine().getStatusCode());
             }
