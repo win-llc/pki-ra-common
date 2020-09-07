@@ -10,12 +10,17 @@ import javax.naming.Name;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface CertAuthority {
 
-    List<ConnectionProperty> getRequiredProperties();
+    static List<ConnectionProperty> getRequiredProperties(){
+        return new ArrayList<>();
+    }
+
     String getName();
+    String getType();
     Name getIssuerName() throws Exception;
     CertAuthorityConnectionInfo getConnectionInfo();
     X509Certificate issueCertificate(String csr, String dn, SubjectAltNames sans) throws Exception;

@@ -9,6 +9,7 @@ import java.security.KeyStore;
 import java.security.Principal;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
+import java.util.Optional;
 
 public abstract class AbstractCertAuthority implements CertAuthority {
 
@@ -60,5 +61,12 @@ public abstract class AbstractCertAuthority implements CertAuthority {
     @Override
     public String getName() {
         return name;
+    }
+
+    public Optional<String> getPropertyValue(String property){
+        return info.getProperties().stream()
+                .filter(p -> p.getName().equalsIgnoreCase(property))
+                .map(p -> p.getValue())
+                .findFirst();
     }
 }
