@@ -36,4 +36,13 @@ public class RACertificateRevokeRequest extends RACertificateRequest {
     public void setReason(Integer reason) {
         this.reason = reason;
     }
+
+    @Override
+    public String toString() {
+        return "RACertificateRevokeRequest{" +
+                "requestId=" + requestId +
+                ", serial='" + serial + '\'' +
+                ", reason=" + reason +
+                "} " + super.toString();
+    }
 }
