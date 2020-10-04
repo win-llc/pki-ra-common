@@ -4,5 +4,6 @@ public enum CertificateStatus {
     VALID,
     REVOKED,
     EXPIRED,
-    REVOKED_EXPIRED;
+    REVOKED_EXPIRED,
+    UNKNOWN;
 }

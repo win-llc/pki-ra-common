@@ -5,6 +5,7 @@ import com.winllc.acme.common.CertificateDetails;
 import com.winllc.acme.common.SubjectAltNames;
 import com.winllc.acme.common.contants.CertificateStatus;
 import com.winllc.acme.common.domain.CertAuthorityConnectionInfo;
+import org.springframework.context.ApplicationContextAware;
 
 import javax.naming.Name;
 import java.security.KeyStore;
@@ -13,7 +14,7 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface CertAuthority {
+public interface CertAuthority extends ApplicationContextAware {
 
     static List<ConnectionProperty> getRequiredProperties(){
         return new ArrayList<>();

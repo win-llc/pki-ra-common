@@ -12,8 +12,8 @@ public enum RevocationReason {
     PRIVILEGE_WITHDRAWN("privilegeWithdrawn", 9),
     AA_COMPROMISE("aACompromise", 10);
 
-    private String value;
-    private int code;
+    private final String value;
+    private final int code;
 
     RevocationReason(String value, int code) {
         this.value = value;
