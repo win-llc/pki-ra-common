@@ -2,6 +2,8 @@ package com.winllc.acme.common.ca;
 
 import com.winllc.acme.common.domain.CertAuthorityConnectionInfo;
 import com.winllc.acme.common.util.CertUtil;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
 
 import javax.naming.Name;
 import javax.naming.ldap.LdapName;
@@ -13,15 +15,19 @@ import java.util.Optional;
 
 public abstract class AbstractCertAuthority implements CertAuthority {
 
+    protected ApplicationContext applicationContext;
+
     protected CertAuthorityConnectionInfo info;
     protected KeyStore applicationKeystore;
     protected String keystorePassword;
 
     protected String name;
 
-    public AbstractCertAuthority(CertAuthorityConnectionInfo info, KeyStore applicationKeystore, String keystorePassword){
+    public AbstractCertAuthority(CertAuthorityConnectionInfo info, ApplicationContext applicationContext,
+                                 KeyStore applicationKeystore, String keystorePassword){
         this.info = info;
         this.name = info.getName();
+        this.applicationContext = applicationContext;
         this.applicationKeystore = applicationKeystore;
         this.keystorePassword = keystorePassword;
     }
@@ -68,5 +74,10 @@ public abstract class AbstractCertAuthority implements CertAuthority {
                 .filter(p -> p.getName().equalsIgnoreCase(property))
                 .map(p -> p.getValue())
                 .findFirst();
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

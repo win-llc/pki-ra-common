@@ -107,6 +107,8 @@ public class CertUtil {
 
                 if (parsedObj instanceof PKCS10CertificationRequest) {
                     csr = (PKCS10CertificationRequest) parsedObj;
+                } else {
+                    throw new Exception("Not a PKCS10 object");
                 }
             } catch (IOException ex) {
                 //LOG.error("IOException, convertPemToPublicKey", ex);
