@@ -2,6 +2,7 @@ package com.winllc.acme.common.ca;
 
 import com.winllc.acme.common.domain.CertAuthorityConnectionInfo;
 import com.winllc.acme.common.util.CertUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 
@@ -45,7 +46,11 @@ public abstract class AbstractCertAuthority implements CertAuthority {
     public Certificate[] getTrustChain() throws Exception {
         String trustChain = getInfo().getTrustChainBase64();
 
-        return CertUtil.trustChainStringToCertArray(trustChain);
+        if(StringUtils.isNotEmpty(trustChain)) {
+            return CertUtil.trustChainStringToCertArray(trustChain);
+        }else{
+            return null;
+        }
     }
 
     @Override
