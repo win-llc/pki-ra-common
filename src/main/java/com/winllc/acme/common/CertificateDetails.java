@@ -5,14 +5,22 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class CertificateDetails {
+
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ISO_ZONED_DATE_TIME;
+
     private String serial;
     private String subject;
     private String issuer;
     private String status;
     private String certificateBase64;
+    private String caName;
+    private String validFrom;
+    private String validTo;
 
     public CertificateDetails(){}
 
@@ -20,6 +28,8 @@ public class CertificateDetails {
         this.serial = x509Certificate.getSerialNumber().toString();
         this.issuer = x509Certificate.getIssuerDN().getName();
         this.subject = x509Certificate.getSubjectDN().getName();
+        this.validFrom = dtf.format(x509Certificate.getNotBefore().toInstant().atZone(ZoneId.systemDefault()));
+        this.validTo = dtf.format(x509Certificate.getNotAfter().toInstant().atZone(ZoneId.systemDefault()));
         try {
             this.certificateBase64 = CertUtil.formatCrtFileContents(x509Certificate);
         } catch (CertificateEncodingException e) {
@@ -65,6 +75,30 @@ public class CertificateDetails {
 
     public void setCertificateBase64(String certificateBase64) {
         this.certificateBase64 = certificateBase64;
+    }
+
+    public String getCaName() {
+        return caName;
+    }
+
+    public void setCaName(String caName) {
+        this.caName = caName;
+    }
+
+    public String getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(String validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public String getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(String validTo) {
+        this.validTo = validTo;
     }
 
     public Optional<X509Certificate> buildX509(){
