@@ -1,9 +1,6 @@
 package com.winllc.acme.common;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SubjectAltNames {
 
@@ -39,7 +36,7 @@ public class SubjectAltNames {
     }
 
 
-    public void addValues(SubjAltNameType type, List<String> values){
+    public void addValues(SubjAltNameType type, Collection<String> values){
         for(String value : values){
             addValue(type, value);
         }

@@ -18,6 +18,7 @@ public class CertSearchParams {
         CONTAINS,
         GREATER_THAN,
         LESS_THAN,
+        BETWEEN,
         AND,
         OR
     }

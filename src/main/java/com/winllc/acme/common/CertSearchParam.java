@@ -1,12 +1,17 @@
 package com.winllc.acme.common;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CertSearchParam {
     private CertSearchParams.CertField field;
     private CertSearchParams.CertSearchParamRelation relation;
-    private String value;
+    private Object value;
+    private boolean valueIsDateTime = false;
+    private LocalDateTime betweenFrom;
+    private LocalDateTime betweenTo;
 
     private CertSearchParam parent;
     private List<CertSearchParam> params;
@@ -21,10 +26,17 @@ public class CertSearchParam {
         this.params = new ArrayList<>();
     }
 
-    public CertSearchParam(CertSearchParams.CertField field, String value, CertSearchParams.CertSearchParamRelation relation) {
+    public CertSearchParam(CertSearchParams.CertField field, Object value, CertSearchParams.CertSearchParamRelation relation) {
         this.field = field;
-        this.value = value;
         this.relation = relation;
+        setValue(value);
+    }
+
+    public CertSearchParam(CertSearchParams.CertField field, LocalDateTime from, LocalDateTime to){
+        this.field = field;
+        this.relation = CertSearchParams.CertSearchParamRelation.BETWEEN;
+        this.betweenFrom = from;
+        this.betweenTo = to;
     }
 
     public static CertSearchParam createNew(){
@@ -36,8 +48,8 @@ public class CertSearchParam {
         return this;
     }
 
-    public CertSearchParam value(String value){
-        this.value = value;
+    public CertSearchParam value(Object value){
+        setValue(value);
         return this;
     }
 
@@ -112,12 +124,31 @@ public class CertSearchParam {
         this.field = field;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public String getValueAsString(){
+        if(this.valueIsDateTime){
+            return DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(getValueAsLocalDateTime());
+        }else{
+            return value.toString();
+        }
+    }
+
+    public LocalDateTime getValueAsLocalDateTime(){
+        if(this.valueIsDateTime){
+            return (LocalDateTime) value;
+        }else{
+            return null;
+        }
+    }
+
+    public void setValue(Object value) {
         this.value = value;
+        if(value instanceof LocalDateTime){
+            this.valueIsDateTime = true;
+        }
     }
 
     public CertSearchParams.CertSearchParamRelation getRelation() {
@@ -142,5 +173,25 @@ public class CertSearchParam {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public boolean isValueIsDateTime() {
+        return valueIsDateTime;
+    }
+
+    public LocalDateTime getBetweenFrom() {
+        return betweenFrom;
+    }
+
+    public void setBetweenFrom(LocalDateTime betweenFrom) {
+        this.betweenFrom = betweenFrom;
+    }
+
+    public LocalDateTime getBetweenTo() {
+        return betweenTo;
+    }
+
+    public void setBetweenTo(LocalDateTime betweenTo) {
+        this.betweenTo = betweenTo;
     }
 }

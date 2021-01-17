@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -19,8 +20,8 @@ public class CertificateDetails {
     private String status;
     private String certificateBase64;
     private String caName;
-    private String validFrom;
-    private String validTo;
+    private ZonedDateTime validFrom;
+    private ZonedDateTime validTo;
 
     public CertificateDetails(){}
 
@@ -28,8 +29,8 @@ public class CertificateDetails {
         this.serial = x509Certificate.getSerialNumber().toString();
         this.issuer = x509Certificate.getIssuerDN().getName();
         this.subject = x509Certificate.getSubjectDN().getName();
-        this.validFrom = dtf.format(x509Certificate.getNotBefore().toInstant().atZone(ZoneId.systemDefault()));
-        this.validTo = dtf.format(x509Certificate.getNotAfter().toInstant().atZone(ZoneId.systemDefault()));
+        this.validFrom = x509Certificate.getNotBefore().toInstant().atZone(ZoneId.systemDefault());
+        this.validTo = x509Certificate.getNotAfter().toInstant().atZone(ZoneId.systemDefault());
         try {
             this.certificateBase64 = CertUtil.formatCrtFileContents(x509Certificate);
         } catch (CertificateEncodingException e) {
@@ -85,19 +86,19 @@ public class CertificateDetails {
         this.caName = caName;
     }
 
-    public String getValidFrom() {
+    public ZonedDateTime getValidFrom() {
         return validFrom;
     }
 
-    public void setValidFrom(String validFrom) {
+    public void setValidFrom(ZonedDateTime validFrom) {
         this.validFrom = validFrom;
     }
 
-    public String getValidTo() {
+    public ZonedDateTime getValidTo() {
         return validTo;
     }
 
-    public void setValidTo(String validTo) {
+    public void setValidTo(ZonedDateTime validTo) {
         this.validTo = validTo;
     }
 
