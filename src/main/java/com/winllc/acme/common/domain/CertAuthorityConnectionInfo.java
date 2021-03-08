@@ -27,6 +27,7 @@ public class CertAuthorityConnectionInfo extends AbstractPersistable<Long> {
     @Column(length = 3000)
     private String trustChainBase64;
     //use to pull auth cert from application keystore for mutual client auth
+    @Column(name = "auth_key_alias")
     private String authKeyAlias;
 
     //todo include global validation contraints
