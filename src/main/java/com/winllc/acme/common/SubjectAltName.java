@@ -4,6 +4,13 @@ public class SubjectAltName {
     private String value;
     private String type;
 
+    public SubjectAltName(){}
+
+    public SubjectAltName(String value, String type){
+        this.value = value;
+        this.type = type;
+    }
+
     public String getValue() {
         return value;
     }
