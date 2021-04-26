@@ -18,6 +18,15 @@ public class RACertificateIssueRequest extends RACertificateRequest {
 
     private RACertificateIssueRequest(){}
 
+    public RACertificateIssueRequest(String accountKid, String csr, String primaryDnsName, String dnsNames, String certAuthorityName, String source) {
+        super(certAuthorityName);
+        this.accountKid = accountKid;
+        this.csr = csr;
+        this.subjectNameRequest = primaryDnsName;
+        this.dnsNames = dnsNames;
+        this.source = source;
+    }
+
     public RACertificateIssueRequest(String accountKid, String csr, String dnsNames, String certAuthorityName, String source) {
         super(certAuthorityName);
         this.accountKid = accountKid;

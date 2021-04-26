@@ -85,4 +85,8 @@ public abstract class AbstractCertAuthority implements CertAuthority {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
+
+    protected String getBaseUrl(){
+        return this.getConnectionInfo().getBaseUrl();
+    }
 }

@@ -7,6 +7,7 @@ public class ConnectionProperty {
     private String friendlyName;
     private String description;
     private String type;
+    private Boolean password = false;
     private List<String> options;
 
     public static ConnectionProperty build(){
@@ -52,6 +53,14 @@ public class ConnectionProperty {
 
     public void setFriendlyName(String friendlyName) {
         this.friendlyName = friendlyName;
+    }
+
+    public Boolean getPassword() {
+        return password;
+    }
+
+    public void setPassword(Boolean password) {
+        this.password = password;
     }
 
     public String getDescription() {

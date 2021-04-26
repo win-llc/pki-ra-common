@@ -11,6 +11,7 @@ public class CertAuthorityConnectionProperty extends AbstractPersistable<Long>  
 
     private String name;
     private String value;
+    private Boolean password;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="certAuthorityConnectionInfo_fk")
@@ -37,6 +38,14 @@ public class CertAuthorityConnectionProperty extends AbstractPersistable<Long>  
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public Boolean getPassword() {
+        return password;
+    }
+
+    public void setPassword(Boolean password) {
+        this.password = password;
     }
 
     public CertAuthorityConnectionInfo getCertAuthorityConnectionInfo() {

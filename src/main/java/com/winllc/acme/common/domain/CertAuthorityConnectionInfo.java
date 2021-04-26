@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "cert_authority_connection_info")
-public class CertAuthorityConnectionInfo extends AbstractPersistable<Long> {
+public class CertAuthorityConnectionInfo extends BaseEntity {
 
     @Column(unique = true)
     private String name;
