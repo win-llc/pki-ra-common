@@ -9,7 +9,9 @@ import org.springframework.context.ApplicationContextAware;
 
 import javax.naming.Name;
 import java.security.KeyStore;
+import java.security.cert.CRL;
 import java.security.cert.Certificate;
+import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,4 +32,5 @@ public interface CertAuthority extends ApplicationContextAware {
     List<CertificateDetails> search(CertSearchParam params);
     Certificate[] getTrustChain() throws Exception;
     X509Certificate getCertificateBySerial(String serial) throws Exception;
+    X509CRL getCrl();
 }
