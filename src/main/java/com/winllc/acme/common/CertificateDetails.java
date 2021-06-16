@@ -1,7 +1,11 @@
 package com.winllc.acme.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.winllc.acme.common.util.CertUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.bouncycastle.cert.X509CertificateHolder;
+import org.bouncycastle.jcajce.provider.asymmetric.X509;
+import org.bouncycastle.jce.provider.X509AttrCertParser;
 
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
@@ -12,29 +16,40 @@ import java.util.Optional;
 
 public class CertificateDetails {
 
-    private static final DateTimeFormatter dtf = DateTimeFormatter.ISO_ZONED_DATE_TIME;
-
     private String serial;
     private String subject;
     private String issuer;
     private String status;
     private String certificateBase64;
+    private String certificatePrettyPrint;
     private String caName;
     private ZonedDateTime validFrom;
     private ZonedDateTime validTo;
+    private boolean canRequestRevocation = false;
 
     public CertificateDetails(){}
 
-    public CertificateDetails(X509Certificate x509Certificate){
+    public CertificateDetails(X509Certificate x509Certificate, String status){
         this.serial = x509Certificate.getSerialNumber().toString();
         this.issuer = x509Certificate.getIssuerDN().getName();
         this.subject = x509Certificate.getSubjectDN().getName();
         this.validFrom = x509Certificate.getNotBefore().toInstant().atZone(ZoneId.systemDefault());
         this.validTo = x509Certificate.getNotAfter().toInstant().atZone(ZoneId.systemDefault());
+        this.status = status;
         try {
             this.certificateBase64 = CertUtil.formatCrtFileContents(x509Certificate);
-        } catch (CertificateEncodingException e) {
+            this.certificatePrettyPrint = x509Certificate.toString();
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        checkCanRevoke();
+    }
+
+    @JsonIgnore
+    private void checkCanRevoke(){
+        if(status.contentEquals("VALID")){
+            this.canRequestRevocation = true;
         }
     }
 
@@ -100,6 +115,22 @@ public class CertificateDetails {
 
     public void setValidTo(ZonedDateTime validTo) {
         this.validTo = validTo;
+    }
+
+    public String getCertificatePrettyPrint() {
+        return certificatePrettyPrint;
+    }
+
+    public void setCertificatePrettyPrint(String certificatePrettyPrint) {
+        this.certificatePrettyPrint = certificatePrettyPrint;
+    }
+
+    public boolean isCanRequestRevocation() {
+        return canRequestRevocation;
+    }
+
+    public void setCanRequestRevocation(boolean canRequestRevocation) {
+        this.canRequestRevocation = canRequestRevocation;
     }
 
     public Optional<X509Certificate> buildX509(){
