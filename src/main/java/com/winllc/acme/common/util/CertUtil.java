@@ -458,4 +458,24 @@ public class CertUtil {
             throw e;
         }
     }
+
+    public static int serialToInt(String serial){
+        if(serial.startsWith("0x")){
+            return Integer.parseInt(serial.replace("0x", ""),16);
+        }else{
+            return Integer.parseInt(serial);
+        }
+    }
+
+    public static int serialHexToInt(String serial){
+        if(serial.startsWith("0x")){
+            return Integer.parseInt(serial.replace("0x", ""),16);
+        }else{
+            throw new RuntimeException("Not a serial number: " + serial);
+        }
+    }
+
+    public static String serialIntToHex(int serial){
+        return "0x"+Integer.toString(serial, 16);
+    }
 }

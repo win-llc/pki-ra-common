@@ -1,5 +1,7 @@
 package com.winllc.acme.common;
 
+import org.springframework.data.domain.PageRequest;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -67,9 +69,15 @@ public class CertSearchParam {
         return this;
     }
 
+    public CertSearchParam nextPage(){
+        this.page++;
+        return this;
+    }
+
     public CertSearchParam addSearchParam(CertSearchParam param){
         if(isRelational()){
             param.parent = this;
+            if(params == null) params = new ArrayList<>();
             params.add(param);
         }
         return this;
@@ -80,7 +88,7 @@ public class CertSearchParam {
     }
 
     public boolean isPaginated(){
-        return page > 0 && pageSize > 0;
+        return page >= 0 && pageSize > 0;
     }
 
     public String buildQuery(CertSearchConverter converter){

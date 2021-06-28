@@ -1,5 +1,6 @@
 package com.winllc.acme.common.ca;
 
+import com.winllc.acme.common.SubjectAltNames;
 import com.winllc.acme.common.domain.CertAuthorityConnectionInfo;
 import com.winllc.acme.common.util.CertUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -68,6 +69,8 @@ public abstract class AbstractCertAuthority implements CertAuthority {
             throw new RuntimeException("Can't get Issuer name, no chain found");
         }
     }
+
+
 
     @Override
     public String getName() {

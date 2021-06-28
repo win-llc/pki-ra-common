@@ -1,9 +1,9 @@
 plugins {
-    //id 'org.springframework.boot' version '2.2.2.RELEASE'
-    //id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
     id 'java-library'
     id 'idea'
-    id 'maven'
+    id 'maven-publish'
 }
 
 group 'com.winllc.acme.common'
@@ -23,9 +23,14 @@ sourceSets {
     main { compileClasspath += configurations.provided }
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
+bootJar {
+    enabled(false)
+}
+
+/*
+publishing {
+    repositories  {
+        maven {
             repository(url: "http://util.winllc-dev.com:8081/repository/win-llc/") {
                 authentication(userName: "admin", password: "Bl@ckH@t25")
             }
@@ -36,33 +41,45 @@ uploadArchives {
     }
 }
 
-uploadArchives.dependsOn(build)
+ */
+
+//uploadArchives.dependsOn(build)
 
 test {
     useJUnitPlatform()
 }
 
 dependencies {
+    api('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-configuration-processor')
     // https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb
-    compile group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.0.2.RELEASE'
-    // https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api
-    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    api("org.springframework.boot:spring-boot-starter-data-mongodb")
+    api('org.springframework.boot:spring-boot-starter-data-elasticsearch')
 
+    // https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client
+    api group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.13.2'
+
+
+
+    // https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api
+    implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    api group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.3'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.3'
 
     provided 'javax.servlet:javax.servlet-api:3.1.0'
 
-    // https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa
-    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.3.2.RELEASE'
-
     api 'org.bitbucket.b_c:jose4j:0.6.5'
     // https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt
-    api group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '7.2.1'
+    api group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '9.10'
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     api group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    api group: 'commons-lang', name: 'commons-lang', version: '2.6'
     // https://mvnrepository.com/artifact/commons-io/commons-io
     api group: 'commons-io', name: 'commons-io', version: '2.6'
 
@@ -73,18 +90,23 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
     api group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.9'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    api group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+    api group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on
     api group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.62'
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    testCompile(group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.2'){
+    testImplementation(group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.2'){
         exclude group: 'junit', module: 'junit'
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
-    testCompile(group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.2'){
+    testImplementation(group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.2'){
         exclude group: 'junit', module: 'junit'
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

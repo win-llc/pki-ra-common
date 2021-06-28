@@ -15,6 +15,8 @@ import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public interface CertAuthority extends ApplicationContextAware {
 
@@ -33,4 +35,6 @@ public interface CertAuthority extends ApplicationContextAware {
     Certificate[] getTrustChain() throws Exception;
     X509Certificate getCertificateBySerial(String serial) throws Exception;
     X509CRL getCrl();
+
+    void performOnResults(CertSearchParam param, Function<List<CertificateDetails>, Boolean> operation);
 }
