@@ -27,6 +27,29 @@ bootJar {
     enabled(false)
 }
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = 'acme-common'
+            version = version
+
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = "WINLLCRepo" //  optional target repository name
+            url = "http://util.winllc-dev.com:8081/repository/win-llc"
+            allowInsecureProtocol(true)
+            credentials {
+                username = 'admin'
+                password = 'Bl@ckH@t25'
+            }
+        }
+    }
+}
+
 /*
 publishing {
     repositories  {

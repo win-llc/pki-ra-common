@@ -23,4 +23,4 @@ publish-artificat:
   image: gradle:7.1-jre16
   stage: publish
   script:
-    - gradle uploadArchives
+    - gradle publish
