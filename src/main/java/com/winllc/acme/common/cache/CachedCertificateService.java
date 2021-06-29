@@ -65,7 +65,14 @@ public class CachedCertificateService {
                                 .lt(param.getValue());
                     }
                     case CONTAINS -> {
-                        
+                        if(param.getValue() instanceof List){
+                            List<Long> serials = (List<Long>) param.getValue();
+                            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+                            for(Long serial : serials){
+                                boolQueryBuilder.should().add(QueryBuilders.matchQuery("serial", serial));
+                            }
+                            queryBuilder = boolQueryBuilder;
+                        }
                     }
                 }
             }
@@ -223,6 +230,10 @@ public class CachedCertificateService {
     public void persist(X509Certificate certificate, String status) throws CertificateEncodingException {
         CachedCertificate cached = new CachedCertificate(certificate, status);
         operations.save(cached);
+    }
+
+    public void update(List<CachedCertificate> updated){
+        operations.save(updated);
     }
 
     private CachedCertificate searchResultToCached(CertificateDetails cert, String caName) throws Exception{

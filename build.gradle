@@ -50,23 +50,6 @@ publishing {
     }
 }
 
-/*
-publishing {
-    repositories  {
-        maven {
-            repository(url: "http://util.winllc-dev.com:8081/repository/win-llc/") {
-                authentication(userName: "admin", password: "Bl@ckH@t25")
-            }
-            pom.version = "1.0-SNAPSHOT"
-            pom.artifactId = "acme-common"
-            pom.groupId = "com.winllc.acme.common"
-        }
-    }
-}
-
- */
-
-//uploadArchives.dependsOn(build)
 
 test {
     useJUnitPlatform()
