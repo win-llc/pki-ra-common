@@ -20,7 +20,7 @@ build:
       - build/libs/*.jar
 
 publish-artificat:
-  image: gradle:7.1-jre16
+  image: gradle:7.1-jdk16
   stage: publish
   script:
     - gradle publish
