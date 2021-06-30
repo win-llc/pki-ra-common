@@ -51,20 +51,20 @@ public class CachedCertificateService {
         QueryBuilder queryBuilder = null;
 
         switch (param.getField()) {
-            case SERIAL -> {
+            case SERIAL:
                 switch (param.getRelation()){
-                    case EQUALS -> {
+                    case EQUALS:
                         queryBuilder = QueryBuilders.matchQuery("serial", param.getValue());
-                    }
-                    case GREATER_THAN -> {
+                        break;
+                    case GREATER_THAN:
                         queryBuilder = QueryBuilders.rangeQuery("serial")
                                 .gt(param.getValue());
-                    }
-                    case LESS_THAN -> {
+                        break;
+                    case LESS_THAN:
                         queryBuilder = QueryBuilders.rangeQuery("serial")
                                 .lt(param.getValue());
-                    }
-                    case CONTAINS -> {
+                        break;
+                    case CONTAINS:
                         if(param.getValue() instanceof List){
                             List<Long> serials = (List<Long>) param.getValue();
                             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
@@ -73,74 +73,74 @@ public class CachedCertificateService {
                             }
                             queryBuilder = boolQueryBuilder;
                         }
-                    }
+                        break;
                 }
-            }
-            case ISSUER -> {
+                break;
+            case ISSUER:
                 switch (param.getRelation()){
-                    case EQUALS -> {
+                    case EQUALS:
                         queryBuilder = QueryBuilders.matchQuery("issuer", param.getValue());
-                    }
+                        break;
                 }
-            }
-            case STATUS -> {
+                break;
+            case STATUS:
                 switch (param.getRelation()){
-                    case EQUALS -> {
+                    case EQUALS:
                         queryBuilder = QueryBuilders.matchQuery("status", param.getValue());
-                    }
+                        break;
                 }
-            }
-            case VALID_ON -> {
+                break;
+            case VALID_ON:
                 LocalDateTime valueAsLocalDateTime = param.getValueAsLocalDateTime();
                 Date from = Date.from(valueAsLocalDateTime.toInstant(ZoneOffset.UTC));
                 switch (param.getRelation()){
-                    case EQUALS -> {
+                    case EQUALS:
                         queryBuilder = QueryBuilders.matchQuery("validFrom", from);
-                    }
-                    case GREATER_THAN -> {
+                        break;
+                    case GREATER_THAN:
                         queryBuilder = QueryBuilders.rangeQuery("validFrom").gt(from);
-                    }
-                    case LESS_THAN -> {
+                        break;
+                    case LESS_THAN:
                         queryBuilder = QueryBuilders.rangeQuery("validFrom").lt(from);
-                    }
-                    case BETWEEN -> {
+                        break;
+                    case BETWEEN:
                         queryBuilder = QueryBuilders.rangeQuery("validFrom")
                             .from(param.getBetweenFrom())
                                 .to(param.getBetweenTo());
-                    }
+                        break;
                 }
-            }
-            case EXPIRES_ON -> {
-                LocalDateTime valueAsLocalDateTime = param.getValueAsLocalDateTime();
-                Date to = Date.from(valueAsLocalDateTime.toInstant(ZoneOffset.UTC));
+                break;
+            case EXPIRES_ON:
+                LocalDateTime vdt = param.getValueAsLocalDateTime();
+                Date to = Date.from(vdt.toInstant(ZoneOffset.UTC));
                 switch (param.getRelation()){
-                    case EQUALS -> {
+                    case EQUALS:
                         queryBuilder = QueryBuilders.matchQuery("validTo", to);
-                    }
-                    case GREATER_THAN -> {
+                        break;
+                    case GREATER_THAN:
                         queryBuilder = QueryBuilders.rangeQuery("validTo").gt(to);
-                    }
-                    case LESS_THAN -> {
+                        break;
+                    case LESS_THAN:
                         queryBuilder = QueryBuilders.rangeQuery("validTo").lt(to);
-                    }
-                    case BETWEEN -> {
+                        break;
+                    case BETWEEN:
                         queryBuilder = QueryBuilders.rangeQuery("validTo")
                                 .from(param.getBetweenFrom())
                                 .to(param.getBetweenTo());
-                    }
+                        break;
                 }
-            }
-            case SUBJECT -> {
+                break;
+            case SUBJECT:
                 switch (param.getRelation()) {
-                    case EQUALS -> {
+                    case EQUALS:
                         queryBuilder = QueryBuilders.matchQuery("dn", param.getValue());
-                    }
-                    case CONTAINS -> {
+                        break;
+                    case CONTAINS:
                         queryBuilder = QueryBuilders.wildcardQuery("dn", "*"+param.getValue()+"*");
-                    }
+                        break;
                 }
             }
-        }
+
         return queryBuilder;
     }
 
