@@ -186,7 +186,7 @@ public class CachedCertificateService {
         }
 
         if(maxResults > 0) {
-            searchQueryBuilder = searchQueryBuilder.withMaxResults(maxResults);
+            //searchQueryBuilder = searchQueryBuilder.withMaxResults(maxResults);
         }
 
         try {
