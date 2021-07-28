@@ -2,7 +2,7 @@ package com.winllc.acme.common.model.acme;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.winllc.acme.common.contants.StatusType;
+import com.winllc.acme.common.constants.StatusType;
 
 public abstract class BaseAcmeObject<T extends BaseAcmeObject> {
 

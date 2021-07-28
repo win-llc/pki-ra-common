@@ -1,4 +1,4 @@
-package com.winllc.acme.common.contants;
+package com.winllc.acme.common.constants;
 
 public enum ProblemType {
     ACCOUNT_DOES_NOT_EXIST("accountDoesNotExist"),

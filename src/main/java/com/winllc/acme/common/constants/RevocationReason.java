@@ -1,4 +1,4 @@
-package com.winllc.acme.common.contants;
+package com.winllc.acme.common.constants;
 
 public enum RevocationReason {
     UNSPECIFIED("unspecified", 0),

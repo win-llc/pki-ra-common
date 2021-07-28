@@ -1,4 +1,4 @@
-package com.winllc.acme.common.contants;
+package com.winllc.acme.common.constants;
 
 //Section 9.7.8
 public enum ChallengeType {

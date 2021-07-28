@@ -2,7 +2,7 @@ package com.winllc.acme.common.model.acme;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.winllc.acme.common.contants.StatusType;
+import com.winllc.acme.common.constants.StatusType;
 import org.apache.commons.lang3.StringUtils;
 
 //RFC8555 Section 8

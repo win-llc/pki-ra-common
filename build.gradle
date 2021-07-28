@@ -69,7 +69,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client
     api group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.13.2'
 
-
+    // https://mvnrepository.com/artifact/org.springframework.ldap/spring-ldap-core
+    api group: 'org.springframework.ldap', name: 'spring-ldap-core', version: '2.3.4.RELEASE'
 
     // https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api
     implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'

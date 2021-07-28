@@ -1,4 +1,4 @@
-package com.winllc.acme.common.contants;
+package com.winllc.acme.common.constants;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;

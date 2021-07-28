@@ -1,7 +1,7 @@
 package com.winllc.acme.common.model.acme;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.winllc.acme.common.contants.ProblemType;
+import com.winllc.acme.common.constants.ProblemType;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -3,20 +3,17 @@ package com.winllc.acme.common.ca;
 import com.winllc.acme.common.CertSearchParam;
 import com.winllc.acme.common.CertificateDetails;
 import com.winllc.acme.common.SubjectAltNames;
-import com.winllc.acme.common.contants.CertificateStatus;
+import com.winllc.acme.common.constants.CertificateStatus;
 import com.winllc.acme.common.domain.CertAuthorityConnectionInfo;
 import org.springframework.context.ApplicationContextAware;
 
 import javax.naming.Name;
-import java.security.KeyStore;
-import java.security.cert.CRL;
 import java.security.cert.Certificate;
 import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public interface CertAuthority extends ApplicationContextAware {
 

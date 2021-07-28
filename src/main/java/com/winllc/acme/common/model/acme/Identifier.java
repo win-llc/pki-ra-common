@@ -1,6 +1,6 @@
 package com.winllc.acme.common.model.acme;
 
-import com.winllc.acme.common.contants.IdentifierType;
+import com.winllc.acme.common.constants.IdentifierType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
