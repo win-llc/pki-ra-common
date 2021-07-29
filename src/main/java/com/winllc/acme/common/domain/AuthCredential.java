@@ -44,8 +44,12 @@ public class AuthCredential extends BaseEntity implements Comparable<AuthCredent
 
     @PreRemove
     private void preRemove(){
-        if(getParentEntity() != null) {
-            getParentEntity().getAuthCredentials().remove(this);
+        try {
+            if (getParentEntity() != null) {
+                getParentEntity().getAuthCredentials().remove(this);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
