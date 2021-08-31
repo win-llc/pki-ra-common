@@ -30,6 +30,7 @@ public class Notification extends BaseEntity {
     @Column(columnDefinition="tinyint(1) default 0")
     private Boolean taskComplete = false;
     private AuditRecordType type;
+    private String pathToUiView;
 
     public static Notification buildNew(){
         Notification notification = new Notification();
@@ -65,6 +66,7 @@ public class Notification extends BaseEntity {
         cloned.setTaskObjectId(this.getTaskObjectId());
         cloned.setTaskComplete(this.getTaskComplete());
         cloned.setType(this.getType());
+        cloned.setPathToUiView(this.getPathToUiView());
         return cloned;
     }
 
@@ -159,6 +161,14 @@ public class Notification extends BaseEntity {
 
     public void setType(AuditRecordType type) {
         this.type = type;
+    }
+
+    public String getPathToUiView() {
+        return pathToUiView;
+    }
+
+    public void setPathToUiView(String pathToUiView) {
+        this.pathToUiView = pathToUiView;
     }
 
     @Override

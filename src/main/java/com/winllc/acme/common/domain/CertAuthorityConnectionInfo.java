@@ -1,7 +1,6 @@
 package com.winllc.acme.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;

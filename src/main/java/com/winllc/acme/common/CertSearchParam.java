@@ -1,8 +1,10 @@
 package com.winllc.acme.common;
 
-import org.springframework.data.domain.PageRequest;
+import com.winllc.acme.common.constants.DateTimeUtil;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -144,12 +146,17 @@ public class CertSearchParam {
         }
     }
 
-    public LocalDateTime getValueAsLocalDateTime(){
-        if(this.valueIsDateTime){
-            return (LocalDateTime) value;
-        }else{
-            return null;
-        }
+    public ZonedDateTime getValueAsLocalDateTime(){
+        //if(this.valueIsDateTime){
+            if(value instanceof LocalDateTime){
+                return ((LocalDateTime) value).atZone(ZoneId.systemDefault());
+            }else{
+                ZonedDateTime zdt = ZonedDateTime.parse(this.value.toString(), DateTimeUtil.DATE_TIME_FORMATTER);
+                return zdt;
+            }
+        //}else{
+        //    return null;
+        //}
     }
 
     public void setValue(Object value) {

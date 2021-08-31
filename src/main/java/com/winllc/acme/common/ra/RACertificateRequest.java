@@ -1,5 +1,7 @@
 package com.winllc.acme.common.ra;
 
+import com.winllc.acme.common.domain.UniqueEntity;
+
 public abstract class RACertificateRequest {
     private String certAuthorityName;
 

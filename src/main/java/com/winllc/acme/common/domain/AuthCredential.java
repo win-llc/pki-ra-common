@@ -3,7 +3,6 @@ package com.winllc.acme.common.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nimbusds.jose.util.Base64;
 import com.winllc.acme.common.util.AppUtil;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

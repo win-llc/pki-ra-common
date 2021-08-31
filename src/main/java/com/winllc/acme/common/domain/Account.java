@@ -7,7 +7,10 @@ import org.springframework.util.CollectionUtils;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "account")

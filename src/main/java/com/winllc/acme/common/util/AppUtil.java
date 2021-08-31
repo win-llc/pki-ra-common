@@ -1,9 +1,7 @@
 package com.winllc.acme.common.util;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class AppUtil {
 

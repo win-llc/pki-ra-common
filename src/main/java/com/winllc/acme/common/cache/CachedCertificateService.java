@@ -5,42 +5,27 @@ import com.winllc.acme.common.CertSearchParams;
 import com.winllc.acme.common.CertificateDetails;
 import com.winllc.acme.common.ca.CachedCertificate;
 import com.winllc.acme.common.util.CertUtil;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.index.query.*;
-import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.FieldSortBuilder;
-import org.elasticsearch.search.sort.SortBuilders;
-import org.elasticsearch.search.sort.SortOrder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.security.cert.CertificateEncodingException;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.elasticsearch.join.query.JoinQueryBuilders.hasChildQuery;
-
 public class CachedCertificateService {
-    
+
+    private static final DateTimeFormatter ELASTICSEARCH_DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZZ");
+
     private final ElasticsearchOperations operations;
 
     public CachedCertificateService(ElasticsearchOperations operations) {
@@ -49,8 +34,12 @@ public class CachedCertificateService {
 
     private QueryBuilder certSearchParamTo(CertSearchParam param){
         QueryBuilder queryBuilder = null;
+        String formattedDateTime;
+        ZonedDateTime valueAsLocalDateTime;
 
         switch (param.getField()) {
+            case REVOKED_ON:
+                break;
             case SERIAL:
                 switch (param.getRelation()){
                     case EQUALS:
@@ -91,17 +80,17 @@ public class CachedCertificateService {
                 }
                 break;
             case VALID_ON:
-                LocalDateTime valueAsLocalDateTime = param.getValueAsLocalDateTime();
-                Date from = Date.from(valueAsLocalDateTime.toInstant(ZoneOffset.UTC));
+                valueAsLocalDateTime = param.getValueAsLocalDateTime();
+                formattedDateTime = ELASTICSEARCH_DTF.format(valueAsLocalDateTime);
                 switch (param.getRelation()){
                     case EQUALS:
-                        queryBuilder = QueryBuilders.matchQuery("validFrom", from);
+                        queryBuilder = QueryBuilders.matchQuery("validFrom", formattedDateTime);
                         break;
                     case GREATER_THAN:
-                        queryBuilder = QueryBuilders.rangeQuery("validFrom").gt(from);
+                        queryBuilder = QueryBuilders.rangeQuery("validFrom").gt(formattedDateTime);
                         break;
                     case LESS_THAN:
-                        queryBuilder = QueryBuilders.rangeQuery("validFrom").lt(from);
+                        queryBuilder = QueryBuilders.rangeQuery("validFrom").lt(formattedDateTime);
                         break;
                     case BETWEEN:
                         queryBuilder = QueryBuilders.rangeQuery("validFrom")
@@ -111,17 +100,17 @@ public class CachedCertificateService {
                 }
                 break;
             case EXPIRES_ON:
-                LocalDateTime vdt = param.getValueAsLocalDateTime();
-                Date to = Date.from(vdt.toInstant(ZoneOffset.UTC));
+                valueAsLocalDateTime = param.getValueAsLocalDateTime();
+                formattedDateTime = ELASTICSEARCH_DTF.format(valueAsLocalDateTime);
                 switch (param.getRelation()){
                     case EQUALS:
-                        queryBuilder = QueryBuilders.matchQuery("validTo", to);
+                        queryBuilder = QueryBuilders.matchQuery("validTo", formattedDateTime);
                         break;
                     case GREATER_THAN:
-                        queryBuilder = QueryBuilders.rangeQuery("validTo").gt(to);
+                        queryBuilder = QueryBuilders.rangeQuery("validTo").gt(formattedDateTime);
                         break;
                     case LESS_THAN:
-                        queryBuilder = QueryBuilders.rangeQuery("validTo").lt(to);
+                        queryBuilder = QueryBuilders.rangeQuery("validTo").lt(formattedDateTime);
                         break;
                     case BETWEEN:
                         queryBuilder = QueryBuilders.rangeQuery("validTo")

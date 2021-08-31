@@ -1,7 +1,5 @@
 package com.winllc.acme.common.domain;
 
-import com.winllc.acme.common.domain.BaseEntity;
-
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass

@@ -3,15 +3,10 @@ package com.winllc.acme.common;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.winllc.acme.common.util.CertUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.bouncycastle.cert.X509CertificateHolder;
-import org.bouncycastle.jcajce.provider.asymmetric.X509;
-import org.bouncycastle.jce.provider.X509AttrCertParser;
 
-import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class CertificateDetails {

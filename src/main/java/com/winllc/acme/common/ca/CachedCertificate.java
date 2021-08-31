@@ -1,6 +1,5 @@
 package com.winllc.acme.common.ca;
 
-import com.winllc.acme.common.domain.BaseEntity;
 import com.winllc.acme.common.util.CertUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
@@ -8,14 +7,13 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import javax.persistence.*;
+import javax.persistence.Id;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 
-@Document(indexName = "cachedcertificate")
+@Document(indexName = "cachedcertificate", createIndex = true)
 public class CachedCertificate implements Comparable<CachedCertificate> {
 
     @Id
