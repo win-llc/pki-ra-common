@@ -5,6 +5,8 @@ import com.winllc.acme.common.CertSearchParams;
 import com.winllc.acme.common.CertificateDetails;
 import com.winllc.acme.common.ca.CachedCertificate;
 import com.winllc.acme.common.util.CertUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 
 public class CachedCertificateService {
 
+    private static final Logger log = LogManager.getLogger(CachedCertificateService.class);
     private static final DateTimeFormatter ELASTICSEARCH_DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZZ");
 
     private final ElasticsearchOperations operations;
@@ -219,6 +222,7 @@ public class CachedCertificateService {
         CachedCertificate cached = new CachedCertificate(certificate, status);
         cached.setCaName(caName);
         operations.save(cached);
+        log.debug("Cached certificate: "+cached);
     }
 
     public void update(List<CachedCertificate> updated){

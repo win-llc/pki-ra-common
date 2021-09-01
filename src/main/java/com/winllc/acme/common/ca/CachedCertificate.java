@@ -159,6 +159,7 @@ public class CachedCertificate implements Comparable<CachedCertificate> {
         return "CachedCertificate{" +
                 "dn='" + dn + '\'' +
                 ", issuer='" + issuer + '\'' +
+                ", caName='" + caName + '\'' +
                 ", serial=" + serial +
                 ", validFrom=" + validFrom +
                 ", validTo=" + validTo +
