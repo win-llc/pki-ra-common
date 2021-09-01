@@ -211,13 +211,13 @@ public class CachedCertificateService {
         }
     }
 
-    public void persist(X509Certificate certificate) throws CertificateEncodingException {
-        CachedCertificate cached = new CachedCertificate(certificate, "VALID");
-        operations.save(cached);
+    public void persist(X509Certificate certificate, String caName) throws CertificateEncodingException {
+        persist(certificate, "VALID", caName);
     }
 
-    public void persist(X509Certificate certificate, String status) throws CertificateEncodingException {
+    public void persist(X509Certificate certificate, String status, String caName) throws CertificateEncodingException {
         CachedCertificate cached = new CachedCertificate(certificate, status);
+        cached.setCaName(caName);
         operations.save(cached);
     }
 
