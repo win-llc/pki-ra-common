@@ -47,6 +47,12 @@ public class CertSearchParam {
         return new CertSearchParam();
     }
 
+    public static CertSearchParam createNew(CertSearchParams.CertSearchParamRelation relation){
+        CertSearchParam param = new CertSearchParam();
+        param.setRelation(relation);
+        return param;
+    }
+
     public CertSearchParam field(CertSearchParams.CertField field){
         this.field = field;
         return this;
@@ -85,6 +91,16 @@ public class CertSearchParam {
         return this;
     }
 
+    public int searchParamCount(){
+        if(params != null){
+            return params.size();
+        }else{
+            return 0;
+        }
+    }
+
+
+
     public boolean isRelational(){
         return relation == CertSearchParams.CertSearchParamRelation.OR || relation == CertSearchParams.CertSearchParamRelation.AND;
     }
@@ -108,7 +124,6 @@ public class CertSearchParam {
 
         return query.toString();
     }
-
 
     public CertSearchParam getParent() {
         return parent;

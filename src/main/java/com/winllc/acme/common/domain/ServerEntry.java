@@ -23,7 +23,7 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
     @Id
     @Transient
     @JsonIgnore
-    private Name dn;
+    private String dn;
     @Transient
     private String hostname;
     @Attribute(name = "cn")
@@ -195,11 +195,11 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
         this.authCredentials = authCredentials;
     }
 
-    public Name getDn() {
+    public String getDn() {
         return dn;
     }
 
-    public void setDn(Name dn) {
+    public void setDn(String dn) {
         this.dn = dn;
     }
 
@@ -225,11 +225,11 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
             builder = LdapNameBuilder.newInstance();
         }
 
-        this.dn = builder
-                .add("cn", fqdn)
-                .build();
-        this.distinguishedName = this.dn.toString();
-        return this.dn;
+        //this.dn = builder
+        //        .add("cn", fqdn)
+        //        .build();
+        this.distinguishedName = this.dn;
+        return builder.build();
     }
 
     @Override

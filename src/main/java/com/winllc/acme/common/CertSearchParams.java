@@ -9,7 +9,8 @@ public class CertSearchParams {
         VALID_ON,
         EXPIRES_ON,
         REVOKED_ON,
-        SERIAL
+        SERIAL,
+        CA_NAME
     }
 
     public enum CertSearchParamRelation {

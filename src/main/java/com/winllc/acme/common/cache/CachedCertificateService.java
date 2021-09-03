@@ -11,8 +11,10 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
 import java.security.cert.CertificateEncodingException;
@@ -72,6 +74,13 @@ public class CachedCertificateService {
                 switch (param.getRelation()){
                     case EQUALS:
                         queryBuilder = QueryBuilders.matchQuery("issuer", param.getValue());
+                        break;
+                }
+                break;
+            case CA_NAME:
+                switch (param.getRelation()){
+                    case EQUALS:
+                        queryBuilder = QueryBuilders.matchQuery("caName", param.getValue());
                         break;
                 }
                 break;
@@ -162,12 +171,11 @@ public class CachedCertificateService {
         return builder;
     }
 
-    public List<CachedCertificate> search(CertSearchParam parentParam){
-        return search(parentParam, null, -1);
+    public SearchHits<CachedCertificate> search(CertSearchParam parentParam){
+        return search(parentParam, null);
     }
 
-    public List<CachedCertificate> search(CertSearchParam parentParam, FieldSortBuilder sortBuilder, int maxResults){
-
+    public SearchHits<CachedCertificate> search(CertSearchParam parentParam, FieldSortBuilder sortBuilder, Pageable pageable){
         QueryBuilder aggregator = aggregator(parentParam);
 
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder()
@@ -177,20 +185,16 @@ public class CachedCertificateService {
             searchQueryBuilder = searchQueryBuilder.withSort(sortBuilder);
         }
 
-        if(maxResults > 0) {
-            //searchQueryBuilder = searchQueryBuilder.withMaxResults(maxResults);
+        if(pageable != null){
+            searchQueryBuilder = searchQueryBuilder.withPageable(pageable);
         }
 
-        try {
-            SearchHits<CachedCertificate> search = operations.search(searchQueryBuilder.build(), CachedCertificate.class);
-            return search.stream()
-                    .map(h -> h.getContent())
-                    .collect(Collectors.toList());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        SearchHits<CachedCertificate> search = operations.search(searchQueryBuilder.build(), CachedCertificate.class);
+        return search;
+    }
 
-        return new ArrayList<>();
+    public SearchHits<CachedCertificate> search(CertSearchParam parentParam, FieldSortBuilder sortBuilder){
+        return search(parentParam, sortBuilder, null);
     }
 
     public Optional<CachedCertificate> findById(String id){
