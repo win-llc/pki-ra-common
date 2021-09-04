@@ -1,6 +1,7 @@
 package com.winllc.acme.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.ldap.odm.annotations.Transient;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;

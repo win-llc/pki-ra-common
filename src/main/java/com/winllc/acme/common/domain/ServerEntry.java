@@ -1,13 +1,13 @@
 package com.winllc.acme.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.ldap.odm.annotations.Attribute;
 import org.springframework.ldap.odm.annotations.Entry;
 import org.springframework.ldap.odm.annotations.Id;
 import org.springframework.ldap.odm.annotations.Transient;
 import org.springframework.ldap.support.LdapNameBuilder;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import javax.naming.Name;
 import javax.persistence.*;
@@ -20,10 +20,11 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
 
     //allow pre-authz tracking per account
 
-    @Id
+    @org.springframework.ldap.odm.annotations.Id
     @Transient
+    @javax.persistence.Transient
     @JsonIgnore
-    private String dn;
+    private Name dn;
     @Transient
     private String hostname;
     @Attribute(name = "cn")
@@ -195,11 +196,11 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
         this.authCredentials = authCredentials;
     }
 
-    public String getDn() {
+    public Name getDn() {
         return dn;
     }
 
-    public void setDn(String dn) {
+    public void setDn(Name dn) {
         this.dn = dn;
     }
 
@@ -225,10 +226,10 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
             builder = LdapNameBuilder.newInstance();
         }
 
-        //this.dn = builder
-        //        .add("cn", fqdn)
-        //        .build();
-        this.distinguishedName = this.dn;
+        this.dn = builder
+                .add("cn", fqdn)
+                .build();
+        this.distinguishedName = this.dn.toString();
         return builder.build();
     }
 

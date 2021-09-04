@@ -293,6 +293,7 @@ public class Account extends AuthCredentialHolder implements AccountOwnedEntity,
     }
 
     @Override
+    @JsonIgnore
     public Account getOwnerAccount() {
         return getAccount();
     }

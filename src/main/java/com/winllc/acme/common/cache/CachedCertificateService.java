@@ -229,6 +229,10 @@ public class CachedCertificateService {
         operations.save(updated);
     }
 
+    public void update(CachedCertificate updated){
+        operations.save(updated);
+    }
+
     private CachedCertificate searchResultToCached(CertificateDetails cert, String caName) throws Exception{
         X509Certificate certificate = CertUtil.base64ToCert(cert.getCertificateBase64());
         CachedCertificate cached = new CachedCertificate(certificate, cert.getStatus());

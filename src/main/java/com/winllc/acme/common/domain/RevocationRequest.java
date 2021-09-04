@@ -16,6 +16,8 @@ public class RevocationRequest extends RequestEntity {
     @Column(nullable = false)
     private String serial;
 
+    private Integer reason;
+
     public RevocationRequest(String requestedBy) {
         super(requestedBy);
     }
@@ -57,6 +59,14 @@ public class RevocationRequest extends RequestEntity {
 
     public void setSerial(String serial) {
         this.serial = serial;
+    }
+
+    public Integer getReason() {
+        return reason;
+    }
+
+    public void setReason(Integer reason) {
+        this.reason = reason;
     }
 
     @Override
