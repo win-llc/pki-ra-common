@@ -14,7 +14,6 @@ import java.time.ZonedDateTime;
 @Table(name = "notification")
 public class Notification extends BaseEntity {
 
-    @Column(nullable = false)
     private String forUser;
     @Column(nullable = false)
     private ZonedDateTime created;
