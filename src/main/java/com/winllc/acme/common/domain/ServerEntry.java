@@ -30,7 +30,6 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
     @Attribute(name = "cn")
     @EntityVariableField
     private String fqdn;
-    @Transient
     private String distinguishedName;
     @JsonIgnore
     @ElementCollection
