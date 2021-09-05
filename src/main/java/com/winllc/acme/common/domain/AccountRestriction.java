@@ -6,6 +6,7 @@ import com.winllc.acme.common.constants.AccountRestrictionType;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "account_restriction")
@@ -13,8 +14,8 @@ public class AccountRestriction extends BaseEntity implements AccountOwnedEntity
 
     private AccountRestrictionType type;
     private AccountRestrictionAction action;
-    private Timestamp createdOn;
-    private Timestamp dueBy;
+    private ZonedDateTime createdOn;
+    private ZonedDateTime dueBy;
     private boolean completed = false;
     @JsonIgnore
     @ManyToOne
@@ -46,19 +47,19 @@ public class AccountRestriction extends BaseEntity implements AccountOwnedEntity
         this.action = action;
     }
 
-    public Timestamp getCreatedOn() {
+    public ZonedDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(Timestamp createdOn) {
+    public void setCreatedOn(ZonedDateTime createdOn) {
         this.createdOn = createdOn;
     }
 
-    public Timestamp getDueBy() {
+    public ZonedDateTime getDueBy() {
         return dueBy;
     }
 
-    public void setDueBy(Timestamp dueBy) {
+    public void setDueBy(ZonedDateTime dueBy) {
         this.dueBy = dueBy;
     }
 

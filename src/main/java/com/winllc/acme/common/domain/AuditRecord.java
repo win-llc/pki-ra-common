@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "audit_record")
@@ -14,7 +15,7 @@ public class AuditRecord extends BaseEntity {
 
     @Column(nullable = false)
     private AuditRecordType type;
-    private Timestamp timestamp;
+    private ZonedDateTime timestamp;
     private String accountKid;
     private String source;
 
@@ -25,7 +26,7 @@ public class AuditRecord extends BaseEntity {
 
     public static AuditRecord buildNew(AuditRecordType type){
         AuditRecord record = new AuditRecord();
-        record.timestamp = Timestamp.valueOf(LocalDateTime.now());
+        record.timestamp = ZonedDateTime.now();
         record.type = type;
         return record;
     }
@@ -59,11 +60,11 @@ public class AuditRecord extends BaseEntity {
         this.type = type;
     }
 
-    public Timestamp getTimestamp() {
+    public ZonedDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(ZonedDateTime timestamp) {
         this.timestamp = timestamp;
     }
 

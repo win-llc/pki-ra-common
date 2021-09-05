@@ -8,6 +8,7 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "terms_of_service")
@@ -16,13 +17,13 @@ public class TermsOfService extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String versionId;
     private String text;
-    private Timestamp created;
+    private ZonedDateTime created;
     private String forDirectoryName;
 
     public static TermsOfService buildNew(String text, String forDirectoryName){
         TermsOfService tos = new TermsOfService();
         tos.setVersionId(AppUtil.generate20BitString());
-        tos.setCreated(Timestamp.from(LocalDateTime.now().toInstant(ZoneOffset.UTC)));
+        tos.setCreated(ZonedDateTime.now());
         tos.setText(text);
         tos.setForDirectoryName(forDirectoryName);
         return tos;
@@ -44,11 +45,11 @@ public class TermsOfService extends BaseEntity {
         this.text = text;
     }
 
-    public Timestamp getCreated() {
+    public ZonedDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(ZonedDateTime created) {
         this.created = created;
     }
 

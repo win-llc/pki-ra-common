@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "notification")
@@ -16,9 +17,9 @@ public class Notification extends BaseEntity {
     @Column(nullable = false)
     private String forUser;
     @Column(nullable = false)
-    private Timestamp created;
-    private Timestamp expiresOn;
-    private Timestamp dueBy;
+    private ZonedDateTime created;
+    private ZonedDateTime expiresOn;
+    private ZonedDateTime dueBy;
     @Column(columnDefinition="tinyint(1) default 0")
     private Boolean notificationRead = false;
     private String message;
@@ -34,18 +35,17 @@ public class Notification extends BaseEntity {
 
     public static Notification buildNew(){
         Notification notification = new Notification();
-        notification.setCreated(Timestamp.valueOf(LocalDateTime.now()));
+        notification.setCreated(ZonedDateTime.now());
         return notification;
     }
 
     public static Notification buildNew(String forUserName){
         Notification notification = buildNew();
         notification.setForUser(forUserName);
-        notification.setCreated(Timestamp.valueOf(LocalDateTime.now()));
         return notification;
     }
 
-    public Notification markAsTask(AbstractPersistable<Long> taskObj, Timestamp dueBy){
+    public Notification markAsTask(AbstractPersistable<Long> taskObj, ZonedDateTime dueBy){
         this.isTask = true;
         this.taskObjectClass = taskObj.getClass().getCanonicalName();
         this.taskObjectId = taskObj.getId();
@@ -83,21 +83,6 @@ public class Notification extends BaseEntity {
         this.forUser = forUser;
     }
 
-    public Timestamp getCreated() {
-        return created;
-    }
-
-    public void setCreated(Timestamp created) {
-        this.created = created;
-    }
-
-    public Timestamp getExpiresOn() {
-        return expiresOn;
-    }
-
-    public void setExpiresOn(Timestamp expiresOn) {
-        this.expiresOn = expiresOn;
-    }
 
     public Boolean getNotificationRead() {
         return notificationRead;
@@ -115,11 +100,27 @@ public class Notification extends BaseEntity {
         this.message = message;
     }
 
-    public Timestamp getDueBy() {
+    public ZonedDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(ZonedDateTime created) {
+        this.created = created;
+    }
+
+    public ZonedDateTime getExpiresOn() {
+        return expiresOn;
+    }
+
+    public void setExpiresOn(ZonedDateTime expiresOn) {
+        this.expiresOn = expiresOn;
+    }
+
+    public ZonedDateTime getDueBy() {
         return dueBy;
     }
 
-    public void setDueBy(Timestamp dueBy) {
+    public void setDueBy(ZonedDateTime dueBy) {
         this.dueBy = dueBy;
     }
 

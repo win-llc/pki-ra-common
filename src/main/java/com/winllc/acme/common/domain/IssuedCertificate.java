@@ -4,6 +4,7 @@ import com.winllc.acme.common.CertificateDetails;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Entity
@@ -17,9 +18,9 @@ public class IssuedCertificate extends UniqueEntity implements AccountOwnedEntit
     private String subjectDn;
     @Column(length = 2000)
     private String issuedCertificate;
-    private Timestamp issuedOn;
-    private Timestamp revokedOn;
-    private Timestamp expiresOn;
+    private ZonedDateTime issuedOn;
+    private ZonedDateTime revokedOn;
+    private ZonedDateTime expiresOn;
     private String status;
     @Column(nullable = false)
     private String serial;
@@ -82,27 +83,27 @@ public class IssuedCertificate extends UniqueEntity implements AccountOwnedEntit
         this.issuedCertificate = issuedCertificate;
     }
 
-    public Timestamp getIssuedOn() {
+    public ZonedDateTime getIssuedOn() {
         return issuedOn;
     }
 
-    public void setIssuedOn(Timestamp issuedOn) {
+    public void setIssuedOn(ZonedDateTime issuedOn) {
         this.issuedOn = issuedOn;
     }
 
-    public Timestamp getRevokedOn() {
+    public ZonedDateTime getRevokedOn() {
         return revokedOn;
     }
 
-    public void setRevokedOn(Timestamp revokedOn) {
+    public void setRevokedOn(ZonedDateTime revokedOn) {
         this.revokedOn = revokedOn;
     }
 
-    public Timestamp getExpiresOn() {
+    public ZonedDateTime getExpiresOn() {
         return expiresOn;
     }
 
-    public void setExpiresOn(Timestamp expiresOn) {
+    public void setExpiresOn(ZonedDateTime expiresOn) {
         this.expiresOn = expiresOn;
     }
 

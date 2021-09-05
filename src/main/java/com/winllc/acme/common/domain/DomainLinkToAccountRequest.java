@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,10 +21,10 @@ public class DomainLinkToAccountRequest extends BaseEntity {
     @Column(nullable = false)
     private String status;
 
-    private Timestamp requestedOn;
+    private ZonedDateTime requestedOn;
     private String requestedBy;
 
-    private Timestamp statusUpdatedOn;
+    private ZonedDateTime statusUpdatedOn;
     private String decisionMadeBy;
 
     public static DomainLinkToAccountRequest buildNew(){
@@ -56,14 +57,6 @@ public class DomainLinkToAccountRequest extends BaseEntity {
         this.requestedDomainIds = requestedDomainIds;
     }
 
-    public Timestamp getRequestedOn() {
-        return requestedOn;
-    }
-
-    public void setRequestedOn(Timestamp requestedOn) {
-        this.requestedOn = requestedOn;
-    }
-
     public String getRequestedBy() {
         return requestedBy;
     }
@@ -72,11 +65,19 @@ public class DomainLinkToAccountRequest extends BaseEntity {
         this.requestedBy = requestedBy;
     }
 
-    public Timestamp getStatusUpdatedOn() {
+    public ZonedDateTime getRequestedOn() {
+        return requestedOn;
+    }
+
+    public void setRequestedOn(ZonedDateTime requestedOn) {
+        this.requestedOn = requestedOn;
+    }
+
+    public ZonedDateTime getStatusUpdatedOn() {
         return statusUpdatedOn;
     }
 
-    public void setStatusUpdatedOn(Timestamp statusUpdatedOn) {
+    public void setStatusUpdatedOn(ZonedDateTime statusUpdatedOn) {
         this.statusUpdatedOn = statusUpdatedOn;
     }
 

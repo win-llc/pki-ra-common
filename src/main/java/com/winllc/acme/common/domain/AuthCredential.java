@@ -7,6 +7,7 @@ import com.winllc.acme.common.util.AppUtil;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 @Entity
@@ -19,8 +20,8 @@ public class AuthCredential extends BaseEntity implements Comparable<AuthCredent
     private Boolean valid;
     private String pocAssignedTo;
     @Column(nullable = false)
-    private Timestamp createdOn;
-    private Timestamp expiresOn;
+    private ZonedDateTime createdOn;
+    private ZonedDateTime expiresOn;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="parentEntity_fk")
@@ -36,7 +37,7 @@ public class AuthCredential extends BaseEntity implements Comparable<AuthCredent
         authCredential.setKeyIdentifier(keyIdentifier);
         authCredential.setValid(true);
         authCredential.setParentEntity(credentialHolder);
-        authCredential.setCreatedOn(Timestamp.valueOf(LocalDateTime.now()));
+        authCredential.setCreatedOn(ZonedDateTime.now());
 
         return authCredential;
     }
@@ -97,19 +98,19 @@ public class AuthCredential extends BaseEntity implements Comparable<AuthCredent
         this.valid = valid;
     }
 
-    public Timestamp getCreatedOn() {
+    public ZonedDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(Timestamp createdOn) {
+    public void setCreatedOn(ZonedDateTime createdOn) {
         this.createdOn = createdOn;
     }
 
-    public Timestamp getExpiresOn() {
+    public ZonedDateTime getExpiresOn() {
         return expiresOn;
     }
 
-    public void setExpiresOn(Timestamp expiresOn) {
+    public void setExpiresOn(ZonedDateTime expiresOn) {
         this.expiresOn = expiresOn;
     }
 

@@ -11,6 +11,7 @@ import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,8 +26,8 @@ public class CertificateRequest extends BaseEntity implements AccountOwnedEntity
 
     @Column(length = 2000)
     private String csr;
-    private Timestamp submittedOn;
-    private Timestamp reviewedOn;
+    private ZonedDateTime submittedOn;
+    private ZonedDateTime reviewedOn;
     private String certAuthorityName;
     private String status;
     @Column(length = 2000)
@@ -47,7 +48,7 @@ public class CertificateRequest extends BaseEntity implements AccountOwnedEntity
 
     public static CertificateRequest build(){
         CertificateRequest request = new CertificateRequest();
-        request.setSubmittedOn(Timestamp.valueOf(LocalDateTime.now()));
+        request.setSubmittedOn(ZonedDateTime.now());
         request.setStatus("new");
         return request;
     }
@@ -91,12 +92,20 @@ public class CertificateRequest extends BaseEntity implements AccountOwnedEntity
         this.primaryDnsName = primaryDnsName;
     }
 
-    public Timestamp getSubmittedOn() {
+    public ZonedDateTime getSubmittedOn() {
         return submittedOn;
     }
 
-    public void setSubmittedOn(Timestamp submittedOn) {
+    public void setSubmittedOn(ZonedDateTime submittedOn) {
         this.submittedOn = submittedOn;
+    }
+
+    public ZonedDateTime getReviewedOn() {
+        return reviewedOn;
+    }
+
+    public void setReviewedOn(ZonedDateTime reviewedOn) {
+        this.reviewedOn = reviewedOn;
     }
 
     public String getCertAuthorityName() {
@@ -107,13 +116,6 @@ public class CertificateRequest extends BaseEntity implements AccountOwnedEntity
         this.certAuthorityName = certAuthorityName;
     }
 
-    public Timestamp getReviewedOn() {
-        return reviewedOn;
-    }
-
-    public void setReviewedOn(Timestamp reviewedOn) {
-        this.reviewedOn = reviewedOn;
-    }
 
     public String getStatus() {
         return status;
