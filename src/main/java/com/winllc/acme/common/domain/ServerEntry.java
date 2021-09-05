@@ -219,7 +219,7 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
     @JsonIgnore
     public Name buildDn(String baseDn){
         LdapNameBuilder builder;
-        if(baseDn != null && !StringUtils.isEmpty(baseDn)){
+        if(StringUtils.isNotBlank(baseDn)){
             builder = LdapNameBuilder.newInstance(baseDn);
         }else{
             builder = LdapNameBuilder.newInstance();
