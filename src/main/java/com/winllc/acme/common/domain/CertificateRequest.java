@@ -207,6 +207,7 @@ public class CertificateRequest extends BaseEntity implements AccountOwnedEntity
         this.publicKeyBase64 = publicKeyBase64;
     }
 
+    @JsonIgnore
     @Override
     public Account getOwnerAccount() {
         return getAccount();
