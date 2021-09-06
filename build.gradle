@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'com.winllc.acme.common'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 //sourceCompatibility = 1.8
 
@@ -44,7 +44,7 @@ publishing {
     repositories {
         maven {
             name = "WINLLCRepo" //  optional target repository name
-            url = "http://util.winllc-dev.com:8081/repository/win-llc"
+            url = "http://util.winllc-dev.com:8081/repository/win-llc-releases"
             allowInsecureProtocol(true)
             credentials {
                 username = 'admin'
