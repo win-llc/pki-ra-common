@@ -5,10 +5,14 @@ import org.apache.commons.lang3.StringUtils;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "revocation_request",
+@Table(name = "revocation_request"
+       /* ,
         uniqueConstraints={
                 @UniqueConstraint(columnNames = {"issuerDn", "serial"})
-        })
+        }
+
+        */
+        )
 public class RevocationRequest extends RequestEntity {
     private String subjectDn;
     @Column(nullable = false)

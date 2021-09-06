@@ -4,20 +4,21 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @MappedSuperclass
 public abstract class RequestEntity extends BaseEntity {
 
     @Column(nullable = false)
     protected String status;
-    protected Timestamp requestedOn;
+    protected ZonedDateTime requestedOn;
     protected String requestedBy;
-    protected Timestamp statusUpdatedOn;
+    protected ZonedDateTime statusUpdatedOn;
     protected String decisionMadeBy;
 
     public RequestEntity(String requestedBy) {
         this.requestedBy = requestedBy;
-        this.requestedOn = Timestamp.valueOf(LocalDateTime.now());
+        this.requestedOn = ZonedDateTime.now();
         this.status = "new";
     }
 
@@ -32,14 +33,6 @@ public abstract class RequestEntity extends BaseEntity {
         this.status = status;
     }
 
-    public Timestamp getRequestedOn() {
-        return requestedOn;
-    }
-
-    public void setRequestedOn(Timestamp requestedOn) {
-        this.requestedOn = requestedOn;
-    }
-
     public String getRequestedBy() {
         return requestedBy;
     }
@@ -48,11 +41,19 @@ public abstract class RequestEntity extends BaseEntity {
         this.requestedBy = requestedBy;
     }
 
-    public Timestamp getStatusUpdatedOn() {
+    public ZonedDateTime getRequestedOn() {
+        return requestedOn;
+    }
+
+    public void setRequestedOn(ZonedDateTime requestedOn) {
+        this.requestedOn = requestedOn;
+    }
+
+    public ZonedDateTime getStatusUpdatedOn() {
         return statusUpdatedOn;
     }
 
-    public void setStatusUpdatedOn(Timestamp statusUpdatedOn) {
+    public void setStatusUpdatedOn(ZonedDateTime statusUpdatedOn) {
         this.statusUpdatedOn = statusUpdatedOn;
     }
 

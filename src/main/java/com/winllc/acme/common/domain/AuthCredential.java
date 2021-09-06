@@ -23,7 +23,7 @@ public class AuthCredential extends BaseEntity implements Comparable<AuthCredent
     private ZonedDateTime createdOn;
     private ZonedDateTime expiresOn;
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="parentEntity_fk")
     private AuthCredentialHolder parentEntity;
 
@@ -45,8 +45,8 @@ public class AuthCredential extends BaseEntity implements Comparable<AuthCredent
     @PreRemove
     private void preRemove(){
         try {
-            if (getParentEntity() != null) {
-                getParentEntity().getAuthCredentials().remove(this);
+            if (parentEntity != null) {
+                parentEntity.getAuthCredentials().remove(this);
             }
         }catch (Exception e){
             e.printStackTrace();
