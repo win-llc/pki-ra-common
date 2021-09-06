@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Repository
@@ -17,9 +18,9 @@ import java.util.List;
 public interface AuditRecordRepository extends PagingAndSortingRepository<AuditRecord, Long> {
     List<AuditRecord> findAll();
     Integer countAllByTypeEquals(AuditRecordType type);
-    Integer countAllByTypeEqualsAndTimestampAfterAndTimestampBefore(AuditRecordType type, Timestamp after, Timestamp before);
+    Integer countAllByTypeEqualsAndTimestampAfterAndTimestampBefore(AuditRecordType type, ZonedDateTime after, ZonedDateTime before);
     List<AuditRecord> findAllByTypeEquals(AuditRecordType type);
-    List<AuditRecord> findAllByTypeEqualsAndTimestampAfterAndTimestampBefore(AuditRecordType type, Timestamp after, Timestamp before);
+    List<AuditRecord> findAllByTypeEqualsAndTimestampAfterAndTimestampBefore(AuditRecordType type, ZonedDateTime after, ZonedDateTime before);
 
     Page<AuditRecord> findAllByType(AuditRecordType type, Pageable pageable);
 
