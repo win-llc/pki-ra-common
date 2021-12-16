@@ -29,6 +29,7 @@ public class CachedCertificate implements Comparable<CachedCertificate> {
     private String status;
     private String signatureAlgorithm;
     private Boolean latestForDn;
+    @Field(index = false)
     private String base64Certificate;
 
     public CachedCertificate() {

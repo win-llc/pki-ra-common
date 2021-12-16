@@ -35,21 +35,10 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId = group
-            artifactId = 'acme-common'
+            artifactId = 'pki-ra-common'
             version = version
 
             from components.java
-        }
-    }
-    repositories {
-        maven {
-            name = "WINLLCRepo" //  optional target repository name
-            url = "http://util.winllc-dev.com:8081/repository/win-llc-releases"
-            allowInsecureProtocol(true)
-            credentials {
-                username = 'admin'
-                password = 'Bl@ckH@t25'
-            }
         }
     }
 }
