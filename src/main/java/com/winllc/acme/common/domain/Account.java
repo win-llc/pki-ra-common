@@ -2,6 +2,8 @@ package com.winllc.acme.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.winllc.acme.common.util.AppUtil;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -28,6 +30,7 @@ public class Account extends AuthCredentialHolder implements AccountOwnedEntity,
 
     @JsonIgnore
     @OneToMany(mappedBy = "parentEntity", fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @Transient
     private Set<AuthCredential> authCredentials;
 

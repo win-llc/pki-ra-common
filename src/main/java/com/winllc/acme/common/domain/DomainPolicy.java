@@ -1,6 +1,8 @@
 package com.winllc.acme.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -12,6 +14,7 @@ public class DomainPolicy extends AuthCredentialHolder implements AccountOwnedEn
 
     @JsonIgnore
     @OneToMany(mappedBy = "parentEntity", fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @Transient
     private Set<AuthCredential> authCredentials;
     @ManyToOne

@@ -3,6 +3,8 @@ package com.winllc.acme.common.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nimbusds.jose.util.Base64;
 import com.winllc.acme.common.util.AppUtil;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -23,8 +25,9 @@ public class AuthCredential extends BaseEntity implements Comparable<AuthCredent
     private ZonedDateTime createdOn;
     private ZonedDateTime expiresOn;
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="parentEntity_fk")
+    @NotFound(action = NotFoundAction.IGNORE)
     private AuthCredentialHolder parentEntity;
 
     public static AuthCredential buildNew(AuthCredentialHolder credentialHolder){
@@ -45,8 +48,8 @@ public class AuthCredential extends BaseEntity implements Comparable<AuthCredent
     @PreRemove
     private void preRemove(){
         try {
-            if (parentEntity != null) {
-                parentEntity.getAuthCredentials().remove(this);
+            if (getParentEntity() != null) {
+                getParentEntity().getAuthCredentials().remove(this);
             }
         }catch (Exception e){
             e.printStackTrace();

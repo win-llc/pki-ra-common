@@ -2,6 +2,8 @@ package com.winllc.acme.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.ldap.odm.annotations.Attribute;
 import org.springframework.ldap.odm.annotations.Entry;
 import org.springframework.ldap.odm.annotations.Id;
@@ -52,6 +54,7 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
     private Set<CertificateRequest> certificateRequests;
     @JsonIgnore
     @OneToMany(mappedBy = "parentEntity")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @Transient
     private Set<AuthCredential> authCredentials;
     @Transient
