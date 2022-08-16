@@ -7,19 +7,26 @@ variables:
   DOCKER_TLS_CERTDIR: ""
 
 stages:
+  - test
   - build
-  - publish
+  - package
+
+test:
+  image: openjdk:14
+  stage: test
+  script:
+    - ./gradlew test
 
 build:
-  image: gradle:jdk14
+  image: openjdk:14
   stage: build
   script:
-    - ./gradlew build
+    - ./gradlew bootJar
   artifacts:
     paths:
       - build/libs/*.jar
 
-publish-artificat:
+publish-artifact:
   image: gradle:jdk14
   stage: publish
   script:
