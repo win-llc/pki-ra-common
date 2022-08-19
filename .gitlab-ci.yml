@@ -21,13 +21,13 @@ build:
   image: openjdk:14
   stage: build
   script:
-    - ./gradlew bootJar
+    - ./gradlew assemble
   artifacts:
     paths:
       - build/libs/*.jar
 
 publish-artifact:
-  image: gradle:jdk14
+  image: openjdk:14
   stage: publish
   script:
-    - gradle publish
+    - ./gradlew publish
