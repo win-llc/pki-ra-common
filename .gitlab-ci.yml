@@ -9,7 +9,7 @@ variables:
 stages:
   - test
   - build
-  - package
+  - publish
 
 test:
   image: openjdk:14
@@ -26,7 +26,7 @@ build:
     paths:
       - build/libs/*.jar
 
-publish-artifact:
+publish:
   image: openjdk:14
   stage: publish
   script:
