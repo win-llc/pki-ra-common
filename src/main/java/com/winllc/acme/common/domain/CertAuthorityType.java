@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Entity
-@Table(name = "cert_authority_type")
+@Table(name = "certauthoritytype")
 public class CertAuthorityType extends BaseEntity {
 
     @Column(unique = true)

@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "issued_certificate")
+@Table(name = "issuedcertificate")
 public class IssuedCertificate extends UniqueEntity implements AccountOwnedEntity {
 
     private String certAuthorityName;

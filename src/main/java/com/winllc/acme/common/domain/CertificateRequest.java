@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Entity
-@Table(name = "certificate_request",
+@Table(name = "certificaterequest",
         uniqueConstraints={
                 @UniqueConstraint(columnNames = {"certAuthorityName", "issuedCertificateSerial"})
         })

@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "entity_permission")
+@Table(name = "entitypermission")
 public class EntityPermission extends BaseEntity {
 
     private String entityName;

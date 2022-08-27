@@ -19,15 +19,15 @@ public class Notification extends BaseEntity {
     private ZonedDateTime created;
     private ZonedDateTime expiresOn;
     private ZonedDateTime dueBy;
-    @Column(columnDefinition="tinyint(1) default 0")
+    @Column
     private Boolean notificationRead = false;
     private String message;
 
-    @Column(columnDefinition="tinyint(1) default 0")
+    @Column
     private Boolean isTask = false;
     private Long taskObjectId;
     private String taskObjectClass;
-    @Column(columnDefinition="tinyint(1) default 0")
+    @Column
     private Boolean taskComplete = false;
     private AuditRecordType type;
     private String pathToUiView;

@@ -11,7 +11,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "terms_of_service")
+@Table(name = "termsofservice")
 public class TermsOfService extends BaseEntity {
 
     @Column(nullable = false, unique = true)

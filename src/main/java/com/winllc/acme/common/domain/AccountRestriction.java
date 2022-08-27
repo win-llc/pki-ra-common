@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "account_restriction")
+@Table(name = "accountrestriction")
 public class AccountRestriction extends BaseEntity implements AccountOwnedEntity, TaskEntity {
 
     private AccountRestrictionType type;

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "poc_entry")
+@Table(name = "pocentry")
 public class PocEntry extends BaseEntity implements AccountOwnedEntity {
 
     private String email;

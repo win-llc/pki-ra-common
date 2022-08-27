@@ -17,7 +17,7 @@ import java.util.*;
 
 @Entity
 @Entry(objectClasses = {"top", "untypedObject"})
-@Table(name = "server_entry")
+@Table(name = "serverentry")
 public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEntity {
 
     //allow pre-authz tracking per account

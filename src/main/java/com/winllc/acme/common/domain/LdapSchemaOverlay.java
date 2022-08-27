@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "ldap_schema_overlay")
+@Table(name = "ldapschemaoverlay")
 public class LdapSchemaOverlay extends BaseEntity {
 
     @Column(nullable = false)

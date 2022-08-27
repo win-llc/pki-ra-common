@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "est_server_properties")
+@Table(name = "estserverproperties")
 public class EstServerProperties extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String name;

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cert_authority_connection_property")
+@Table(name = "certauthorityconnectionproperty")
 public class CertAuthorityConnectionProperty extends AbstractPersistable<Long>  {
 
     private String name;

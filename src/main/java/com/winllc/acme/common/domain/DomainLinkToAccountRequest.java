@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "domain_link_to_account_request")
+@Table(name = "domainlinktoaccountrequest")
 public class DomainLinkToAccountRequest extends BaseEntity {
 
     @Column(nullable = false)

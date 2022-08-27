@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "account_request")
+@Table(name = "accountrequest")
 public class AccountRequest extends BaseEntity {
 
     private String accountOwnerEmail;

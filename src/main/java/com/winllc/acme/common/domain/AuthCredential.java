@@ -13,7 +13,7 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 
 @Entity
-@Table(name = "auth_credential")
+@Table(name = "authcredential")
 public class AuthCredential extends BaseEntity implements Comparable<AuthCredential> {
 
     @Column(unique = true)

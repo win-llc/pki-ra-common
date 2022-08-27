@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "revocation_request"
+@Table(name = "revocationrequest"
        /* ,
         uniqueConstraints={
                 @UniqueConstraint(columnNames = {"issuerDn", "serial"})

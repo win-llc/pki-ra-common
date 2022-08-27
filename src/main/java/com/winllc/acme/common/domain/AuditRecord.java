@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "audit_record")
+@Table(name = "auditrecord")
 public class AuditRecord extends BaseEntity {
 
     @Column(nullable = false)

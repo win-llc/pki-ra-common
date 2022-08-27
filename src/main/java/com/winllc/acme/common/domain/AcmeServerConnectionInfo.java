@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "acme_server_connection_info")
+@Table(name = "acmeserverconnectioninfo")
 public class AcmeServerConnectionInfo extends BaseEntity {
 
     private String name;

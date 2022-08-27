@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ldap_schema_overlay_attribute")
+@Table(name = "ldapschemaoverlayattribute")
 public class LdapSchemaOverlayAttribute extends BaseEntity {
 
     private String name;

@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "domain_policy")
+@Table(name = "domainpolicy")
 public class DomainPolicy extends AuthCredentialHolder implements AccountOwnedEntity {
 
     @JsonIgnore

@@ -8,12 +8,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "attribute_policy_group")
+@Table(name = "attributepolicygroup")
 public class AttributePolicyGroup extends BaseEntity {
 
     private String name;
     @JsonIgnore
-    @OneToMany(mappedBy = "attributePolicyGroup", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(mappedBy = "attributePolicyGroup")
     private Set<AttributePolicy> attributePolicies;
     @ManyToOne
     @JoinColumn(name="account_fk")
@@ -28,8 +28,10 @@ public class AttributePolicyGroup extends BaseEntity {
             account.getPolicyGroups().remove(this);
         }
 
-        for(AttributePolicy attributePolicy : getAttributePolicies()){
-            attributePolicy.setAttributePolicyGroup(null);
+        if(attributePolicies != null) {
+            for (AttributePolicy attributePolicy : attributePolicies) {
+                attributePolicy.setAttributePolicyGroup(null);
+            }
         }
     }
 

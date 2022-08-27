@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "app_role")
+@Table(name = "approle")
 public class AppRole extends BaseEntity {
 
     private String name;

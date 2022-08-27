@@ -5,18 +5,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "attribute_policy")
+@Table(name = "attributepolicy")
 public class AttributePolicy extends BaseEntity {
 
     private String attributeName;
     private String attributeValue;
-    @Column(columnDefinition="tinyint(1) default 0")
+    @Column
     private boolean multiValued = false;
-    @Column(columnDefinition="tinyint(1) default 0")
+    @Column
     private boolean staticValue = false;
-    @Column(columnDefinition="tinyint(1) default 0")
+    @Column
     private boolean serverEntryValue = false;
-    @Column(columnDefinition="tinyint(1) default 0")
+    @Column
     private boolean policyServerValue = false;
     @ManyToOne
     @JsonIgnore
@@ -24,10 +24,10 @@ public class AttributePolicy extends BaseEntity {
     private AttributePolicyGroup attributePolicyGroup;
 
     //if the security policy attribute exists, use the security policy value
-   // @Column(columnDefinition="tinyint(1) default 0")
+   // @Column
     //private boolean useSecurityAttributeValueIfNameExists = false;
     //if the security policy attribute and value match, use the above value
-    //@Column(columnDefinition="tinyint(1) default 0")
+    //@Column
     //private boolean useValueIfSecurityAttributeNameValueExists = false;
     //private String securityAttributeKeyName;
     //private String securityAttributeValue;

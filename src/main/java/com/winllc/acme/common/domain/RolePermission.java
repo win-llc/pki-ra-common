@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "role_permission")
+@Table(name = "rolepermission")
 public class RolePermission extends BaseEntity {
 
     @Column(nullable = false)
