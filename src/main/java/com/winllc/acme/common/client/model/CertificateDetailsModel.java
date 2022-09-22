@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-12-12T15:21:01.254Z[GMT]")
-public class CertificateDetails {
+public class CertificateDetailsModel {
   @SerializedName("serial")
   private String serial = null;
 
@@ -38,7 +38,7 @@ public class CertificateDetails {
   @SerializedName("certificateBase64")
   private String certificateBase64 = null;
 
-  public CertificateDetails serial(String serial) {
+  public CertificateDetailsModel serial(String serial) {
     this.serial = serial;
     return this;
   }
@@ -56,7 +56,7 @@ public class CertificateDetails {
     this.serial = serial;
   }
 
-  public CertificateDetails subject(String subject) {
+  public CertificateDetailsModel subject(String subject) {
     this.subject = subject;
     return this;
   }
@@ -74,7 +74,7 @@ public class CertificateDetails {
     this.subject = subject;
   }
 
-  public CertificateDetails issuer(String issuer) {
+  public CertificateDetailsModel issuer(String issuer) {
     this.issuer = issuer;
     return this;
   }
@@ -92,7 +92,7 @@ public class CertificateDetails {
     this.issuer = issuer;
   }
 
-  public CertificateDetails status(String status) {
+  public CertificateDetailsModel status(String status) {
     this.status = status;
     return this;
   }
@@ -110,7 +110,7 @@ public class CertificateDetails {
     this.status = status;
   }
 
-  public CertificateDetails certificateBase64(String certificateBase64) {
+  public CertificateDetailsModel certificateBase64(String certificateBase64) {
     this.certificateBase64 = certificateBase64;
     return this;
   }
@@ -137,12 +137,12 @@ public class CertificateDetails {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CertificateDetails certificateDetails = (CertificateDetails) o;
-    return Objects.equals(this.serial, certificateDetails.serial) &&
-        Objects.equals(this.subject, certificateDetails.subject) &&
-        Objects.equals(this.issuer, certificateDetails.issuer) &&
-        Objects.equals(this.status, certificateDetails.status) &&
-        Objects.equals(this.certificateBase64, certificateDetails.certificateBase64);
+    CertificateDetailsModel certificateDetailsModel = (CertificateDetailsModel) o;
+    return Objects.equals(this.serial, certificateDetailsModel.serial) &&
+        Objects.equals(this.subject, certificateDetailsModel.subject) &&
+        Objects.equals(this.issuer, certificateDetailsModel.issuer) &&
+        Objects.equals(this.status, certificateDetailsModel.status) &&
+        Objects.equals(this.certificateBase64, certificateDetailsModel.certificateBase64);
   }
 
   @Override

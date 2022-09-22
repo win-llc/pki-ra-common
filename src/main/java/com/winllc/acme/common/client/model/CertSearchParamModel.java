@@ -28,7 +28,7 @@ import java.util.List;
  */
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-12-12T15:21:01.254Z[GMT]")
-public class CertSearchParam {
+public class CertSearchParamModel {
   /**
    * Gets or Sets field
    */
@@ -131,10 +131,10 @@ public class CertSearchParam {
   private String value = null;
 
   @SerializedName("parent")
-  private CertSearchParam parent = null;
+  private CertSearchParamModel parent = null;
 
   @SerializedName("params")
-  private List<CertSearchParam> params = null;
+  private List<CertSearchParamModel> params = null;
 
   @SerializedName("page")
   private Integer page = null;
@@ -148,7 +148,7 @@ public class CertSearchParam {
   @SerializedName("relational")
   private Boolean relational = null;
 
-  public CertSearchParam field(FieldEnum field) {
+  public CertSearchParamModel field(FieldEnum field) {
     this.field = field;
     return this;
   }
@@ -166,7 +166,7 @@ public class CertSearchParam {
     this.field = field;
   }
 
-  public CertSearchParam relation(RelationEnum relation) {
+  public CertSearchParamModel relation(RelationEnum relation) {
     this.relation = relation;
     return this;
   }
@@ -184,7 +184,7 @@ public class CertSearchParam {
     this.relation = relation;
   }
 
-  public CertSearchParam value(String value) {
+  public CertSearchParamModel value(String value) {
     this.value = value;
     return this;
   }
@@ -202,7 +202,7 @@ public class CertSearchParam {
     this.value = value;
   }
 
-  public CertSearchParam parent(CertSearchParam parent) {
+  public CertSearchParamModel parent(CertSearchParamModel parent) {
     this.parent = parent;
     return this;
   }
@@ -212,22 +212,22 @@ public class CertSearchParam {
    * @return parent
   **/
   @Schema(description = "")
-  public CertSearchParam getParent() {
+  public CertSearchParamModel getParent() {
     return parent;
   }
 
-  public void setParent(CertSearchParam parent) {
+  public void setParent(CertSearchParamModel parent) {
     this.parent = parent;
   }
 
-  public CertSearchParam params(List<CertSearchParam> params) {
+  public CertSearchParamModel params(List<CertSearchParamModel> params) {
     this.params = params;
     return this;
   }
 
-  public CertSearchParam addParamsItem(CertSearchParam paramsItem) {
+  public CertSearchParamModel addParamsItem(CertSearchParamModel paramsItem) {
     if (this.params == null) {
-      this.params = new ArrayList<CertSearchParam>();
+      this.params = new ArrayList<CertSearchParamModel>();
     }
     this.params.add(paramsItem);
     return this;
@@ -238,15 +238,15 @@ public class CertSearchParam {
    * @return params
   **/
   @Schema(description = "")
-  public List<CertSearchParam> getParams() {
+  public List<CertSearchParamModel> getParams() {
     return params;
   }
 
-  public void setParams(List<CertSearchParam> params) {
+  public void setParams(List<CertSearchParamModel> params) {
     this.params = params;
   }
 
-  public CertSearchParam page(Integer page) {
+  public CertSearchParamModel page(Integer page) {
     this.page = page;
     return this;
   }
@@ -264,7 +264,7 @@ public class CertSearchParam {
     this.page = page;
   }
 
-  public CertSearchParam pageSize(Integer pageSize) {
+  public CertSearchParamModel pageSize(Integer pageSize) {
     this.pageSize = pageSize;
     return this;
   }
@@ -282,7 +282,7 @@ public class CertSearchParam {
     this.pageSize = pageSize;
   }
 
-  public CertSearchParam paginated(Boolean paginated) {
+  public CertSearchParamModel paginated(Boolean paginated) {
     this.paginated = paginated;
     return this;
   }
@@ -300,7 +300,7 @@ public class CertSearchParam {
     this.paginated = paginated;
   }
 
-  public CertSearchParam relational(Boolean relational) {
+  public CertSearchParamModel relational(Boolean relational) {
     this.relational = relational;
     return this;
   }
@@ -327,16 +327,16 @@ public class CertSearchParam {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CertSearchParam certSearchParam = (CertSearchParam) o;
-    return Objects.equals(this.field, certSearchParam.field) &&
-        Objects.equals(this.relation, certSearchParam.relation) &&
-        Objects.equals(this.value, certSearchParam.value) &&
-        Objects.equals(this.parent, certSearchParam.parent) &&
-        Objects.equals(this.params, certSearchParam.params) &&
-        Objects.equals(this.page, certSearchParam.page) &&
-        Objects.equals(this.pageSize, certSearchParam.pageSize) &&
-        Objects.equals(this.paginated, certSearchParam.paginated) &&
-        Objects.equals(this.relational, certSearchParam.relational);
+    CertSearchParamModel certSearchParamModel = (CertSearchParamModel) o;
+    return Objects.equals(this.field, certSearchParamModel.field) &&
+        Objects.equals(this.relation, certSearchParamModel.relation) &&
+        Objects.equals(this.value, certSearchParamModel.value) &&
+        Objects.equals(this.parent, certSearchParamModel.parent) &&
+        Objects.equals(this.params, certSearchParamModel.params) &&
+        Objects.equals(this.page, certSearchParamModel.page) &&
+        Objects.equals(this.pageSize, certSearchParamModel.pageSize) &&
+        Objects.equals(this.paginated, certSearchParamModel.paginated) &&
+        Objects.equals(this.relational, certSearchParamModel.relational);
   }
 
   @Override

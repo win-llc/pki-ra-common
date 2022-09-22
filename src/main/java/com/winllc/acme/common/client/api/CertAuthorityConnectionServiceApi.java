@@ -29,8 +29,8 @@ import java.io.IOException;
 import com.winllc.acme.common.client.model.CertAuthorityConnectionInfo;
 import com.winllc.acme.common.client.model.CertAuthorityConnectionInfoForm;
 import com.winllc.acme.common.client.model.CertIssuanceValidationResponse;
-import com.winllc.acme.common.client.model.CertSearchParam;
-import com.winllc.acme.common.client.model.CertificateDetails;
+import com.winllc.acme.common.client.model.CertSearchParamModel;
+import com.winllc.acme.common.client.model.CertificateDetailsModel;
 import com.winllc.acme.common.client.model.ConnectionProperty;
 import com.winllc.acme.common.client.model.RACertificateIssueRequest;
 import com.winllc.acme.common.client.model.RACertificateRevokeRequest;
@@ -502,8 +502,8 @@ public class CertAuthorityConnectionServiceApi {
      * @return CertificateDetails
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CertificateDetails getCertificateStatus(String connectionName, String serial) throws ApiException {
-        ApiResponse<CertificateDetails> resp = getCertificateStatusWithHttpInfo(connectionName, serial);
+    public CertificateDetailsModel getCertificateStatus(String connectionName, String serial) throws ApiException {
+        ApiResponse<CertificateDetailsModel> resp = getCertificateStatusWithHttpInfo(connectionName, serial);
         return resp.getData();
     }
 
@@ -515,9 +515,9 @@ public class CertAuthorityConnectionServiceApi {
      * @return ApiResponse&lt;CertificateDetails&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CertificateDetails> getCertificateStatusWithHttpInfo(String connectionName, String serial) throws ApiException {
+    public ApiResponse<CertificateDetailsModel> getCertificateStatusWithHttpInfo(String connectionName, String serial) throws ApiException {
         com.squareup.okhttp.Call call = getCertificateStatusValidateBeforeCall(connectionName, serial, null, null);
-        Type localVarReturnType = new TypeToken<CertificateDetails>(){}.getType();
+        Type localVarReturnType = new TypeToken<CertificateDetailsModel>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -530,7 +530,7 @@ public class CertAuthorityConnectionServiceApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getCertificateStatusAsync(String connectionName, String serial, final ApiCallback<CertificateDetails> callback) throws ApiException {
+    public com.squareup.okhttp.Call getCertificateStatusAsync(String connectionName, String serial, final ApiCallback<CertificateDetailsModel> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -552,7 +552,7 @@ public class CertAuthorityConnectionServiceApi {
         }
 
         com.squareup.okhttp.Call call = getCertificateStatusValidateBeforeCall(connectionName, serial, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<CertificateDetails>(){}.getType();
+        Type localVarReturnType = new TypeToken<CertificateDetailsModel>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -1666,7 +1666,7 @@ public class CertAuthorityConnectionServiceApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call searchCall(CertSearchParam body, String connectionName, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call searchCall(CertSearchParamModel body, String connectionName, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
         
         // create path and map variables
@@ -1709,7 +1709,7 @@ public class CertAuthorityConnectionServiceApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call searchValidateBeforeCall(CertSearchParam body, String connectionName, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call searchValidateBeforeCall(CertSearchParamModel body, String connectionName, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'body' is set
         if (body == null) {
             throw new ApiException("Missing the required parameter 'body' when calling search(Async)");
@@ -1736,8 +1736,8 @@ public class CertAuthorityConnectionServiceApi {
      * @return List&lt;CertificateDetails&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public List<CertificateDetails> search(CertSearchParam body, String connectionName) throws ApiException {
-        ApiResponse<List<CertificateDetails>> resp = searchWithHttpInfo(body, connectionName);
+    public List<CertificateDetailsModel> search(CertSearchParamModel body, String connectionName) throws ApiException {
+        ApiResponse<List<CertificateDetailsModel>> resp = searchWithHttpInfo(body, connectionName);
         return resp.getData();
     }
 
@@ -1749,9 +1749,9 @@ public class CertAuthorityConnectionServiceApi {
      * @return ApiResponse&lt;List&lt;CertificateDetails&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<List<CertificateDetails>> searchWithHttpInfo(CertSearchParam body, String connectionName) throws ApiException {
+    public ApiResponse<List<CertificateDetailsModel>> searchWithHttpInfo(CertSearchParamModel body, String connectionName) throws ApiException {
         com.squareup.okhttp.Call call = searchValidateBeforeCall(body, connectionName, null, null);
-        Type localVarReturnType = new TypeToken<List<CertificateDetails>>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<CertificateDetailsModel>>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -1764,7 +1764,7 @@ public class CertAuthorityConnectionServiceApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call searchAsync(CertSearchParam body, String connectionName, final ApiCallback<List<CertificateDetails>> callback) throws ApiException {
+    public com.squareup.okhttp.Call searchAsync(CertSearchParamModel body, String connectionName, final ApiCallback<List<CertificateDetailsModel>> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -1786,7 +1786,7 @@ public class CertAuthorityConnectionServiceApi {
         }
 
         com.squareup.okhttp.Call call = searchValidateBeforeCall(body, connectionName, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<List<CertificateDetails>>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<CertificateDetailsModel>>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
