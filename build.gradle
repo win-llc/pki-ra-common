@@ -121,11 +121,6 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-io/commons-io
     api group: 'commons-io', name: 'commons-io', version: '2.7'
 
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
-    api group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.9'
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    api group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.6.1'
-
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
     api group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3

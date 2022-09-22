@@ -57,10 +57,10 @@ public class CachedCertificateService {
                         break;
                     case CONTAINS:
                         if(param.getValue() instanceof List){
-                            List<Long> serials = (List<Long>) param.getValue();
+                            List<Object> serials = (List<Object>) param.getValue();
                             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-                            for(Long serial : serials){
-                                boolQueryBuilder.should().add(QueryBuilders.matchQuery("serial", serial));
+                            for(Object serial : serials){
+                                boolQueryBuilder.should().add(QueryBuilders.matchQuery("serial", serial.toString()));
                             }
                             queryBuilder = boolQueryBuilder;
                         }
