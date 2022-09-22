@@ -1,9 +1,8 @@
 package com.winllc.acme.common.domain;
 
-import com.winllc.acme.common.CertificateDetails;
+import com.winllc.ra.integration.ca.CertificateDetails;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 

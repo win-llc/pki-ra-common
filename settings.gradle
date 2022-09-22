@@ -1,8 +1,13 @@
 pluginManagement {
     plugins {
-        id 'org.springframework.boot' version "2.4.8"
+        id 'org.springframework.boot' version "2.5.14"
         id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     }
 }
 
 rootProject.name = 'pki-ra-common'
+
+include(":winllc-ra-integration-lib")
+if (new File("../winllc-ra-integration-lib").with{exists() && isDirectory()}) {
+    project(":winllc-ra-integration-lib").projectDir = file("../winllc-ra-integration-lib")
+}

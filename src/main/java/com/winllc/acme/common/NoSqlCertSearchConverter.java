@@ -1,5 +1,9 @@
 package com.winllc.acme.common;
 
+import com.winllc.ra.integration.ca.CertSearchConverter;
+import com.winllc.ra.integration.ca.CertSearchParam;
+import com.winllc.ra.integration.ca.CertSearchParams;
+
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,10 +1,10 @@
 package com.winllc.acme.common.cache;
 
-import com.winllc.acme.common.CertSearchParam;
-import com.winllc.acme.common.CertSearchParams;
-import com.winllc.acme.common.CertificateDetails;
 import com.winllc.acme.common.ca.CachedCertificate;
 import com.winllc.acme.common.util.CertUtil;
+import com.winllc.ra.integration.ca.CertSearchParam;
+import com.winllc.ra.integration.ca.CertSearchParams;
+import com.winllc.ra.integration.ca.CertificateDetails;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -14,17 +14,14 @@ import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class CachedCertificateService {
 

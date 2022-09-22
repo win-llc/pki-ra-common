@@ -1,6 +1,7 @@
 package com.winllc.acme.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.winllc.ra.integration.ca.CertAuthorityConnectionInfoInterface;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "certauthorityconnectioninfo")
-public class CertAuthorityConnectionInfo extends BaseEntity {
+public class CertAuthorityConnectionInfo extends BaseEntity implements CertAuthorityConnectionInfoInterface {
 
     @Column(unique = true)
     private String name;
@@ -41,6 +42,7 @@ public class CertAuthorityConnectionInfo extends BaseEntity {
         }
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -49,6 +51,7 @@ public class CertAuthorityConnectionInfo extends BaseEntity {
         this.name = name;
     }
 
+    @Override
     public String getCertAuthorityClassName() {
         return certAuthorityClassName;
     }
@@ -57,6 +60,7 @@ public class CertAuthorityConnectionInfo extends BaseEntity {
         this.certAuthorityClassName = certAuthorityClassName;
     }
 
+    @Override
     public String getBaseUrl() {
         return baseUrl;
     }
@@ -65,6 +69,7 @@ public class CertAuthorityConnectionInfo extends BaseEntity {
         this.baseUrl = baseUrl;
     }
 
+    @Override
     public String getIssuePath() {
         return issuePath;
     }
@@ -73,6 +78,7 @@ public class CertAuthorityConnectionInfo extends BaseEntity {
         this.issuePath = issuePath;
     }
 
+    @Override
     public String getRevokePath() {
         return revokePath;
     }
@@ -81,6 +87,7 @@ public class CertAuthorityConnectionInfo extends BaseEntity {
         this.revokePath = revokePath;
     }
 
+    @Override
     public String getSearchPath() {
         return searchPath;
     }
@@ -89,6 +96,7 @@ public class CertAuthorityConnectionInfo extends BaseEntity {
         this.searchPath = searchPath;
     }
 
+    @Override
     public Set<CertAuthorityConnectionProperty> getProperties() {
         if(properties == null) properties = new HashSet<>();
         return properties;
@@ -98,6 +106,7 @@ public class CertAuthorityConnectionInfo extends BaseEntity {
         this.properties = properties;
     }
 
+    @Override
     public String getTrustChainBase64() {
         return trustChainBase64;
     }
@@ -106,6 +115,7 @@ public class CertAuthorityConnectionInfo extends BaseEntity {
         this.trustChainBase64 = trustChainBase64;
     }
 
+    @Override
     public String getAuthKeyAlias() {
         return authKeyAlias;
     }
@@ -114,6 +124,7 @@ public class CertAuthorityConnectionInfo extends BaseEntity {
         this.authKeyAlias = authKeyAlias;
     }
 
+    @Override
     public Optional<CertAuthorityConnectionProperty> getPropertyByName(String name){
         if(getProperties() != null){
             return getProperties().stream()

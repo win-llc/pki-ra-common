@@ -1,12 +1,12 @@
 package com.winllc.acme.common.client;
 
 import com.winllc.acme.common.CertRevocationStatus;
-import com.winllc.acme.common.CertificateDetails;
 import com.winllc.acme.common.model.acme.Identifier;
 import com.winllc.acme.common.ra.RACertificateIssueRequest;
 import com.winllc.acme.common.ra.RACertificateRevokeRequest;
 import com.winllc.acme.common.util.CertUtil;
 import com.winllc.acme.common.util.HttpCommandUtil;
+import com.winllc.ra.integration.ca.CertificateDetails;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.logging.log4j.LogManager;

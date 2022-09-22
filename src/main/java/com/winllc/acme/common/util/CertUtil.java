@@ -1,6 +1,6 @@
 package com.winllc.acme.common.util;
 
-import com.winllc.acme.common.SubjectAltNames;
+import com.winllc.ra.integration.ca.SubjectAltNames;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bouncycastle.asn1.ASN1Encodable;
@@ -366,7 +366,7 @@ public class CertUtil {
     }
 
     public static X509Certificate signCSR(PKCS10CertificationRequest csr, SubjectAltNames subjectAltNames, int validity,
-                                    KeyStore keystore, String alias, char[] password) throws Exception {
+                                          KeyStore keystore, String alias, char[] password) throws Exception {
         try {
             Security.addProvider(new BouncyCastleProvider());
 

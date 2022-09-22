@@ -1,13 +1,14 @@
 package com.winllc.acme.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.winllc.ra.integration.ca.CertAuthorityConnectionPropertyInterface;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "certauthorityconnectionproperty")
-public class CertAuthorityConnectionProperty extends AbstractPersistable<Long>  {
+public class CertAuthorityConnectionProperty extends AbstractPersistable<Long> implements CertAuthorityConnectionPropertyInterface {
 
     private String name;
     private String value;
@@ -24,6 +25,7 @@ public class CertAuthorityConnectionProperty extends AbstractPersistable<Long>  
         }
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -32,6 +34,7 @@ public class CertAuthorityConnectionProperty extends AbstractPersistable<Long>  
         this.name = name;
     }
 
+    @Override
     public String getValue() {
         return value;
     }
@@ -40,6 +43,7 @@ public class CertAuthorityConnectionProperty extends AbstractPersistable<Long>  
         this.value = value;
     }
 
+    @Override
     public Boolean getPassword() {
         return password;
     }
@@ -48,6 +52,7 @@ public class CertAuthorityConnectionProperty extends AbstractPersistable<Long>  
         this.password = password;
     }
 
+    @Override
     public CertAuthorityConnectionInfo getCertAuthorityConnectionInfo() {
         return certAuthorityConnectionInfo;
     }
