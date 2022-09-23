@@ -84,7 +84,7 @@ public class LoadedCertAuthorityStore implements ApplicationContextAware {
                 Class<?> clazz = Class.forName(certAuthorityClassName);
                 Constructor<?> ctor = clazz.getConstructor(CertAuthorityConnectionInfo.class, ApplicationContext.class,
                         KeyStore.class, String.class);
-                Object object = ctor.newInstance(new Object[] { info, applicationContext, applicationKeystore.getKeyStore(),
+                Object object = ctor.newInstance(new Object[] { info, applicationKeystore.getKeyStore(),
                         applicationKeystore.getKeystorePassword() });
 
                 if(object instanceof CertAuthority){
