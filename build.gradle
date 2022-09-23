@@ -96,7 +96,7 @@ dependencies {
     api('org.springframework.boot:spring-boot-starter-data-elasticsearch')
 
     // https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client
-    api group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.13.2'
+    api group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.17.6'
 
     // https://mvnrepository.com/artifact/org.springframework.ldap/spring-ldap-core
     api group: 'org.springframework.ldap', name: 'spring-ldap-core', version: '2.3.8.RELEASE'
