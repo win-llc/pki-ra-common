@@ -6,7 +6,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.ldap.odm.annotations.Attribute;
 import org.springframework.ldap.odm.annotations.Entry;
-import org.springframework.ldap.odm.annotations.Id;
 import org.springframework.ldap.odm.annotations.Transient;
 import org.springframework.ldap.support.LdapNameBuilder;
 import org.springframework.util.CollectionUtils;
@@ -54,7 +53,7 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
     private Set<CertificateRequest> certificateRequests;
     @JsonIgnore
     @OneToMany(mappedBy = "parentEntity")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    //@OnDelete(action = OnDeleteAction.CASCADE)
     @Transient
     private Set<AuthCredential> authCredentials;
     @Transient
