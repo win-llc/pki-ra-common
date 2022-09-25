@@ -25,8 +25,8 @@ public class LoadedCertAuthorityStore implements ApplicationContextAware {
 
     private static final Logger log = LogManager.getLogger(LoadedCertAuthorityStore.class);
 
-    private final Map<String, CertAuthority> loadedCertAuthorities = new ConcurrentHashMap<>();
-    private ApplicationKeystore applicationKeystore;
+    private static final Map<String, CertAuthority> loadedCertAuthorities = new ConcurrentHashMap<>();
+    private final ApplicationKeystore applicationKeystore;
     private ApplicationContext applicationContext;
 
     public LoadedCertAuthorityStore(ApplicationKeystore applicationKeystore, ApplicationContext applicationContext){
