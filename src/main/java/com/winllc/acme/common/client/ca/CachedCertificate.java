@@ -1,4 +1,4 @@
-package com.winllc.acme.common.ca;
+package com.winllc.acme.common.client.ca;
 
 import com.winllc.acme.common.util.CertUtil;
 import org.apache.commons.codec.digest.DigestUtils;

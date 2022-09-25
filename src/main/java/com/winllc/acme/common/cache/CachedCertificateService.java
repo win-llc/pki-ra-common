@@ -1,6 +1,6 @@
 package com.winllc.acme.common.cache;
 
-import com.winllc.acme.common.ca.CachedCertificate;
+import com.winllc.acme.common.client.ca.CachedCertificate;
 import com.winllc.acme.common.util.CertUtil;
 import com.winllc.ra.integration.ca.CertSearchParam;
 import com.winllc.ra.integration.ca.CertSearchParams;
