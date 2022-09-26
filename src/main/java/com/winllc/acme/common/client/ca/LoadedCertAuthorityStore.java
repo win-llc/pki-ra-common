@@ -3,6 +3,7 @@ package com.winllc.acme.common.client.ca;
 import com.winllc.acme.common.domain.CertAuthorityConnectionInfo;
 import com.winllc.acme.common.keystore.ApplicationKeystore;
 import com.winllc.ra.integration.ca.CertAuthority;
+import com.winllc.ra.integration.ca.CertAuthorityConnectionInfoInterface;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeansException;
@@ -47,6 +48,8 @@ public class LoadedCertAuthorityStore implements ApplicationContextAware {
             }
 
             loadedCertAuthorities.put(ca.getName(), ca);
+        }else{
+            log.error("Could not load cert authority: "+info.getName());
         }
     }
 
@@ -77,12 +80,12 @@ public class LoadedCertAuthorityStore implements ApplicationContextAware {
     }
 
 
-    private Optional<CertAuthority> buildCertAuthority(CertAuthorityConnectionInfo info) {
+    private Optional<CertAuthority> buildCertAuthority(CertAuthorityConnectionInfoInterface info) {
 
             try {
                 String certAuthorityClassName = info.getCertAuthorityClassName();
                 Class<?> clazz = Class.forName(certAuthorityClassName);
-                Constructor<?> ctor = clazz.getConstructor(CertAuthorityConnectionInfo.class,
+                Constructor<?> ctor = clazz.getConstructor(CertAuthorityConnectionInfoInterface.class,
                         KeyStore.class, String.class);
                 Object object = ctor.newInstance(new Object[] { info, applicationKeystore.getKeyStore(),
                         applicationKeystore.getKeystorePassword() });
