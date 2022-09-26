@@ -21,7 +21,7 @@ public class CachedCertificate implements Comparable<CachedCertificate> {
     private String dn;
     private String issuer;
     private String caName;
-    private Long serial;
+    private String serial;
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "uuuu-MM-dd'T'HH:mm:ss.SSSZZ")
     private Date validFrom;
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "uuuu-MM-dd'T'HH:mm:ss.SSSZZ")
@@ -41,7 +41,7 @@ public class CachedCertificate implements Comparable<CachedCertificate> {
         setBase64Certificate(CertUtil.formatCrtFileContents(certificate));
         setDn(certificate.getSubjectDN().getName());
         setIssuer(certificate.getIssuerDN().getName());
-        setSerial(certificate.getSerialNumber().longValue());
+        setSerial(certificate.getSerialNumber().toString());
         setValidFrom(certificate.getNotBefore());
         setValidTo(certificate.getNotAfter());
         setSignatureAlgorithm(certificate.getSigAlgName());
@@ -88,11 +88,11 @@ public class CachedCertificate implements Comparable<CachedCertificate> {
         this.status = status;
     }
 
-    public Long getSerial() {
+    public String getSerial() {
         return serial;
     }
 
-    public void setSerial(Long serial) {
+    public void setSerial(String serial) {
         this.serial = serial;
     }
 
