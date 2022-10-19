@@ -11,12 +11,10 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface PocEntryRepository extends BaseRepository<PocEntry> {
-    List<PocEntry> findAllByAccount(Account account);
+public interface PocEntryRepository extends BaseServerEntryRepository<PocEntry> {
     List<PocEntry> findAllByEmailEquals(String email);
     Optional<PocEntry> findDistinctByEmailEqualsAndAccount(String email, Account account);
     void deleteAllByEmailInAndAccountEquals(List<String> emails, Account account);
     void deleteByEmailEqualsAndAccount(String email, Account account);
 
-    List<PocEntry> findAllByManagesContaining(ServerEntry serverEntry);
 }

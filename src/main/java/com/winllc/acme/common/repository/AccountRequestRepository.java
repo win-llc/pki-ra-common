@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface AccountRequestRepository extends BaseRepository<AccountRequest> {
+public interface AccountRequestRepository extends PagingRepository<AccountRequest> {
 
     List<AccountRequest> findAllByStateEquals(String state);
     Integer countAllByStateEquals(String state);

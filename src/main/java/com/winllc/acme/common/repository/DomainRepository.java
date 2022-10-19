@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface DomainRepository extends BaseRepository<Domain> {
+public interface DomainRepository extends PagingRepository<Domain> {
     List<Domain> findAllByBaseContains(String search);
     //List<Domain> findAllByCanIssueAccountsContains(Account account);
     List<Domain> findAllByIdIn(Collection<Long> ids);

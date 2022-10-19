@@ -10,10 +10,9 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface ServerEntryRepository extends UniqueEntityRepository<ServerEntry> {
+public interface ServerEntryRepository extends UniqueEntityRepository<ServerEntry>, BaseAccountRepository<ServerEntry> {
 
     Optional<ServerEntry> findDistinctByFqdnEquals(String fqdn);
-    List<ServerEntry> findAllByAccount(Account account);
     List<ServerEntry> findAllByAccountId(Long id);
     Optional<ServerEntry> findDistinctByFqdnEqualsAndAccountEquals(String fqdn, Account account);
     Optional<ServerEntry> findDistinctByDistinguishedNameIgnoreCaseAndAccount(String distinguishedName, Account account);

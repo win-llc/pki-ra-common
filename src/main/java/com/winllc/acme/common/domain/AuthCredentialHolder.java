@@ -12,10 +12,9 @@ import java.util.Set;
 //@MappedSuperclass
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class AuthCredentialHolder extends UniqueEntity {
+public abstract class AuthCredentialHolder extends UniqueEntity implements AuthCredentialHolderInteface {
 
-    @JsonIgnore
-    public abstract Set<AuthCredential> getAuthCredentials();
+    @Override
     @JsonIgnore
     public Optional<AuthCredential> getLatestAuthCredential(){
         return getAuthCredentials().stream()

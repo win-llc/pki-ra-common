@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface TermsOfServiceRepository extends BaseRepository<TermsOfService> {
+public interface TermsOfServiceRepository extends PagingRepository<TermsOfService> {
 
     List<TermsOfService> findAllByForDirectoryName(String directoryName);
     Optional<TermsOfService> findByVersionId(String versionId);

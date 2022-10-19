@@ -7,7 +7,7 @@ import com.winllc.acme.common.domain.DomainPolicy;
 import java.util.List;
 import java.util.Optional;
 
-public interface DomainPolicyRepository extends BaseRepository<DomainPolicy> {
+public interface DomainPolicyRepository extends BaseAccountRepository<DomainPolicy> {
     List<DomainPolicy> findAllByTargetDomainEquals(Domain targetDomain);
     Optional<DomainPolicy> findDistinctByAccountAndTargetDomain(Account account, Domain domain);
 

@@ -17,7 +17,7 @@ import java.util.*;
 @Entity
 @Entry(objectClasses = {"top", "untypedObject"})
 @Table(name = "serverentry")
-public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEntity {
+public class ServerEntry extends BaseAccountEntity implements AuthCredentialHolderInteface {
 
     //allow pre-authz tracking per account
 
@@ -52,7 +52,7 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
     @Transient
     private Set<CertificateRequest> certificateRequests;
     @JsonIgnore
-    @OneToMany(mappedBy = "parentEntity")
+    @OneToMany(mappedBy = "serverEntry")
     //@OnDelete(action = OnDeleteAction.CASCADE)
     @Transient
     private Set<AuthCredential> authCredentials;
@@ -65,7 +65,7 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
 
     @Transient
     @JsonIgnore
-    @ManyToMany(mappedBy = "manages", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "serverEntry", fetch = FetchType.LAZY)
     private Set<PocEntry> managedBy;
 
 
@@ -97,13 +97,13 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
 
         if(!CollectionUtils.isEmpty(authCredentials)){
             for(AuthCredential credential : authCredentials){
-                credential.setParentEntity(null);
+                credential.setServerEntry(null);
             }
         }
 
         if(!CollectionUtils.isEmpty(managedBy)){
             for(PocEntry pocEntry : managedBy){
-                pocEntry.getManages().remove(this);
+                pocEntry.setServerEntry(null);
             }
         }
     }
@@ -193,6 +193,13 @@ public class ServerEntry extends AuthCredentialHolder implements AccountOwnedEnt
     public Set<AuthCredential> getAuthCredentials() {
         if(authCredentials == null) authCredentials = new HashSet<>();
         return authCredentials;
+    }
+
+    @Override
+    public Optional<AuthCredential> getLatestAuthCredential() {
+        return getAuthCredentials().stream()
+                .sorted()
+                .findFirst();
     }
 
     public void setAuthCredentials(Set<AuthCredential> authCredentials) {

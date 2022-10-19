@@ -6,11 +6,12 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
 @Table(name = "domainpolicy")
-public class DomainPolicy extends AuthCredentialHolder implements AccountOwnedEntity {
+public class DomainPolicy extends BaseAccountEntity implements AuthCredentialHolderInteface {
 
     @JsonIgnore
     @OneToMany(mappedBy = "parentEntity", fetch = FetchType.EAGER)
@@ -81,6 +82,13 @@ public class DomainPolicy extends AuthCredentialHolder implements AccountOwnedEn
     public Set<AuthCredential> getAuthCredentials() {
         if(authCredentials == null) authCredentials = new HashSet<>();
         return authCredentials;
+    }
+
+    @Override
+    public Optional<AuthCredential> getLatestAuthCredential() {
+        return getAuthCredentials().stream()
+                .sorted()
+                .findFirst();
     }
 
     public void setAuthCredentials(Set<AuthCredential> authCredentials) {

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface CertAuthorityConnectionInfoRepository extends BaseRepository<CertAuthorityConnectionInfo> {
+public interface CertAuthorityConnectionInfoRepository extends PagingRepository<CertAuthorityConnectionInfo> {
     @Query("select name from CertAuthorityConnectionInfo")
     List<String> findAllNames();
     Optional<CertAuthorityConnectionInfo> findByName(String name);

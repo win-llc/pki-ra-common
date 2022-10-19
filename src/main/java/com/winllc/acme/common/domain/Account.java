@@ -29,7 +29,7 @@ public class Account extends AuthCredentialHolder implements AccountOwnedEntity,
     private boolean allowAutomaticManualCertificateIssuance = false;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "parentEntity", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Transient
     private Set<AuthCredential> authCredentials;
@@ -125,7 +125,7 @@ public class Account extends AuthCredentialHolder implements AccountOwnedEntity,
 
         if(!CollectionUtils.isEmpty(authCredentials)){
             for(AuthCredential credential : authCredentials){
-                credential.setParentEntity(null);
+                credential.setAccount(null);
             }
         }
     }

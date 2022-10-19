@@ -23,4 +23,8 @@ public class BaseEntity extends AbstractPersistable<Long> {
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
+
+    public void setId(Long id){
+        super.setId(id);
+    }
 }

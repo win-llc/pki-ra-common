@@ -1,7 +1,6 @@
 package com.winllc.acme.common.repository;
 
-import com.winllc.acme.common.domain.AuthCredential;
-import com.winllc.acme.common.domain.AuthCredentialHolder;
+import com.winllc.acme.common.domain.*;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,10 +10,8 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface AuthCredentialRepository extends PagingAndSortingRepository<AuthCredential, Long> {
-    List<AuthCredential> findAll();
+public interface AuthCredentialRepository extends BaseServerEntryRepository<AuthCredential> {
 
     Optional<AuthCredential> findDistinctByKeyIdentifier(String kid);
-    List<AuthCredential> findAllByParentEntity(AuthCredentialHolder holder);
-    List<AuthCredential> findAllByParentEntityAndValidEquals(AuthCredentialHolder holder, Boolean valid);
+
 }

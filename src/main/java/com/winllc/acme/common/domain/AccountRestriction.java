@@ -3,6 +3,8 @@ package com.winllc.acme.common.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.winllc.acme.common.constants.AccountRestrictionAction;
 import com.winllc.acme.common.constants.AccountRestrictionType;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -10,7 +12,9 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "accountrestriction")
-public class AccountRestriction extends BaseEntity implements AccountOwnedEntity, TaskEntity {
+@Getter
+@Setter
+public class AccountRestriction extends BaseAccountEntity implements TaskEntity {
 
     private AccountRestrictionType type;
     private AccountRestrictionAction action;
@@ -31,69 +35,6 @@ public class AccountRestriction extends BaseEntity implements AccountOwnedEntity
         }
     }
 
-    public AccountRestrictionType getType() {
-        return type;
-    }
-
-    public void setType(AccountRestrictionType type) {
-        this.type = type;
-    }
-
-    public AccountRestrictionAction getAction() {
-        return action;
-    }
-
-    public void setAction(AccountRestrictionAction action) {
-        this.action = action;
-    }
-
-    public ZonedDateTime getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(ZonedDateTime createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public ZonedDateTime getDueBy() {
-        return dueBy;
-    }
-
-    public void setDueBy(ZonedDateTime dueBy) {
-        this.dueBy = dueBy;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public String getAddedByUser() {
-        return addedByUser;
-    }
-
-    public void setAddedByUser(String addedByUser) {
-        this.addedByUser = addedByUser;
-    }
-
-    public String getMarkedCompletedByUser() {
-        return markedCompletedByUser;
-    }
-
-    public void setMarkedCompletedByUser(String markedCompletedByUser) {
-        this.markedCompletedByUser = markedCompletedByUser;
-    }
 
     @Override
     public Account getOwnerAccount() {

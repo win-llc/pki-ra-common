@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface AccountRestrictionRepository extends BaseRepository<AccountRestriction> {
+public interface AccountRestrictionRepository extends BaseAccountRepository<AccountRestriction> {
 
     List<AccountRestriction> findAllByDueByBefore(ZonedDateTime timestamp);
     List<AccountRestriction> findAllByAccount(Account account);
