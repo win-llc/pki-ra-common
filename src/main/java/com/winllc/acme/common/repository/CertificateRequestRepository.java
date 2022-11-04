@@ -10,13 +10,12 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface CertificateRequestRepository extends BaseRepository<CertificateRequest> {
+public interface CertificateRequestRepository extends UniqueEntityRepository<CertificateRequest> {
 
     List<CertificateRequest> findAllByStatusEquals(String status);
     Integer countAllByStatusEquals(String status);
     List<CertificateRequest> findAllByRequestedByEquals(String user);
     List<CertificateRequest> findAllByPublicKeyBase64Equals(String publicKey);
-    List<CertificateRequest> findAllByServerEntry(ServerEntry serverEntry);
     List<CertificateRequest> findAllByServerEntryAndIssuedCertificateIsNotNull(ServerEntry serverEntry);
     Optional<CertificateRequest> findDistinctByIssuedCertificateSerialAndCertAuthorityName(String serial, String caName);
 }

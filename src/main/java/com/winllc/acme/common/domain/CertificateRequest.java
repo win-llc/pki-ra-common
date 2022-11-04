@@ -3,6 +3,9 @@ package com.winllc.acme.common.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nimbusds.jose.util.Base64;
 import com.winllc.acme.common.util.CertUtil;
+import com.winllc.ra.integration.ca.SubjectAltName;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
@@ -13,6 +16,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,7 +26,9 @@ import java.util.stream.Stream;
         uniqueConstraints={
                 @UniqueConstraint(columnNames = {"certAuthorityName", "issuedCertificateSerial"})
         })
-public class CertificateRequest extends BaseEntity implements AccountOwnedEntity {
+@Getter
+@Setter
+public class CertificateRequest extends BaseServerEntryEntity {
 
     @Column(length = 2000)
     private String csr;
@@ -39,12 +45,7 @@ public class CertificateRequest extends BaseEntity implements AccountOwnedEntity
     private String adminReviewer;
     private String primaryDnsName;
     private String requestedDnsNames;
-    @ManyToOne
-    @JoinColumn(name="account_fk")
-    private Account account;
-    @ManyToOne
-    @JoinColumn(name="serverEntry_fk")
-    private ServerEntry serverEntry;
+
 
     public static CertificateRequest build(){
         CertificateRequest request = new CertificateRequest();
@@ -55,12 +56,12 @@ public class CertificateRequest extends BaseEntity implements AccountOwnedEntity
 
     @PreRemove
     private void preRemove(){
-        if(account != null){
-            account.getCertificateRequests().remove(this);
+        if(getAccount() != null){
+            getAccount().getCertificateRequests().remove(this);
         }
 
-        if(serverEntry != null){
-            serverEntry.getCertificateRequests().remove(this);
+        if(getServerEntry() != null){
+            getServerEntry().getCertificateRequests().remove(this);
         }
     }
 
@@ -76,86 +77,6 @@ public class CertificateRequest extends BaseEntity implements AccountOwnedEntity
         setIssuedCertificateSerial(certificate.getSerialNumber().toString());
     }
 
-    public String getCsr() {
-        return csr;
-    }
-
-    public void setCsr(String csr) {
-        this.csr = csr;
-    }
-
-    public String getPrimaryDnsName() {
-        return primaryDnsName;
-    }
-
-    public void setPrimaryDnsName(String primaryDnsName) {
-        this.primaryDnsName = primaryDnsName;
-    }
-
-    public ZonedDateTime getSubmittedOn() {
-        return submittedOn;
-    }
-
-    public void setSubmittedOn(ZonedDateTime submittedOn) {
-        this.submittedOn = submittedOn;
-    }
-
-    public ZonedDateTime getReviewedOn() {
-        return reviewedOn;
-    }
-
-    public void setReviewedOn(ZonedDateTime reviewedOn) {
-        this.reviewedOn = reviewedOn;
-    }
-
-    public String getCertAuthorityName() {
-        return certAuthorityName;
-    }
-
-    public void setCertAuthorityName(String certAuthorityName) {
-        this.certAuthorityName = certAuthorityName;
-    }
-
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getIssuedCertificate() {
-        return issuedCertificate;
-    }
-
-    public void setIssuedCertificate(String issuedCertificate) {
-        this.issuedCertificate = issuedCertificate;
-    }
-
-    public String getIssuedCertificateSerial() {
-        return issuedCertificateSerial;
-    }
-
-    public void setIssuedCertificateSerial(String issuedCertificateSerial) {
-        this.issuedCertificateSerial = issuedCertificateSerial;
-    }
-
-    public String getRequestedBy() {
-        return requestedBy;
-    }
-
-    public void setRequestedBy(String requestedBy) {
-        this.requestedBy = requestedBy;
-    }
-
-    public String getAdminReviewer() {
-        return adminReviewer;
-    }
-
-    public void setAdminReviewer(String adminReviewer) {
-        this.adminReviewer = adminReviewer;
-    }
 
     public Set<String> getRequestedDnsNamesAsSet(){
         if(StringUtils.isNotBlank(requestedDnsNames)){
@@ -164,6 +85,7 @@ public class CertificateRequest extends BaseEntity implements AccountOwnedEntity
             return new HashSet<>();
         }
     }
+
 
     public void addRequestedDnsName(String name){
         Set<String> temp = getRequestedDnsNamesAsSet();
@@ -177,42 +99,5 @@ public class CertificateRequest extends BaseEntity implements AccountOwnedEntity
         setRequestedDnsNames(String.join(",", temp));
     }
 
-    public String getRequestedDnsNames() {
-        return requestedDnsNames;
-    }
-
-    public void setRequestedDnsNames(String requestedDnsNames) {
-        this.requestedDnsNames = requestedDnsNames;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public ServerEntry getServerEntry() {
-        return serverEntry;
-    }
-
-    public void setServerEntry(ServerEntry serverEntry) {
-        this.serverEntry = serverEntry;
-    }
-
-    public String getPublicKeyBase64() {
-        return publicKeyBase64;
-    }
-
-    public void setPublicKeyBase64(String publicKeyBase64) {
-        this.publicKeyBase64 = publicKeyBase64;
-    }
-
-    @JsonIgnore
-    @Override
-    public Account getOwnerAccount() {
-        return getAccount();
-    }
 
 }

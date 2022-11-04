@@ -7,6 +7,6 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface EstServerPropertiesRepository extends BaseRepository<EstServerProperties> {
+public interface EstServerPropertiesRepository extends PagingRepository<EstServerProperties> {
     EstServerProperties findByName(String name);
 }

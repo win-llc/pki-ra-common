@@ -7,6 +7,6 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface LdapSchemaOverlayRepository extends BaseRepository<LdapSchemaOverlay> {
+public interface LdapSchemaOverlayRepository extends PagingRepository<LdapSchemaOverlay> {
 
 }

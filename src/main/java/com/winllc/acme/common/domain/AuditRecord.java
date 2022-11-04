@@ -1,6 +1,8 @@
 package com.winllc.acme.common.domain;
 
 import com.winllc.acme.common.constants.AuditRecordType;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,8 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "auditrecord")
+@Getter
+@Setter
 public class AuditRecord extends BaseEntity {
 
     @Column(nullable = false)
@@ -50,53 +54,5 @@ public class AuditRecord extends BaseEntity {
     public AuditRecord addSource(String source){
         this.setSource(source);
         return this;
-    }
-
-    public AuditRecordType getType() {
-        return type;
-    }
-
-    public void setType(AuditRecordType type) {
-        this.type = type;
-    }
-
-    public ZonedDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(ZonedDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getAccountKid() {
-        return accountKid;
-    }
-
-    public void setAccountKid(String accountKid) {
-        this.accountKid = accountKid;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getObjectClass() {
-        return objectClass;
-    }
-
-    public void setObjectClass(String objectClass) {
-        this.objectClass = objectClass;
-    }
-
-    public String getObjectUuid() {
-        return objectUuid;
-    }
-
-    public void setObjectUuid(String objectUuid) {
-        this.objectUuid = objectUuid;
     }
 }

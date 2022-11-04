@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface AttributePolicyGroupRepository extends BaseRepository<AttributePolicyGroup> {
+public interface AttributePolicyGroupRepository extends PagingRepository<AttributePolicyGroup> {
 
     List<AttributePolicyGroup> findAllByAccount(Account account);
     Optional<AttributePolicyGroup> findDistinctByName(String name);

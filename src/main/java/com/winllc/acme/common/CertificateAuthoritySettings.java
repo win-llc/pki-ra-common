@@ -1,5 +1,7 @@
 package com.winllc.acme.common;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -7,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Document
+@Getter
+@Setter
 public class CertificateAuthoritySettings extends SettingsDocument {
 
     private String type;
@@ -21,53 +25,5 @@ public class CertificateAuthoritySettings extends SettingsDocument {
             if(additionalSetting.getName().contentEquals(key)) return Optional.of(additionalSetting);
         }
         return Optional.empty();
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getBaseUrl() {
-        return baseUrl;
-    }
-
-    public void setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<AdditionalSetting> getAdditionalSettings() {
-        return additionalSettings;
-    }
-
-    public void setAdditionalSettings(List<AdditionalSetting> additionalSettings) {
-        this.additionalSettings = additionalSettings;
-    }
-
-    public String getIssuerDn() {
-        return issuerDn;
-    }
-
-    public void setIssuerDn(String issuerDn) {
-        this.issuerDn = issuerDn;
-    }
-
-    public String getMapsToCaConnectionName() {
-        return mapsToCaConnectionName;
-    }
-
-    public void setMapsToCaConnectionName(String mapsToCaConnectionName) {
-        this.mapsToCaConnectionName = mapsToCaConnectionName;
     }
 }
