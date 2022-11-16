@@ -29,13 +29,17 @@ public class Account extends AuthCredentialHolder implements AccountOwnedEntity,
     private boolean allowAutomaticManualCertificateIssuance = false;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "account",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    //@OnDelete(action = OnDeleteAction.CASCADE)
     @Transient
     private Set<AuthCredential> authCredentials;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "account", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(mappedBy = "account", cascade = { CascadeType.ALL },
+            orphanRemoval = true)
     private Set<PocEntry> pocs;
     @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -123,8 +127,8 @@ public class Account extends AuthCredentialHolder implements AccountOwnedEntity,
             }
         }
 
-        if(!CollectionUtils.isEmpty(authCredentials)){
-            for(AuthCredential credential : authCredentials){
+        if(!CollectionUtils.isEmpty(getAuthCredentials())){
+            for(AuthCredential credential : getAuthCredentials()){
                 credential.setAccount(null);
             }
         }

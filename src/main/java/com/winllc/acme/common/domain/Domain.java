@@ -36,7 +36,9 @@ public class Domain extends BaseEntity implements ProtectedEntity {
     //private Set<DomainCertIssuanceRestriction> globalDomainCertIssuanceRestrictions;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "targetDomain", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, orphanRemoval = true)
+    @OneToMany(mappedBy = "targetDomain",
+            cascade = { CascadeType.ALL },
+            orphanRemoval = true)
     private Set<DomainPolicy> allDomainPolicies;
 
     @PreRemove

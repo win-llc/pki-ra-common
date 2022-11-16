@@ -51,13 +51,12 @@ public class AuthCredential extends BaseServerEntryEntity implements Comparable<
 
     @PreRemove
     private void preRemove(){
-        try {
-            Optional<AuthCredentialHolderInteface> optionalHolder = getParentEntity();
-            if (optionalHolder.isPresent()) {
-                optionalHolder.get().getAuthCredentials().remove(this);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
+        if(getServerEntry() != null){
+            getServerEntry().getAuthCredentials().remove(this);
+        }
+
+        if(getAccount() != null){
+            getAccount().getAuthCredentials().remove(this);
         }
     }
 

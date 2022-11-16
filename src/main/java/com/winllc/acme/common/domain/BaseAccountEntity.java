@@ -4,15 +4,13 @@ package com.winllc.acme.common.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @MappedSuperclass
 public class BaseAccountEntity extends UniqueEntity implements AccountOwnedEntity {
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="accountOwner_fk")
     private Account account;
 
