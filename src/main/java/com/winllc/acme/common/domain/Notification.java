@@ -1,17 +1,22 @@
 package com.winllc.acme.common.domain;
 
 import com.winllc.acme.common.constants.AuditRecordType;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "notification")
+@Getter
+@Setter
 public class Notification extends BaseEntity {
 
     private String forUser;
@@ -30,7 +35,8 @@ public class Notification extends BaseEntity {
     @Column
     private Boolean taskComplete = false;
     private AuditRecordType type;
-    private String pathToUiView;
+    @Transient
+    private String link;
 
     public static Notification buildNew(){
         Notification notification = new Notification();
@@ -60,12 +66,11 @@ public class Notification extends BaseEntity {
         cloned.setDueBy(this.getDueBy());
         cloned.setExpiresOn(this.getExpiresOn());
         cloned.setNotificationRead(this.getNotificationRead());
-        cloned.setTask(this.getTask());
+        cloned.setIsTask(this.isTask);
         cloned.setTaskObjectClass(this.getTaskObjectClass());
         cloned.setTaskObjectId(this.getTaskObjectId());
         cloned.setTaskComplete(this.getTaskComplete());
         cloned.setType(this.getType());
-        cloned.setPathToUiView(this.getPathToUiView());
         return cloned;
     }
 
@@ -74,102 +79,6 @@ public class Notification extends BaseEntity {
         return this;
     }
 
-    public String getForUser() {
-        return forUser;
-    }
-
-    public void setForUser(String forUser) {
-        this.forUser = forUser;
-    }
-
-
-    public Boolean getNotificationRead() {
-        return notificationRead;
-    }
-
-    public void setNotificationRead(Boolean notificationRead) {
-        this.notificationRead = notificationRead;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public ZonedDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(ZonedDateTime created) {
-        this.created = created;
-    }
-
-    public ZonedDateTime getExpiresOn() {
-        return expiresOn;
-    }
-
-    public void setExpiresOn(ZonedDateTime expiresOn) {
-        this.expiresOn = expiresOn;
-    }
-
-    public ZonedDateTime getDueBy() {
-        return dueBy;
-    }
-
-    public void setDueBy(ZonedDateTime dueBy) {
-        this.dueBy = dueBy;
-    }
-
-    public Boolean getTask() {
-        return isTask;
-    }
-
-    public void setTask(Boolean task) {
-        isTask = task;
-    }
-
-    public Long getTaskObjectId() {
-        return taskObjectId;
-    }
-
-    public void setTaskObjectId(Long taskObjectId) {
-        this.taskObjectId = taskObjectId;
-    }
-
-    public String getTaskObjectClass() {
-        return taskObjectClass;
-    }
-
-    public void setTaskObjectClass(String taskObjectClass) {
-        this.taskObjectClass = taskObjectClass;
-    }
-
-    public Boolean getTaskComplete() {
-        return taskComplete;
-    }
-
-    public void setTaskComplete(Boolean taskComplete) {
-        this.taskComplete = taskComplete;
-    }
-
-    public AuditRecordType getType() {
-        return type;
-    }
-
-    public void setType(AuditRecordType type) {
-        this.type = type;
-    }
-
-    public String getPathToUiView() {
-        return pathToUiView;
-    }
-
-    public void setPathToUiView(String pathToUiView) {
-        this.pathToUiView = pathToUiView;
-    }
 
     @Override
     public String toString() {

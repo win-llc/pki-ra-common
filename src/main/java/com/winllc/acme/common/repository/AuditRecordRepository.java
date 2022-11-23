@@ -15,8 +15,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface AuditRecordRepository extends PagingAndSortingRepository<AuditRecord, Long> {
-    List<AuditRecord> findAll();
+public interface AuditRecordRepository extends PagingRepository<AuditRecord> {
     Integer countAllByTypeEquals(AuditRecordType type);
     Integer countAllByTypeEqualsAndTimestampAfterAndTimestampBefore(AuditRecordType type, ZonedDateTime after, ZonedDateTime before);
     List<AuditRecord> findAllByTypeEquals(AuditRecordType type);

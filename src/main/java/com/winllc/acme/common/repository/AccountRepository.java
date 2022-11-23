@@ -2,6 +2,7 @@ package com.winllc.acme.common.repository;
 
 import com.winllc.acme.common.domain.Account;
 import com.winllc.acme.common.domain.PocEntry;
+import com.winllc.acme.common.domain.ServerEntry;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -20,4 +21,6 @@ public interface AccountRepository extends UniqueEntityRepository<Account> {
     List<Account> findAllByPocsContaining(PocEntry poc);
     List<Account> findAllByPocsEmailEquals(String email);
     void deleteByKeyIdentifierEquals(String kid);
+
+    Optional<Account> findDistinctByServerEntriesContains(ServerEntry serverEntry);
 }

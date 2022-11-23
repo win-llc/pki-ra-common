@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface RevocationRequestRepository extends BaseRepository<RevocationRequest> {
+public interface RevocationRequestRepository extends PagingRepository<RevocationRequest> {
 
     Optional<RevocationRequest> findDistinctByIssuerDnAndSerial(String issuer, String serial);
     List<RevocationRequest> findAllByStatus(String status);

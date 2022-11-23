@@ -15,7 +15,7 @@ import java.time.ZonedDateTime;
 @Table(name = "auditrecord")
 @Getter
 @Setter
-public class AuditRecord extends BaseEntity {
+public class AuditRecord extends UniqueEntity {
 
     @Column(nullable = false)
     private AuditRecordType type;
@@ -39,7 +39,7 @@ public class AuditRecord extends BaseEntity {
         AuditRecord auditRecord = buildNew(type);
         auditRecord.setObjectClass(uniqueEntity.getClass().getCanonicalName());
         if(uniqueEntity.getUuid() != null) {
-            auditRecord.setObjectUuid(uniqueEntity.getUuid().toString());
+            auditRecord.setObjectUuid(uniqueEntity.getUuid());
         }else{
             auditRecord.setObjectUuid("none");
         }
