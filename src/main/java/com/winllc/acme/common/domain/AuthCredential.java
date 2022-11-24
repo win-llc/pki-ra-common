@@ -24,7 +24,7 @@ public class AuthCredential extends BaseServerEntryEntity implements Comparable<
     @Column(unique = true)
     private String keyIdentifier;
     private String macKey;
-    private Boolean valid;
+    private Boolean valid = false;
     private String pocAssignedTo;
     @Column(nullable = false)
     private ZonedDateTime createdOn;

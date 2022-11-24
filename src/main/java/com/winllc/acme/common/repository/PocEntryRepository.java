@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface PocEntryRepository extends BaseServerEntryRepository<PocEntry> {
+public interface PocEntryRepository extends BaseServerEntryRepository<PocEntry>, PagingRepository<PocEntry> {
     List<PocEntry> findAllByEmailEquals(String email);
     Optional<PocEntry> findDistinctByEmailEqualsAndAccount(String email, Account account);
     void deleteAllByEmailInAndAccountEquals(List<String> emails, Account account);

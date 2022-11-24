@@ -10,7 +10,8 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface AuthCredentialRepository extends BaseServerEntryRepository<AuthCredential> {
+public interface AuthCredentialRepository extends BaseServerEntryRepository<AuthCredential>,
+        PagingRepository<AuthCredential> {
 
     Optional<AuthCredential> findDistinctByKeyIdentifier(String kid);
 

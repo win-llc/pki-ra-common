@@ -1,6 +1,8 @@
 package com.winllc.acme.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -17,6 +19,8 @@ import java.util.*;
 @Entity
 @Entry(objectClasses = {"top", "untypedObject"})
 @Table(name = "serverentry")
+@Getter
+@Setter
 public class ServerEntry extends BaseAccountEntity implements AuthCredentialHolderInteface {
 
     //allow pre-authz tracking per account
@@ -108,92 +112,6 @@ public class ServerEntry extends BaseAccountEntity implements AuthCredentialHold
         }
     }
 
-    public String getHostname() {
-        return hostname;
-    }
-
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
-    }
-
-    public String getFqdn() {
-        return fqdn;
-    }
-
-    public void setFqdn(String fqdn) {
-        this.fqdn = fqdn;
-    }
-
-    public Domain getDomainParent() {
-        return domainParent;
-    }
-
-    public void setDomainParent(Domain domainParent) {
-        this.domainParent = domainParent;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public String getOpenidClientId() {
-        return openidClientId;
-    }
-
-    public void setOpenidClientId(String openidClientId) {
-        this.openidClientId = openidClientId;
-    }
-
-    public List<String> getAlternateDnsValues() {
-        if(alternateDnsValues == null) alternateDnsValues = new ArrayList<>();
-        return alternateDnsValues;
-    }
-
-    public void setAlternateDnsValues(List<String> alternateDnsValues) {
-        this.alternateDnsValues = alternateDnsValues;
-    }
-
-    public String getOpenidClientRedirectUrl() {
-        return openidClientRedirectUrl;
-    }
-
-    public void setOpenidClientRedirectUrl(String openidClientRedirectUrl) {
-        this.openidClientRedirectUrl = openidClientRedirectUrl;
-    }
-
-    public Set<CertificateRequest> getCertificateRequests() {
-        if(certificateRequests == null) certificateRequests = new HashSet<>();
-        return certificateRequests;
-    }
-
-    public void setCertificateRequests(Set<CertificateRequest> certificateRequests) {
-        this.certificateRequests = certificateRequests;
-    }
-
-    public String getDistinguishedName() {
-        return distinguishedName;
-    }
-
-    public void setDistinguishedName(String distinguishedName) {
-        this.distinguishedName = distinguishedName;
-    }
-
-    public Boolean getAcmeAllowPreAuthz() {
-        return acmeAllowPreAuthz;
-    }
-
-    public void setAcmeAllowPreAuthz(Boolean acmeAllowPreAuthz) {
-        this.acmeAllowPreAuthz = acmeAllowPreAuthz;
-    }
-
-    public Set<AuthCredential> getAuthCredentials() {
-        if(authCredentials == null) authCredentials = new HashSet<>();
-        return authCredentials;
-    }
 
     @Override
     public Optional<AuthCredential> getLatestAuthCredential() {
@@ -212,14 +130,6 @@ public class ServerEntry extends BaseAccountEntity implements AuthCredentialHold
 
     public void setDn(Name dn) {
         this.dn = dn;
-    }
-
-    public Set<PocEntry> getManagedBy() {
-        return managedBy;
-    }
-
-    public void setManagedBy(Set<PocEntry> managedBy) {
-        this.managedBy = managedBy;
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.time.ZonedDateTime;
 @Table(name = "notification")
 @Getter
 @Setter
-public class Notification extends BaseEntity {
+public class Notification extends BaseEntity implements Comparable<Notification> {
 
     private String forUser;
     @Column(nullable = false)
@@ -89,5 +89,14 @@ public class Notification extends BaseEntity {
                 ", notificationRead=" + notificationRead +
                 ", message='" + message + '\'' +
                 "} " + super.toString();
+    }
+
+    @Override
+    public int compareTo(Notification o) {
+        if(this.created != null && o.created != null) {
+            return o.created.compareTo(this.created);
+        }else{
+            return 0;
+        }
     }
 }
