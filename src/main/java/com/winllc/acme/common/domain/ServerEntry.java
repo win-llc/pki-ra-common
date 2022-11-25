@@ -54,12 +54,12 @@ public class ServerEntry extends BaseAccountEntity implements AuthCredentialHold
     @JsonIgnore
     @OneToMany(mappedBy = "serverEntry")
     @Transient
-    private Set<CertificateRequest> certificateRequests;
+    private Set<CertificateRequest> certificateRequests = new HashSet<>();
     @JsonIgnore
     @OneToMany(mappedBy = "serverEntry")
     //@OnDelete(action = OnDeleteAction.CASCADE)
     @Transient
-    private Set<AuthCredential> authCredentials;
+    private Set<AuthCredential> authCredentials = new HashSet<>();
     @Transient
     private String openidClientId;
     @Transient

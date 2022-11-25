@@ -18,7 +18,7 @@ public class AccountRequest extends BaseEntity {
     private String accountOwnerEmail;
     private String requestedByEmail;
     private String projectName;
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String state;
     private String securityPolicyServerProjectId;
 
