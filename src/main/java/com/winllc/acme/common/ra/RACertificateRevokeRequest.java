@@ -1,5 +1,10 @@
 package com.winllc.acme.common.ra;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class RACertificateRevokeRequest extends RACertificateRequest {
 
     private Long requestId;
@@ -13,29 +18,6 @@ public class RACertificateRevokeRequest extends RACertificateRequest {
         super(certAuthorityName);
     }
 
-    public Long getRequestId() {
-        return requestId;
-    }
-
-    public void setRequestId(Long requestId) {
-        this.requestId = requestId;
-    }
-
-    public String getSerial() {
-        return serial;
-    }
-
-    public void setSerial(String serial) {
-        this.serial = serial;
-    }
-
-    public Integer getReason() {
-        return reason;
-    }
-
-    public void setReason(Integer reason) {
-        this.reason = reason;
-    }
 
     @Override
     public String toString() {

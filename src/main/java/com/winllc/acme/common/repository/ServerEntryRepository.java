@@ -1,6 +1,7 @@
 package com.winllc.acme.common.repository;
 
 import com.winllc.acme.common.domain.Account;
+import com.winllc.acme.common.domain.CertificateRequest;
 import com.winllc.acme.common.domain.ServerEntry;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +17,6 @@ public interface ServerEntryRepository extends UniqueEntityRepository<ServerEntr
     List<ServerEntry> findAllByAccountId(Long id);
     Optional<ServerEntry> findDistinctByFqdnEqualsAndAccountEquals(String fqdn, Account account);
     Optional<ServerEntry> findDistinctByDistinguishedNameIgnoreCaseAndAccount(String distinguishedName, Account account);
+
+    Optional<ServerEntry> findFirstByCertificateRequestsContains(CertificateRequest request);
 }

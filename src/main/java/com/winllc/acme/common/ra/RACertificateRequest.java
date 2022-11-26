@@ -1,7 +1,11 @@
 package com.winllc.acme.common.ra;
 
 import com.winllc.acme.common.domain.UniqueEntity;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public abstract class RACertificateRequest {
     private String certAuthorityName;
 
@@ -11,11 +15,4 @@ public abstract class RACertificateRequest {
         this.certAuthorityName = certAuthorityName;
     }
 
-    public String getCertAuthorityName() {
-        return certAuthorityName;
-    }
-
-    public void setCertAuthorityName(String certAuthorityName) {
-        this.certAuthorityName = certAuthorityName;
-    }
 }
