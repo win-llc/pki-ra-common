@@ -1,3 +1,9 @@
+buildscript {
+    repositories {
+        maven(url = "https://repo1.maven.org/maven2")
+    }
+}
+
 plugins {
     id 'org.springframework.boot'
     id 'io.spring.dependency-management'
@@ -23,12 +29,6 @@ repositories {
     maven {
         url "http://util.winllc-dev.com:8081/repository/win-llc-releases/"
         allowInsecureProtocol true
-    }
-}
-
-buildscript {
-    repositories {
-        maven(url = "https://repo1.maven.org/maven2")
     }
 }
 
