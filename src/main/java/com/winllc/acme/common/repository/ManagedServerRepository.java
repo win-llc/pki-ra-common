@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface ManagedServerRepository extends PagingAndSortingRepository<ManagedServer, Long>, JpaSpecificationExecutor<ManagedServer> {
+public interface ManagedServerRepository extends PagingRepository<ManagedServer> {
 
     Optional<ManagedServer> findOneByUniqueId(String uid);
 }

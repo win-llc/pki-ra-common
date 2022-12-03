@@ -1,14 +1,18 @@
 package com.winllc.acme.common.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.ldap.odm.annotations.Transient;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "managedserver")
+@Getter
+@Setter
 public class ManagedServer extends BaseEntity {
 
     @Column(unique = true)
@@ -44,91 +48,5 @@ public class ManagedServer extends BaseEntity {
 
     }
 
-    public String getUniqueId() {
-        return uniqueId;
-    }
 
-    public void setUniqueId(String uniqueId) {
-        this.uniqueId = uniqueId;
-    }
-
-    public String getFqdn() {
-        return fqdn;
-    }
-
-    public void setFqdn(String fqdn) {
-        this.fqdn = fqdn;
-    }
-
-    public String getServerEntryId() {
-        return serverEntryId;
-    }
-
-    public void setServerEntryId(String serverEntryId) {
-        this.serverEntryId = serverEntryId;
-    }
-
-    public String getDomain() {
-        return domain;
-    }
-
-    public void setDomain(String domain) {
-        this.domain = domain;
-    }
-
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject(String project) {
-        this.project = project;
-    }
-
-    public String getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
-    }
-
-    public LocalDateTime getLatestCertIssuedOn() {
-        return latestCertIssuedOn;
-    }
-
-    public void setLatestCertIssuedOn(LocalDateTime latestCertIssuedOn) {
-        this.latestCertIssuedOn = latestCertIssuedOn;
-    }
-
-    public LocalDateTime getLatestCertExpiresOn() {
-        return latestCertExpiresOn;
-    }
-
-    public void setLatestCertExpiresOn(LocalDateTime latestCertExpiresOn) {
-        this.latestCertExpiresOn = latestCertExpiresOn;
-    }
-
-    public String getLatestCertIssuer() {
-        return latestCertIssuer;
-    }
-
-    public void setLatestCertIssuer(String latestCertIssuer) {
-        this.latestCertIssuer = latestCertIssuer;
-    }
-
-    public String getLatestCertSerial() {
-        return latestCertSerial;
-    }
-
-    public void setLatestCertSerial(String latestCertSerial) {
-        this.latestCertSerial = latestCertSerial;
-    }
-
-    public String getLatestCertSubject() {
-        return latestCertSubject;
-    }
-
-    public void setLatestCertSubject(String latestCertSubject) {
-        this.latestCertSubject = latestCertSubject;
-    }
 }
